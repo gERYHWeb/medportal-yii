@@ -1,0 +1,88 @@
+.widget.widget-filter-price {
+    border: solid 3px rgba(35, 35, 35, 0.1);
+}
+.widget.widget-filter-price .widget-title {
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 15px;
+}
+.widget.shop-categories .widget-filter-price .widget-content {
+    padding: 10px 0 0px 10px;
+    border: none;
+    width: 100%;
+}
+.slider-range {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 0;
+    border: none;
+    background-color: #e9e9e9;
+    background-image: none;
+    height: 6px;
+}
+.slider-range .ui-widget-header {
+    background-color: #232323;
+    background-image: none;
+    height: 2px;
+    margin-top: 2px;
+}
+.slider-range .ui-slider-handle {
+    background-image: none;
+    border: solid 3px #232323;
+    border-radius: 0;
+    width: 12px;
+    height: 12px;
+    outline: none;
+}
+.slider-range .ui-slider-handle:before,
+.slider-range .ui-slider-handle:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: -3px;
+    margin-top: 3px;
+    width: 0;
+    height: 0;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-top: 5px solid #232323;
+}
+.slider-range .ui-slider-handle:after {
+    right: 0;
+    margin-top: 0;
+    border-right: 3px solid transparent;
+    border-left: 3px solid transparent;
+    border-top: 3px solid #ffffff;
+}
+.shop-categories .widget-filter-price #amount {
+    float: right;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    color: #232323;
+    width: 120px;
+    line-height: 33px;
+}
+.widget.widget-filter-price .btn-theme,
+.widget.widget-filter-price .btn-theme:focus,
+.widget.widget-filter-price .btn-theme:active {
+    background-color: #232323;
+    border-width: 3px;
+    border-color: #232323;
+    color: #ffffff;
+    padding: 8px 15px;
+    font-size: 12px;
+    float: right;
+}
+.widget.widget-filter-price .btn-theme:hover {
+    background-color: #ffffff;
+    border-color: #e9e9e9;
+    color: #232323;
+}

@@ -1,0 +1,47 @@
+.section-text{
+    section{
+        margin-bottom:  20px;
+    }
+    .content-text{
+        ul{
+        padding-left: 20px;
+            &.separate{
+                li{
+                  list-style: decimal inside;
+                }
+              }
+            &.dotted{
+                li{
+                  list-style: disc;
+                }
+              }
+            &.sub{
+            margin-left: 20px;
+          }
+        }
+
+        ol{
+            padding-left:   20px;
+        }
+        li{
+            margin: 10px 0;
+        }
+        .title-box{
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: #a1b8d1;
+            color: #fff;
+            .title{
+                font-size: 16px;
+            }
+        }
+        .title-nav{
+            font-size: 16px;
+            margin-bottom: 20px;
+            li{
+                margin-bottom: 10px;
+            }
+        }
+    }
+    
+}

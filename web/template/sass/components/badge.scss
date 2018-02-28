@@ -1,0 +1,28 @@
+.badge{
+    position: absolute;
+        right: -40px;
+    top: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    height: 40px;
+    width: 130px;
+    font-weight: normal;
+    z-index: 2;
+    text-transform: uppercase;
+    transition: 0.3s all;
+    &-vip{
+        background: #f77f7f;
+    }
+}

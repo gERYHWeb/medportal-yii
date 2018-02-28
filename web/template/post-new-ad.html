@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--responsive min width-->
+    <meta id="vp" name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" id="viewport" data-content="width=370, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        function changeViewport(){
+        var metaVP = document.getElementById('viewport');
+          var width = metaVP.dataset.content;
+        if(window.innerWidth < (parseInt(width.replace(/\D+/g,"")))){
+            metaVP.attributes[3].value = width;
+          }else{
+            metaVP.attributes[3].value = "initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+          }
+        }
+        changeViewport();
+        window.addEventListener("resize", changeViewport);
+    </script>
+    <!--responsive min width-->
+    <!--SEO-->
+    <meta name="author" content="Eugeny Genov/Dmitry Timoshenko">
+    <meta name="description" content="Stroyclub">
+    <meta name="keywords" content="Stroyclub">
+    <!--SEO-->
+
+    <title>Stroyclub</title>
+
+    <!--favicons-->
+
+    <!--favicons-->
+
+    <!--styles-->
+    <link rel="stylesheet" type="text/css" href="sass/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/jquery.fancybox.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/easyResponsiveTabs.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/hdmsg.css">
+
+    <!--file upload-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css">
+    <!--file upload-->
+    
+    <link rel="stylesheet" type="text/css" href="sass/css/main.css">
+    <!--styles-->
+
+    <!--fonts-->
+
+    <!--fonts-->
+
+</head>
+
+<body>
+
+    <!-- ========== Preloader ========== -->
+    <div class="preloader">
+        <div class="load">
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+        </div>
+    </div>
+    <!-- ========== Preloader ========== -->
+
+    <script type="text/x-config">
+        {
+            "msgs": {"invalid_price_min":"Минимальная сумма 10","invalid_price_max":"Максимальная сумма 1 00 000 000","invalid_min_price_min":"Минимальная сумма 10","invalid_category_product":"Выберите категорию","invalid_title_product":"Минимальное количество символов заголовка: 10","invalid_desc_product":"Минимальное количество символов описания: 20","invalid_pass_confirm":"Пароли не совпадаюи","diapazone_price":"Сумма не входит в диазон","timeout_callback": "An application can be sent once to 15 minutes.","file_uploaded": "File Successfully uploaded","not_updated_username": "Логин не обновился.","not_updated_msg": "Сообщение не обновилось.","not_exists_msg": "Сообщение не найдено.","undefined_field": "Поле не найдено.","not_found_item": "Не найден такой идентификатор.","invalid_name": "Некорректно указано имя","invalid_username": "Некорректно указан логин","invalid_username_min": "Некорректно указан логин (мин. 4 симв.)","invalid_username_max": "Некорректно указан логин (макс. 150 симв.)","invalid_confirm_password": "Неправильно указано подтверждение пароля","sb_switch_on": "Показать всё","sb_switch_off": "Свернуть","not_found_email": "E-mail не найден.","success_recovery": "Письмо с ссылкой для восстановления отправлено на почту.","success_comment": "Спасибо! Комментарий появится после проверки модератором.","invalid_password": "Пароль должен содержать от 6 до 15 символов","invalid_password_min": "Короткий пароль (мин. длина 6 симв.)","invalid_password_max": "Длинный пароль (макс. длина 150 симв.)","invalid_phone": "Некорректно указан телефон","invalid_email": "Некорректно указан e-mail","forbidden": "Доступ запрещён!","money_successfully_sent": "Деньги успешно отправлены","user_already_exists": "Такой логин уже зарегистрирован в системе","email_already_exists": "Такой email уже зарегистрирован в системе","updated_profile": "Профиль обновлён","not_found_user": "Пользователь не найден.","no_data": "Нет данных для отображения","not_uploaded_file": "Файл не загрузился","success_auth": "Вы успешно авторизовались","not_auth": "Вы не авторизовались","user_blocked": "Вы заблокированы!","success_feedback": "Спасибо за обратную связь.","not_data": "Нет данных для отображения","big_text": "Макс. длина текста - 255 симв.!","empty_msg": "Пустое поле для сообщения.","updated_field": "Поле успешно изменено","server_error": "Ошибка на сервере.","invalid_data": "Некорректно передались данные.","success_add_msg": "Сообщение успешно добавлено.","invalid_amount": "Неверно указана сумма","success_changed_pass": "Пароль успешно измёнён!","not_sent_recovery": "Не удалось отправить письмо. Перепроверьте e-mail.","invalid_link": "Недействительная ссылка","not_selected_option": "Выберите опцию.","success_callback": "Ваша заявка успешно принята.","fail_request": "Произошла ошибка.","added_to_basket": "Товар добавлен в корзину","success_voted": "Вы успешно проголосовали!","success_order": "Your order successfully processed!","already_voted": "Вы уже голосовали."},
+            "user": {
+                        }
+        }
+    </script>
+    <div class="hdMsg" data-hdmsg="true">
+        <div class="hdMsg__wrap">
+            <div class="hdMsg__msg"></div>
+            <div class="hdMsg__bgSymb">
+                <span class="hdMsg__symb"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== toTOP ========== -->
+    <div id="back-top">
+        <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+    </div>
+    <!-- ========== toTOP ========== -->
+
+    <!--wrapper-->
+    <div class="wrapper wrapper-pages">
+        <!--header-->
+        <header class="header">
+
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="header-top  ">
+                        <a href="index.html" class="logo">
+                            <img src="img/logo.png" alt="">
+                        </a>
+                        <div class="sign-add">
+                            <div class="sign">
+                                <a href="auth-reg.html" class="btn-link">
+                                    <span class="icon-box"> 
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="btn-text">Мой профиль</span>
+                                </a>
+                            </div>
+                            <div class="add">
+                                <a href="" class="btn">
+                                    <i class="fa fa-plus plus" aria-hidden="true"></i>
+                                    <span>Подать объявление</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-bottom container-fluid">
+                <div class="container">
+                    <form action="#" id="form-search" class="form form-search row">
+                        <div class="form-group form-group-input">
+                            <input type="search" class="input-search" name="seach" placeholder="Пример: вагонка">
+                        </div>
+                        <div class="form-group form-group-select">
+                            <select class="select select100" name="city">
+                                <option value="SB">Алмааты, Алмаатинская область</option>
+                                <option value="WY">Актобе</option>
+                                <option value="WY">Атырау</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-btn">
+                            <button class="btn  btn-search" type="submit">
+                                <i class="fa fa-search icon-white"></i>
+                                <span class="btn-search-text">Найти</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <!--header-->
+
+        <!--main-->
+        <main class="main ">
+
+            <!--section-product-->
+            <section class="section section-post-new-ad container clearfix">
+                <!-- CONTENT -->
+                <div class="content col-sm-12">
+
+                   <ol class="breadcrumb">
+                        <li><a href="#">Главная</a></li>
+                        <li class="active">Подать объявление</li>
+                    </ol>
+                    <div class="title-page">
+                        <h1 class="text text-center">Подать объявление</h1>
+                    </div>
+
+                    <form action="file-upload.php"  id="post-new-ad" method="post"></form>
+                    <div class="post-new-ad row">          
+                        <div class="col-12 form-group form-group-input">
+                            <label for="">Заголовок:</label>
+                            <input type="text" class="input limit-area js-vn" data-type="title" name="title" placeholder="" required=""  maxlength="70" form="post-new-ad">
+                            <small class="limit">
+                                <b class="counter">70</b> знаков осталось             
+                            </small>
+                        </div>
+                        <div class="col-12 form-group form-group-select category-box">
+                            <label for="">Категория:</label>
+                            <input type="hidden" name="category-id" class="select-category-input-id  js-vn" data-type="category" form="post-new-ad" required="" value="" >
+                            <input type="text" name="category-name" class="select-category-input  js-vn" data-type="category" form="post-new-ad" required="" value="" readonly="" placeholder="Выберите категорию">
+                            <div  class="select-category">   
+                                <ul class="tab-group">    
+                                    <li class="tab">
+                                        <a href=""  data-value="Стройматериалы" class="has-sub">Стройматериалы</a>
+                                        <ul class="sub tab-content">
+                                            <li> 
+                                                <a href="" data-id="2" data-value="Стройматериалы/Пенопласт">Пенопласт</a>
+                                            </li>
+                                            <li> 
+                                                <a href="" data-value="Стройматериалы/Бетономешалки" class="has-sub">Бетономешалка</a>  
+                                                <ul class="subsub">   
+                                                    <li> 
+                                                        <a href=""  data-id="4" data-value="Стройматериалы/Бетономешалки/Рекурсивные">Рекурсивные</a>
+                                                    </li>
+                                                     <li> 
+                                                        <a href="" data-id="5" data-value="Стройматериалы/Бетономешалки/Механические">Механические</a>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="tab" >
+                                        <a href='#' data-value="Стройтехника" class="has-sub">Стройтехника</a>
+                                            
+                                        <ul class="sub tab-content">
+                                            <li> 
+                                                <a href=""  data-value="Выберите подкатегорию" class="has-sub">Краны</a>
+                                                <ul class="subsub">   
+                                                    <li> 
+                                                        <a href="" data-id="6" data-value="Стройтехника/Краны/Стрелового типа">Стрелового типа</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" data-id="7"  data-value="Стройтехника/Краны/Мостового типа"> Мостового типа</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" data-id="8" data-value="Стройтехника/Краны/Кабельного типа">Кабельного типа</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li> 
+                                                <a href="" data-value="Выберите подкатегорию" class="has-sub">Тракторы</a>
+                                                <ul class="subsub">   
+                                                    <li> 
+                                                        <a href="" data-id="9" data-value="Стройтехника/Тракторы/Рамные" >Рамные</a>
+                                                    </li>
+                                                    <li> 
+                                                        <a href="" data-id="10" data-value="Стройтехника/Тракторы/Полурамные">Полурамные</a>
+                                                    </li>
+                                                    <li> 
+                                                        <a href="" data-id="11" data-value="Стройтехника/Тракторы/Безрамные">Безрамные</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+
+                                        
+                                    </li>
+                                </ul>
+                                <!-- <div class="tab-content">
+                                    <div class="" id="data-1">
+                                        <ul class="sub">
+                                            <li><a href='#' data-id="11">Category 1-sub1</a></li>
+                                            <li><a href='#' data-id="12">Category 1-sub2</a></li>
+                                            <li><a href='#' data-id="13">Category 1-sub3</a></li>
+                                            <li><a href='#' data-id="11">Category 1-sub4</a></li>
+                                            <li><a href='#' data-id="12">Category 1-sub5</a></li>
+                                            <li><a href='#' data-id="13">Category 1-sub6</a></li>
+                                            <li><a href='#' data-id="11">Category 1-sub7</a></li>
+                                            <li><a href='#' data-id="12">Category 1-sub8</a></li>
+                                            <li><a href='#' data-id="13">Category 1-sub9</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="" id="data-2">
+                                        <ul class="sub">
+                                            <li><a href='#' data-id="21">Category 2-sub1</a></li>
+                                            <li><a href='#' data-id="22">Category 2-sub2</a></li>
+                                            <li><a href='#' data-id="23">Category 2-sub3</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="" id="data-3">
+                                        <ul class="sub">
+                                            <li><a href='#' data-id="31">Category 3-sub1</a></li>
+                                            <li><a href='#' data-id="32">Category 3-sub2</a></li>
+                                            <li><a href='#' data-id="33">Category 3-sub3</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="" id="data-4">
+                                        <ul class="sub">
+                                            <li><a href='#' data-id="41">Category 4-sub1</a></li>
+                                            <li><a href='#' data-id="42">Category 4-sub2</a></li>
+                                            <li><a href='#' data-id="43">Category 4-sub3</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="" id="data-5">
+                                        <ul class="sub">
+                                            <li><a href='#' data-id="51">Category 5-sub1</a></li>
+                                            <li><a href='#' data-id="52">Category 5-sub2</a></li>
+                                            <li><a href='#' data-id="53">Category 5-sub3</a></li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-12 form-group form-group-select ">
+                            <label>Цена:</label>
+                            <div class="price-box"> 
+                                <input type="number" name="price" class="price-input  js-vn" data-type="price" form="post-new-ad" >
+                                <select class="select selectNoSearch" name="currency" class="select-curr" form="post-new-ad">
+                                    <option value="1" selected="">тенге</option>
+                                    <option value="2">$</option> 
+                                </select>
+                                <div class="label-box">
+                                    <input type="checkbox" id="check-contractual-price" class="checkbox " name="check-contractual-price" form="post-new-ad">
+                                    <label for="check-contractual-price" class="checkbox-label">Договорная</label>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-12 col-sm-6 form-group form-group-select ">
+                            <label>Состояние:</label>
+                            <select class="select select100 selectNoSearch" name="condition" form="post-new-ad">
+                                <option value="1">Б/У</option>
+                                <option value="2" selected="">Новое</option> 
+                            </select>
+                        </div>  
+
+                        <div class="col-12 col-sm-6 form-group form-group-select ">
+                            <label>Вид объявления:</label>
+                            <select class="select select100 selectNoSearch" name="view" form="post-new-ad">
+                                <option value="1">Частное</option>
+                                <option value="2" selected="">От компании</option> 
+                            </select>
+                        </div>  
+
+                        <div class="col-12 form-group form-group-textarea clearfix">
+                            <label for="">Описание:</label>
+                            <textarea name="description-product-post" class="limit-area description-product-post  js-vn" data-type="description" id="" maxlength="2000" cols="30" rows="10" form="post-new-ad"></textarea>
+                            <small class="limit">
+                                <b  class="counter">2000</b> знаков осталось             
+                            </small>
+                        </div> 
+
+                        <div class="col-12 form-group form-group-file-upload clearfix">
+                            <label for="">Загрузите фото:</label>
+                            <label for="" class="small">
+                            * Чтобы выбрать несколько фото удерживайте клавишу Ctrl. Максимальное количество фото: 9 шт. Максимальный размер одного фото: 10 Мб. Форматы фото: JPEG, JPG, PNG. Не стоит указывать на фото номера телефонов, адрес эл. почты или ссылки на другие сайты.</label>
+                            <div class="file-upload-box">
+                                <form action="" class="dropzone"  id="a-drop-img" form="post-new-ad"></form>
+                            </div>
+                        </div>  
+
+
+                        <div class="col-12 form-group form-group-submit">
+                            <a href="#" class="btn btn-inverse" form="post-new-ad">Предпросмотр</a>
+                            <button type="submit" class="btn" form="post-new-ad">Опубликовать</button>
+                        </div>
+                    </div>
+                    
+                    
+
+                </div>
+                <!-- CONTENT -->
+            </section>
+            <!--section-product-->
+
+        </main>
+        <!--main-->
+
+        <!--footer-->
+        <footer class="footer container-fluid clearfix">
+            <div class=" footer-mask">
+                <div class="container footer-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 social-pay hidden-sm hidden-xs">
+                            <div class="logo">
+                                <a href="#"><img src="img/logo.png" alt=""></a>
+                            </div>
+                            <div class="social">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pay-method">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/btc.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/vs.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/mc.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 contacts">
+                            <div class="title">
+                                <h4>Контакты</h4>
+                            </div>
+                            <ul class="list list-contact  list-news">
+                                <li>Казахстан, Астана ул. Радужная 49</li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="mailto:info@my-website.com"><i class="fa fa-envelope"></i>  info@my-website.com</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6  info">
+                            <div class="title">
+                                <h4>Информация</h4>
+                            </div>
+                            <ul class="list list-news">
+                                <li>
+                                    <a href="page_gallery.html" class="title">Гарантия возврата</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Вопрос-ответ</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Реклама на сате</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Обратная связь</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.footer-content -->
+                <div class="footer-bottom">
+                    <div class="container text-center">
+                        <span class=""><a href="webtool.team">Webtool © 2017</a></span>
+                    </div>
+                </div>
+                <!-- /.footer-bottom -->
+            </div>
+        </footer>
+        <!--footer-->
+
+        <!--preloader-->
+        <div id="hellopreloader">
+            <div id="hellopreloader_preload"></div>
+        </div>
+        <!--preloader-->
+
+    </div>
+    <!--wrapper-->
+
+    <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script type="text/javascript" src="js/select2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="js/easyResponsiveTabs.js"></script>
+
+    <!--file upload -->
+    <script type="text/javascript" src="js/dropzone.min.js"></script>
+    <script type="text/javascript" src="js/exif.min.js"></script>
+    <!--file upload -->
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>

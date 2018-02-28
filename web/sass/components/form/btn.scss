@@ -1,0 +1,32 @@
+.btn {
+    border-radius: 0px;
+    background: $main;
+    color: #fff;
+    border-color: $main;
+    outline:0!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s all;
+    &:hover{
+    	background: #fff;
+        color: $main;
+    };
+
+    &:focus{
+        box-shadow: none!important;
+        outline:0!important;
+    }
+	&:active{
+		box-shadow: none!important;
+	    outline:0!important;
+	}
+    &.btn-inverse{
+        background: #fff;
+        color: $main;
+        &:hover{
+            background:$main;
+            color: #fff;
+        }
+    }
+}

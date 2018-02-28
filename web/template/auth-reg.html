@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--responsive min width-->
+    <meta name="viewport" id="viewport" data-content="width=370, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        function changeViewport(){
+        var metaVP = document.getElementById('viewport');
+          var width = metaVP.dataset.content;
+        if(window.innerWidth < (parseInt(width.replace(/\D+/g,"")))){
+            metaVP.attributes[3].value = width;
+          }else{
+            metaVP.attributes[3].value = "initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+          }
+        }
+        changeViewport();
+        window.addEventListener("resize", changeViewport);
+    </script>
+    <!--responsive min width-->
+    <!--SEO-->
+    <meta name="author" content="Eugeny Genov/Dmitry Timoshenko">
+    <meta name="description" content="Stroyclub">
+    <meta name="keywords" content="Stroyclub">
+    <!--SEO-->
+
+    <title>Stroyclub</title>
+
+    <!--favicons-->
+
+    <!--favicons-->
+
+    <!--styles-->
+    <link rel="stylesheet" type="text/css" href="sass/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/jquery.fancybox.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/easyResponsiveTabs.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/hdmsg.css">
+
+    <link rel="stylesheet" type="text/css" href="sass/css/main.css">
+    <!--styles-->
+
+    <!--fonts-->
+
+    <!--fonts-->
+
+</head>
+
+<body>
+
+    <!-- ========== Preloader ========== -->
+    <div class="preloader">
+        <div class="load">
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+        </div>
+    </div>
+    <!-- ========== Preloader ========== -->
+
+    <script type="text/x-config">
+        {
+            "msgs": {"invalid_price_min":"Минимальная сумма 10","invalid_price_max":"Максимальная сумма 1 00 000 000","invalid_min_price_min":"Минимальная сумма 10","invalid_category_product":"Выберите категорию","invalid_title_product":"Минимальное количество символов заголовка: 10","invalid_desc_product":"Минимальное количество символов описания: 20","invalid_pass_confirm":"Пароли не совпадаюи","diapazone_price":"Сумма не входит в диазон","timeout_callback": "An application can be sent once to 15 minutes.","file_uploaded": "File Successfully uploaded","not_updated_username": "Логин не обновился.","not_updated_msg": "Сообщение не обновилось.","not_exists_msg": "Сообщение не найдено.","undefined_field": "Поле не найдено.","not_found_item": "Не найден такой идентификатор.","invalid_name": "Некорректно указано имя","invalid_username": "Некорректно указан логин","invalid_username_min": "Некорректно указан логин (мин. 4 симв.)","invalid_username_max": "Некорректно указан логин (макс. 150 симв.)","invalid_confirm_password": "Неправильно указано подтверждение пароля","sb_switch_on": "Показать всё","sb_switch_off": "Свернуть","not_found_email": "E-mail не найден.","success_recovery": "Письмо с ссылкой для восстановления отправлено на почту.","success_comment": "Спасибо! Комментарий появится после проверки модератором.","invalid_password": "Пароль должен содержать от 6 до 15 символов","invalid_password_min": "Короткий пароль (мин. длина 6 симв.)","invalid_password_max": "Длинный пароль (макс. длина 150 симв.)","invalid_phone": "Некорректно указан телефон","invalid_email": "Некорректно указан e-mail","forbidden": "Доступ запрещён!","money_successfully_sent": "Деньги успешно отправлены","user_already_exists": "Такой логин уже зарегистрирован в системе","email_already_exists": "Такой email уже зарегистрирован в системе","updated_profile": "Профиль обновлён","not_found_user": "Пользователь не найден.","no_data": "Нет данных для отображения","not_uploaded_file": "Файл не загрузился","success_auth": "Вы успешно авторизовались","not_auth": "Вы не авторизовались","user_blocked": "Вы заблокированы!","success_feedback": "Спасибо за обратную связь.","not_data": "Нет данных для отображения","big_text": "Макс. длина текста - 255 симв.!","empty_msg": "Пустое поле для сообщения.","updated_field": "Поле успешно изменено","server_error": "Ошибка на сервере.","invalid_data": "Некорректно передались данные.","success_add_msg": "Сообщение успешно добавлено.","invalid_amount": "Неверно указана сумма","success_changed_pass": "Пароль успешно измёнён!","not_sent_recovery": "Не удалось отправить письмо. Перепроверьте e-mail.","invalid_link": "Недействительная ссылка","not_selected_option": "Выберите опцию.","success_callback": "Ваша заявка успешно принята.","fail_request": "Произошла ошибка.","added_to_basket": "Товар добавлен в корзину","success_voted": "Вы успешно проголосовали!","success_order": "Your order successfully processed!","already_voted": "Вы уже голосовали."},
+            "user": {
+                        }
+        }
+    </script>
+    <div class="hdMsg" data-hdmsg="true">
+        <div class="hdMsg__wrap">
+            <div class="hdMsg__msg"></div>
+            <div class="hdMsg__bgSymb">
+                <span class="hdMsg__symb"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== toTOP ========== -->
+    <div id="back-top">
+        <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+    </div>
+    <!-- ========== toTOP ========== -->
+
+    <!--wrapper-->
+    <div class="wrapper wrapper-pages">
+        <!--header-->
+        <header class="header">
+
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="header-top  ">
+                        <a href="index.html" class="logo">
+                            <img src="img/logo.png" alt="">
+                        </a>
+                        <div class="sign-add">
+                            <div class="sign">
+                                <a href="auth-reg.html" class="btn-link">
+                                    <span class="icon-box"> 
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="btn-text">Мой профиль</span>
+                                </a>
+                            </div>
+                            <div class="add">
+                                <a href="" class="btn">
+                                    <i class="fa fa-plus plus" aria-hidden="true"></i>
+                                    <span>Подать объявление</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-bottom container-fluid">
+                <div class="container">
+                    <form action="#" id="form-search" class="form form-search row">
+                        <div class="form-group form-group-input">
+                            <input type="search" class="input-search" name="seach" placeholder="Пример: вагонка">
+                        </div>
+                        <div class="form-group form-group-select">
+                            <select class="select select100" name="city">
+                                <option value="SB">Алмааты, Алмаатинская область</option>
+                                <option value="WY">Актобе</option>
+                                <option value="WY">Атырау</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-btn">
+                            <button class="btn  btn-search" type="submit">
+                                <i class="fa fa-search icon-white"></i>
+                                <span class="btn-search-text">Найти</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <!--header-->
+
+        <!--main-->
+        <main class="main ">
+
+            <!--section-product-->
+            <section class="section section-auth-reg container clearfix">
+                <!-- CONTENT -->
+                <div class="content col-sm-12">
+
+                    <!-- form-auth-reg -->
+                    <div class="form-auth-reg">
+                        <ul class="tab-group">
+                            <li class="tab active"><a href="#login-form-container">Вход</a></li>
+                            <li class="tab"><a href="#signup-form-container">Регистрация</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- login-form -->
+                            <div id="login-form-container">
+                                <h2 class="title">Вход</h2>
+
+                                <div class="form-group form-group-social field-wrap">
+                                    <div class="social-login row">
+                                        <div class="col-sm-6">  
+                                            <a href="#" class="social-login-fb">
+                                                <i class="fa fa-facebook "></i> Вход с Facebook
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-6"> 
+                                            <a href="#" class="social-login-gp">
+                                                <i class="fa fa-google-plus "></i> Вход с Google 
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form action="file-upload.php"  method="post" class="clearfix" id="login-form">
+                                    <div class="form-group field-wrap">
+                                        <label>
+                                            Ваш Email
+                                        </label>
+                                        <input type="email" required value="Despasito@fiasko.bl" class="js-vn" data-type="email" name="login-form-email">
+                                    </div>
+
+                                    <div class="form-group field-wrap">
+                                        <label>
+                                            Ваш пароль
+                                        </label>
+                                        <input type="password" required  value="Despasito" class="js-vn" data-type="password"  name="login-form-pass">
+                                    </div>
+
+                                    <div class="form-group form-group-save-remember">
+                                        <div class="label-box">
+                                            <input type="checkbox" id="check-remember" class="checkbox " name="check-remember" >
+                                            <label for="check-remember" class="checkbox-label check-remember-label">Запомнить меня</label>
+                                        </div>
+                                        <a href="restore-pass.html" class="link">Забыли пароль?</a>
+                                    </div>
+
+                                    <div class="form-group form-group-submit">
+                                        <button type="submit" class="btn btn-submit">Войти</button>
+                                    </div>
+
+                                    <div class="form-group form-group-info">
+                                        Входя в раздел Мой профиль, вы принимаете
+                                        <br> <a href="terms.html" class="terms-link link"> Условия использования сайта</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <!-- login-form -->
+                            <!-- signup-form -->
+                            <div id="signup-form-container">
+                                <h2 class="title">Регистрация</h2>
+                                <div class="form-group form-group-social field-wrap">
+                                    <div class="social-login row">
+                                        <div class="col-sm-6">  
+                                            <a href="#" class="social-login-fb">
+                                                <i class="fa fa-facebook "></i> Вход с Facebook
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-6"> 
+                                            <a href="#" class="social-login-gp">
+                                                <i class="fa fa-google-plus "></i> Вход с Google 
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="file-upload.php" method="post" class="clearfix" id="signup-form">
+                                    <div class="form-group field-wrap">
+                                        <label>
+                                            Ваш E-mail
+                                        </label>
+                                        <input type="email" required class="js-vn" data-type="email"  name="signup-form-email">
+                                    </div>
+
+                                    <div class="form-group field-wrap">
+                                        <label>
+                                            Ваш пароль
+                                        </label>
+                                        <input type="password" required class="js-vn" data-type="password"    name="signup-form-pass">
+                                    </div>
+
+                                     <div class="form-group field-wrap">
+                                        <label>
+                                            Повторно введите пароль
+                                        </label>
+                                        <input type="password" required  class="js-vn" data-type="confirm"  name="signup-form-pass2">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="label-box label-box-info">
+                                            <input type="checkbox" id="check-term" class="checkbox " name="check-term" required="">
+                                            <label for="check-term" class="checkbox-label check-term-label"></label>
+                                            <div class="check-text">* Я соглашаюсь с <a href="terms.html" class="terms-link link"> правилами использования сервиса</a>, а также с передачей и обработкой моих данных в OLX.ua. Я подтверждаю своё совершеннолетие и ответственность за размещение объявления </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-submit">
+                                        <button type="submit" class="btn btn-submit">Зарегистрироваться </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- signup-form -->
+                        </div>
+                        <!-- tab-content -->
+                    </div>
+                    <!-- form-auth-reg -->
+                </div>
+                <!-- CONTENT -->
+            </section>
+            <!--section-product-->
+        </main>
+        <!--main-->
+
+        <!--footer-->
+        <footer class="footer container-fluid clearfix">
+            <div class=" footer-mask">
+                <div class="container footer-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 social-pay hidden-sm hidden-xs">
+                            <div class="logo">
+                                <a href="#"><img src="img/logo.png" alt=""></a>
+                            </div>
+                            <div class="social">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pay-method">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/btc.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/vs.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/mc.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 contacts">
+                            <div class="title">
+                                <h4>Контакты</h4>
+                            </div>
+                            <ul class="list list-contact  list-news">
+                                <li>Казахстан, Астана ул. Радужная 49</li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="mailto:info@my-website.com"><i class="fa fa-envelope"></i>  info@my-website.com</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6  info">
+                            <div class="title">
+                                <h4>Информация</h4>
+                            </div>
+                            <ul class="list list-news">
+                                <li>
+                                    <a href="page_gallery.html" class="title">Гарантия возврата</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Вопрос-ответ</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Реклама на сате</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Обратная связь</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.footer-content -->
+                <div class="footer-bottom">
+                    <div class="container text-center">
+                        <span class=""><a href="webtool.team">Webtool © 2017</a></span>
+                    </div>
+                </div>
+                <!-- /.footer-bottom -->
+            </div>
+        </footer>
+        <!--footer-->
+
+        <!--preloader-->
+        <div id="hellopreloader">
+            <div id="hellopreloader_preload"></div>
+        </div>
+        <!--preloader-->
+
+    </div>
+    <!--wrapper-->
+
+    <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script type="text/javascript" src="js/select2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="js/easyResponsiveTabs.js"></script>
+     <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>

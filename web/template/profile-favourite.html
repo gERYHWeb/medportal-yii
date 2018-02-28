@@ -1,0 +1,547 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--responsive min width-->
+    <meta id="vp" name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        if (screen.width < 500) {
+            var mvp = document.getElementById('vp');
+            mvp.setAttribute('content', 'width=500');
+        }
+    </script>
+    <!--responsive min width-->
+    <!--SEO-->
+    <meta name="author" content="Eugeny Genov/Dmitry Timoshenko">
+    <meta name="description" content="Stroyclub">
+    <meta name="keywords" content="Stroyclub">
+    <!--SEO-->
+
+    <title>Stroyclub</title>
+
+    <!--favicons-->
+
+    <!--favicons-->
+
+    <!--styles-->
+    <link rel="stylesheet" type="text/css" href="sass/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/jquery.fancybox.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/easyResponsiveTabs.css">
+
+    <link rel="stylesheet" type="text/css" href="sass/css/main.css">
+    <!--styles-->
+
+    <!--fonts-->
+
+    <!--fonts-->
+
+</head>
+
+<body>
+
+    <!-- ========== Preloader ========== -->
+    <div class="preloader" >
+        <div class="load">
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+        </div>
+    </div>
+    <!-- ========== Preloader ========== -->
+
+    <!--wrapper-->
+    <div class="wrapper wrapper-pages">
+        <!--header-->
+        <header class="header">
+
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="header-top  ">
+                        <a href="index.html" class="logo">
+                            <img src="img/logo.png" alt="">
+                        </a>
+                        <div class="sign-add">
+                            <div class="sign">
+                                <a href="" class="btn-link">
+                                    <span class="icon-box"> 
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="btn-text">Регистрация</span>
+                                </a>
+                                <a href="" class="btn-link">
+                                    <span class="icon-box">
+                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="btn-text">Вход</span>
+                                </a>
+                            </div>
+                            <div class="add">
+                                <a href="" class="btn">
+                                    <i class="fa fa-plus plus" aria-hidden="true"></i>
+                                    <span>Подать объявление</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-bottom container-fluid">
+                <div class="container">
+                    <form action="#" id="" class="form form-search row">
+                        <div class="form-group form-group-input">
+                            <input type="search" class="input-search" name="seach" placeholder="Пример: вагонка">
+                        </div>
+                        <div class="form-group form-group-select">
+                            <select class="select select100" name="city">
+                                <option value="SB">Алмааты, Алмаатинская область</option>
+                                <option value="WY">Актобе</option>
+                                <option value="WY">Атырау</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-btn">
+                            <button class="btn  btn-search" type="submit">
+                                <i class="fa fa-search icon-white"></i>
+                                <span class="btn-search-text">Найти</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <!--header-->
+
+        <!--main-->
+        <main class="main ">
+
+            <!--section-product-->
+            <section class="section  section-profile  section-profile-favourite  container clearfix">
+                <div class="col-12">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Главная</a></li>
+                        <li class="active">Профиль</li>
+                    </ol>
+                    <div class="titleProduct-cash ">
+                        <div class="title-product ">
+                            <h1 class="text">Ваш профиль</h1>
+                        </div>
+                        <div class="cash-box">
+                            <div class="cash-count">
+                                <div class="title">Ваш счет</div>
+                                <div class="count">63462 тнг.</div>
+                            </div>
+                            <a href="#" class="btn btn-add-money">
+                                <i></i>
+                                <span>Пополнить счет</span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                    
+
+                    <div class="a-profile section">
+                        <div class="user-profile">
+                            <div class="img-name">
+                                <div class="user-images">
+                                    <img src="img/profile/user.svg" alt="User Images" class="img-responsive">
+                                </div>
+                                <div class="user">
+                                    <div class="title">Добро пожаловать,
+                                        <br>
+                                        <div class="username">Валентина Семёновна</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="favorites-user">
+                                <div class="item my-a">
+                                    <a href="my-ads.html">
+                                        <span class="count">23</span>
+                                        <span class="text">Мои объявления</span>
+                                    </a>
+                                </div>
+                                <div class="item my-message">
+                                    <a href="my-ads.html">
+                                        <span class="count">91</span>
+                                        <span class="text">Сообщения</span>
+                                    </a>
+                                </div>
+                                <div class="item favorites">
+                                    <a href="#">
+                                        <span class="count">18</span>
+                                        <span class="text">Избранное</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- user-profile -->
+
+                        <ul class="user-menu">
+                            <li><a href="profile.html">Профиль</a></li>
+                            <li ><a href="profile-myAds.html">Мои объявления</a></li>
+                            <li><a href="profile-message.html">Сообщения</a></li>
+                            <li class="active"><a href="profile-favourite.html">Избранные</a></li>
+                            <li><a href="profile-deleteAcc.html">Удалить аккаунт</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="row">
+                        <!-- left-info -->
+                        <div class="col-lg-9">
+                            
+                            <div class="my-favourite-container">
+                                <h2>Избранное</h2>
+
+                                <div class="row">  
+                                    <div class="col-6 col-md-4 item">
+                                        <div class="product-item ">
+                                            <div class="image-box">
+                                                <img src="img/product/1.jpg" alt="" class="">
+                                                <div class="absolute-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <span>Убрать из избранного</span>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>Написать</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="product-title" href="product.html">1Бетономешалка Luxfire 20 lorem ipsum 45342gd fg3193W</a>
+                                            <div class="bottom-info">
+                                                <div class="bottom-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="price">176 087 тг.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 item">
+                                        <div class="product-item ">
+                                            <div class="image-box">
+                                                <img src="img/product/2.jpg" alt="" class="">
+                                                <div class="absolute-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-favourite">
+                                                        <span>Убрать из избранного</span>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>Написать</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="product-title" href="product.html">1Бетономешалка Luxfire 20 lorem ipsum 45342gd fg3193W</a>
+                                            <div class="bottom-info">
+                                                <div class="bottom-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="price">176 087 тг.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 item">
+                                        <div class="product-item ">
+                                            <div class="image-box">
+                                                <img src="img/product/3.jpg" alt="" class="">
+                                                <div class="absolute-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-favourite">
+                                                        <span>Убрать из избранного</span>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>Написать</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="product-title" href="product.html">1Бетономешалка Luxfire 20 lorem ipsum 45342gd fg3193W</a>
+                                            <div class="bottom-info">
+                                                <div class="bottom-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="price">176 087 тг.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 item">
+                                        <div class="product-item ">
+                                            <div class="image-box">
+                                                <img src="img/product/4.jpg" alt="" class="">
+                                                <div class="absolute-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <span>Убрать из избранного</span>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>Написать</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="product-title" href="product.html">1Бетономешалка Luxfire 20 lorem ipsum 45342gd fg3193W</a>
+                                            <div class="bottom-info">
+                                                <div class="bottom-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="price">176 087 тг.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 item">
+                                        <div class="product-item ">
+                                            <div class="image-box">
+                                                <img src="img/product/5.jpg" alt="" class="">
+                                                <div class="absolute-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-favourite">
+                                                        <span>Убрать из избранного</span>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>Написать</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="product-title" href="product.html">1Бетономешалка Luxfire 20 lorem ipsum 45342gd fg3193W</a>
+                                            <div class="bottom-info">
+                                                <div class="bottom-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="price">176 087 тг.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 item">
+                                        <div class="product-item ">
+                                            <div class="image-box">
+                                                <img src="img/product/6.jpg" alt="" class="">
+                                                <div class="absolute-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-favourite">
+                                                        <span>Убрать из избранного</span>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>Написать</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="product-title" href="product.html">1Бетономешалка Luxfire 20 lorem ipsum 45342gd fg3193W</a>
+                                            <div class="bottom-info">
+                                                <div class="bottom-btn-info">
+                                                    <a href="#" class="btn btn-inverse btn-not-favourite">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a  href="#" class="btn btn-inverse btn-message ">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="price">176 087 тг.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="pagination-box">
+                                <ul class="pagination">
+                                    <li class="disabled"><a href="#"><span class="caret"><i class="fa fa-angle-left" aria-hidden="true"></i></span></a></li>
+                                    <li class="active"><span>1</span></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">6</a></li>
+                                    <li><a href="#"><span class="caret"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- left-info -->
+
+                        <!-- sidebar-right-info -->
+                        <div class="col-lg-3 text-center">
+                            <div class="recommended-cta">
+                                <div class="cta">
+                                    <!-- single-cta -->
+                                    <div class="single-cta">
+                                        <!-- cta-icon -->
+                                        <div class="cta-icon icon-secure">
+                                            <img src="img/profile/1.png" alt="Icon" class="img-responsive">
+                                        </div>
+                                        <!-- cta-icon -->
+
+                                        <h4>Secure Trading</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                    </div>
+                                    <!-- single-cta -->
+
+                                    <!-- single-cta -->
+                                    <div class="single-cta">
+                                        <!-- cta-icon -->
+                                        <div class="cta-icon icon-support">
+                                            <img src="img/profile/2.png" alt="Icon" class="img-responsive">
+                                        </div>
+                                        <!-- cta-icon -->
+
+                                        <h4>24/7 Support</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                    </div>
+                                    <!-- single-cta -->
+
+                                    <!-- single-cta -->
+                                    <div class="single-cta">
+                                        <!-- cta-icon -->
+                                        <div class="cta-icon icon-trading">
+                                            <img src="img/profile/3.png" alt="Icon" class="img-responsive">
+                                        </div>
+                                        <!-- cta-icon -->
+
+                                        <h4>Easy Trading</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                    </div>
+                                    <!-- single-cta -->
+
+                                    <!-- single-cta -->
+                                    <div class="single-cta">
+                                        <h4>Need Help?</h4>
+                                        <p><span>Give a call on</span><a href="tel:08048100000"> 08048100000</a></p>
+                                    </div>
+                                    <!-- single-cta -->
+                                </div>
+                            </div>
+                            <!-- cta -->
+                        </div>
+                        <!-- sidebar-right-info -->
+                    </div>
+
+                </div>
+
+            </section>
+            <!--section-product-->
+
+        </main>
+        <!--main-->
+
+        <!--footer-->
+        <footer class="footer container-fluid clearfix">
+            <div class=" footer-mask">
+                <div class="container footer-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 social-pay hidden-sm hidden-xs">
+                            <div class="logo">
+                                <a href="#"><img src="img/logo.png" alt=""></a>
+                            </div>
+                            <div class="social">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pay-method">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/btc.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/vs.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/mc.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 contacts">
+                            <div class="title">
+                                <h4>Контакты</h4>
+                            </div>
+                            <ul class="list list-contact  list-news">
+                                <li>Казахстан, Астана ул. Радужная 49</li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="mailto:info@my-website.com"><i class="fa fa-envelope"></i>  info@my-website.com</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6  info">
+                            <div class="title">
+                                <h4>Информация</h4>
+                            </div>
+                            <ul class="list list-news">
+                                <li>
+                                    <a href="page_gallery.html" class="title">Гарантия возврата</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Вопрос-ответ</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Реклама на сате</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Обратная связь</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.footer-content -->
+                <div class="footer-bottom">
+                    <div class="container text-center">
+                        <span class=""><a href="webtool.team">Webtool © 2017</a></span>
+                    </div>
+                </div>
+                <!-- /.footer-bottom -->
+            </div>
+        </footer>
+        <!--footer-->
+
+
+
+    </div>
+    <!--wrapper-->
+
+    <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script type="text/javascript" src="js/select2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="js/easyResponsiveTabs.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>

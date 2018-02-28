@@ -1,0 +1,17 @@
+label {
+    font-size: 14px;
+  line-height: 1;
+     color: #434850;
+    margin-bottom: 10px;
+    display: block;
+    text-align: left;
+}
+.label-box{
+	display: flex;
+	.checkbox-label{
+		margin: 0;
+	}
+	.check-text{
+		line-height: 1.2;
+	}
+}

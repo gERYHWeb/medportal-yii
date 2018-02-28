@@ -1,0 +1,835 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--responsive min width-->
+    <meta name="viewport" id="viewport" data-content="width=370, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        function changeViewport(){
+        var metaVP = document.getElementById('viewport');
+          var width = metaVP.dataset.content;
+        if(window.innerWidth < (parseInt(width.replace(/\D+/g,"")))){
+            metaVP.attributes[3].value = width;
+          }else{
+            metaVP.attributes[3].value = "initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+          }
+        }
+        changeViewport();
+        window.addEventListener("resize", changeViewport);
+    </script>
+    <!--responsive min width-->
+    <!--SEO-->
+    <meta name="author" content="Eugeny Genov/Dmitry Timoshenko">
+    <meta name="description" content="Stroyclub">
+    <meta name="keywords" content="Stroyclub">
+    <!--SEO-->
+
+    <title>Stroyclub</title>
+
+    <!--favicons-->
+
+    <!--favicons-->
+
+    <!--styles-->
+    <link rel="stylesheet" type="text/css" href="sass/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/remodal.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/remodal-default-theme.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/hdmsg.css">
+    <link rel="stylesheet" type="text/css" href="sass/css/main.css">
+    <!--styles-->
+
+    <!--fonts-->
+
+    <!--fonts-->
+
+</head>
+
+<body>
+
+    <!-- ========== Preloader ========== -->
+    <div class="preloader">
+        <div class="load">
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+            <div class="on"></div>
+        </div>
+    </div>
+    <!-- ========== Preloader ========== -->
+
+    <script type="text/x-config">
+        {
+            "msgs": {
+            "invalid_min_message":"Сообщение должно содержать минимум 10 символов",
+            "invalid_price_min":"Минимальная сумма 10",
+            "invalid_price_max":"Максимальная сумма 1 00 000 000",
+            "invalid_min_price_min":"Минимальная сумма 10",
+            "invalid_category_product":"Выберите категорию",
+            "invalid_title_product":"Минимальное количество символов заголовка: 10",
+            "invalid_desc_product":"Минимальное количество символов описания: 20",
+            "invalid_pass_confirm":"Пароли не совпадаюи",
+            "diapazone_price":"Сумма не входит в диазон",
+            "timeout_callback": "An application can be sent once to 15 minutes.","file_uploaded": "File Successfully uploaded","not_updated_username": "Логин не обновился.","not_updated_msg": "Сообщение не обновилось.","not_exists_msg": "Сообщение не найдено.","undefined_field": "Поле не найдено.","not_found_item": "Не найден такой идентификатор.","invalid_name": "Некорректно указано имя","invalid_username": "Некорректно указан логин","invalid_username_min": "Некорректно указан логин (мин. 4 симв.)","invalid_username_max": "Некорректно указан логин (макс. 150 симв.)","invalid_confirm_password": "Неправильно указано подтверждение пароля","sb_switch_on": "Показать всё","sb_switch_off": "Свернуть","not_found_email": "E-mail не найден.","success_recovery": "Письмо с ссылкой для восстановления отправлено на почту.","success_comment": "Спасибо! Комментарий появится после проверки модератором.","invalid_password": "Пароль должен содержать от 6 до 15 символов","invalid_password_min": "Короткий пароль (мин. длина 6 симв.)","invalid_password_max": "Длинный пароль (макс. длина 150 симв.)","invalid_phone": "Некорректно указан телефон","invalid_email": "Некорректно указан e-mail","forbidden": "Доступ запрещён!","money_successfully_sent": "Деньги успешно отправлены","user_already_exists": "Такой логин уже зарегистрирован в системе","email_already_exists": "Такой email уже зарегистрирован в системе","updated_profile": "Профиль обновлён","not_found_user": "Пользователь не найден.","no_data": "Нет данных для отображения","not_uploaded_file": "Файл не загрузился","success_auth": "Вы успешно авторизовались","not_auth": "Вы не авторизовались","user_blocked": "Вы заблокированы!","success_feedback": "Спасибо за обратную связь.","not_data": "Нет данных для отображения","big_text": "Макс. длина текста - 255 симв.!","empty_msg": "Пустое поле для сообщения.","updated_field": "Поле успешно изменено","server_error": "Ошибка на сервере.","invalid_data": "Некорректно передались данные.","success_add_msg": "Сообщение успешно добавлено.","invalid_amount": "Неверно указана сумма","success_changed_pass": "Пароль успешно измёнён!","not_sent_recovery": "Не удалось отправить письмо. Перепроверьте e-mail.","invalid_link": "Недействительная ссылка","not_selected_option": "Выберите опцию.","success_callback": "Ваша заявка успешно принята.","fail_request": "Произошла ошибка.","added_to_basket": "Товар добавлен в корзину","success_voted": "Вы успешно проголосовали!","success_order": "Your order successfully processed!","already_voted": "Вы уже голосовали."},
+            "user": {
+                        }
+        }
+    </script>
+    <div class="hdMsg" data-hdmsg="true">
+        <div class="hdMsg__wrap">
+            <div class="hdMsg__msg"></div>
+            <div class="hdMsg__bgSymb">
+                <span class="hdMsg__symb"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========== toTOP ========== -->
+    <div id="back-top">
+        <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+    </div>
+    <!-- ========== toTOP ========== -->
+
+    <!--wrapper-->
+    <div class="wrapper">
+        <!--header-->
+        <header class="header container-fluid">
+
+            <div class="container">
+                <div class="header-top">
+                    <a href="" class="logo">
+                        <img src="img/logo.png" alt="">
+                    </a>
+                    <div class="sign-add">
+                        <div class="sign">
+                            <a href="auth-reg.html" class="btn-link">
+                                <span class="icon-box"> 
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <span class="btn-text">Мой профиль</span>
+                            </a>
+                        </div>
+                        <div class="add">
+                            <a href="" class="btn">
+                                <i class="fa fa-plus plus" aria-hidden="true"></i>
+                                <span>Подать объявление</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-slider container-fluid">
+                <div class="main-slider">
+                    <div class="slick-slide slide slide--has-caption" style="background: url('img/slider/1.jpg') no-repeat center / cover;">
+                        <div class="caption">Лучшие предложения строительных
+                            <br> материалов в Казахстане</div>
+                    </div>
+                    <div class="slick-slide slide slide--has-caption" style="background: url('img/slider/2.jpg') no-repeat center / cover;">
+                        <div class="caption">Лучшие предложения строительных
+                            <br> материалов в Казахстане</div>
+                    </div>
+                    <div class="slick-slide slide slide--has-caption" style="background: url('img/slider/3.jpg') no-repeat center / cover;">
+                        <div class="caption">Лучшие предложения строительных
+                            <br> материалов в Казахстане</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="header-bottom container-fluid">
+                <div class="container">
+                    <form action="#" id="form-search" class="form form-search row">
+                        <div class="form-group form-group-input">
+                            <input type="search" class="input-search" name="seach" placeholder="Пример: вагонка">
+                        </div>
+                        <div class="form-group form-group-select">
+                            <select class="select select100" name="city">
+                                <option value="SB">Алмааты, Алмаатинская область</option>
+                                <option value="WY">Актобе</option>
+                                <option value="WY">Атырау</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-btn">
+                            <button class="btn  btn-search" type="submit">
+                                <i class="fa fa-search icon-white"></i>
+                                <span class="btn-search-text">Найти</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <!--header-->
+
+        <!--main-->
+        <main class="main ">
+            <section class="section section-vip  bg-white clearfix">
+
+                <div class="container">
+                    <div class="title-hr title-hr--upper">
+                        <hr>
+                        <h2>Vip объявления</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <div class="vip-box vip-box-1">
+                            <a href="product.html" class="product-item">
+                                <div class="image-box">
+                                    <img src="img/product/1.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">1Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">11 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/2.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">2Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">71 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/3.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">3Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">41 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/4.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">4Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">99 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/5.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">5Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">71 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/6.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">6Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">15 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/5.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">5Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">71 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/6.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">6Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">15 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+                        </div>
+
+                        <div class="vip-box vip-box-2">
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/1.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">1Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">11 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/2.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">2Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">71 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/3.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">3Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">41 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/4.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">4Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">99 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/5.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">5Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">71 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/6.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">6Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">15 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/5.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">5Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">71 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+
+                            <a href="product.html" class="product-item ">
+                                <div class="image-box">
+                                    <img src="img/product/6.jpg" alt="" class="">
+                                </div>
+                                <div class="product-title">6Бетономешалка Luxfire 20 lorem ipsum 45342gd </div>
+                                <div class="bottom-info">
+                                    <div class="price">15 176 087 тг.</div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!--section-category-->
+            <section class="section section-category bg-gray clearfix">
+                <div class="container">
+                    <div class="title-hr ">
+                        <hr>
+                        <h2>Категории товаров</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card ">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/1.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+
+                                            <img src="img/repairs-icon/1.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Штукатурки</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Внутренние</a>
+                                                <span class="count text-color-primary">7</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Наружные</a>
+                                                <span class="count text-color-primary">1</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/2.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/2.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Кровля</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Профнастил</a>
+                                                <span class="count text-color-primary">3</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Битумная черепица</a>
+                                                <span class="count text-color-primary">15</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Металлочерепица</a>
+                                                <span class="count text-color-primary">7</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Шифер</a>
+                                                <span class="count text-color-primary">75</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/3.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/3.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Фасад</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Сайдинг</a>
+                                                <span class="count text-color-primary">30</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Облицовочный кирпи</a>
+                                                <span class="count text-color-primary">6</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_car.html">Плитка</a>
+                                                <span class="count text-color-primary">10</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3 item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/4.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/4.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Сантехника</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_job.html">Краны</a>
+                                                <span class="count text-color-primary">42</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_job.html">Раковины</a>
+                                                <span class="count text-color-primary">29</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_job.html">Трубы</a>
+                                                <span class="count text-color-primary">163</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_job.html">Ванны</a>
+                                                <span class="count text-color-primary">251</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/5.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/5.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Строительные смеси</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_side2.html">Цемент</a>
+                                                <span class="count text-color-primary">42</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_side2.html">Шпаклевки</a>
+                                                <span class="count text-color-primary">95</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_side2.html">Грунтовки</a>
+                                                <span class="count text-color-primary">131</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_side2.html">Затирки</a>
+                                                <span class="count text-color-primary">233</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_side2.html">Другие смеси</a>
+                                                <span class="count text-color-primary">123</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/6.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/6.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Утеплители</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_yacht.html">Пенопласт</a>
+                                                <span class="count text-color-primary">6</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_yacht.html">Внутренний утеплитель</a>
+                                                <span class="count text-color-primary">19</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_yacht.html">Внешний утеплитель</a>
+                                                <span class="count text-color-primary">131</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_yacht.html">Утеплитель для крыши</a>
+                                                <span class="count text-color-primary">3</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/7.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/7.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Лаки краски</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_shop.html">Водоэмульсионные</a>
+                                                <span class="count text-color-primary">27</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_shop.html">Лаки</a>
+                                                <span class="count text-color-primary">173</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_shop.html">Краски</a>
+                                                <span class="count text-color-primary">543</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="index_shop.html">Другие виды</a>
+                                                <span class="count text-color-primary">203</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                            <!--category-item-->
+                            <div class="col-sm-6 col-md-4 col-lg-3  item">
+                                <div class="property-card card  product-card">
+                                    <a href="" class="property-card-header image-box">
+                                        <img src="img/repairs/8.jpg" alt="" class="">
+                                    </a>
+                                    <div class="property-card-box card-box card-block">
+                                        <h3 class="property-card-title">
+                                            <img src="img/repairs-icon/8.svg" alt="" class="repairs-icon">
+                                            <a href="product.html">Крепежи</a>
+                                        </h3>
+                                        <ul class="product-categories">
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_business.html">Болты</a>
+                                                <span class="count text-color-primary">57</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_business.html">Шурупы</a>
+                                                <span class="count text-color-primary">23</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_business.html">Хомуты</a>
+                                                <span class="count text-color-primary">44</span>
+                                            </li>
+                                            <li>
+                                                <a class="product-box-item btn-default" href="map_business.html">Дюбеля</a>
+                                                <span class="count text-color-primary">678</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--category-item-->
+                        </div>
+
+                        <div class="bannBox ">
+                            <a href="" class="item">
+                                <img src="img/bann/1.jpg" alt="">
+                            </a>
+
+                            <a href="" class="item">
+                                <img src="img/bann/2.jpg" alt="">
+                            </a>
+                            <a href="" class="item">
+                                <img src="img/bann/3.jpg" alt="">
+                            </a>
+                            <a href="" class="item">
+                                <img src="img/bann/4.jpg" alt="">
+                            </a>
+                            <a href="" class="item item2">
+                                <img src="img/bann/5.jpg" alt="">
+                                <img src="img/bann/6.jpg" alt="">
+                            </a>
+                        </div>
+
+                        <!--banner-box-->
+                    </div>
+                </div>
+            </section>
+            <!--section-category-->
+            <section class="section section-category bg-white clearfix">
+                <div class="container">
+                    <div class="title-hr ">
+                        <hr>
+                        <h2>О портале doska-ads.kz</h2>
+                        <hr>
+                    </div>
+                    <div class="content clearfix">
+                        <img src="img/about/1.jpg" alt="" class="img-in-text-left">
+                        <p> <span>  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe blanditiis quisquam fuga eos repellendus commodi hic at eaque, aspernatur ea repudiandae iure excepturi nostrum, iste asperiores quae voluptatum cum esse?</span>
+                        <span>Pariatur autem sit perferendis animi voluptatibus adipisci esse iste, quis quod amet omnis fuga modi, et sapiente nostrum veniam reiciendis perspiciatis nulla voluptatum voluptas, vel harum quidem? Quam, velit doloribus.</span>
+                        <span>Laudantium tenetur sint ducimus cum quibusdam, eligendi, unde expedita fuga earum nostrum fugiat dolor itaque error velit porro. Iure quis accusamus cupiditate blanditiis unde aperiam molestiae consequatur, sint, sunt sapiente.</span>
+                        <p>
+
+                        <img src="img/about/2.jpg" alt="" class="img-in-text-right">
+
+                        <p>
+                        <span>Minus inventore beatae, sit ab aut, facilis maiores labore placeat rerum et ut molestias doloribus at fugiat impedit, accusamus reprehenderit aliquid exercitationem voluptates est distinctio voluptate. Culpa laboriosam illo fuga.</span>
+                        <span>Voluptate hic quas porro quis, cumque debitis quos quae asperiores impedit inventore placeat, aperiam cum quaerat laudantium temporibus, harum iusto assumenda eum accusantium ad commodi fugiat fugit. Similique exercitationem, eius.</span>
+                        <span>Vel optio ipsum eos laborum accusamus quibusdam porro hic sunt fuga, deserunt iusto minima perspiciatis similique sed aut quaerat, labore debitis voluptates dolor facere? Soluta minus ea aperiam cumque voluptatibus!</span>
+                        <span>Ducimus assumenda, impedit blanditiis eaque obcaecati molestias laboriosam, repellat tempora eius libero. Repudiandae, officiis excepturi. Architecto earum excepturi eligendi molestias molestiae quasi amet ipsum iure. Dicta aliquid, dolor laudantium repellat!</span>
+                        <span>Ullam, magni eos et minima tenetur vel. Libero, hic delectus sequi esse vel neque dicta aut, porro, numquam omnis ipsum odio, vero veniam adipisci quaerat obcaecati deleniti tenetur alias ea!</span></p>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-brand bg-white clearfix">
+                <div class="container">
+                    <div class="content clearfix">
+                        <div class="brand-box">
+                            <div class=" brand-box-item">
+                                <img src="img/brands/1.png" alt="">
+                            </div>
+                            <div  class="brand-box-item">
+                                <img src="img/brands/2.png" alt="">
+                            </div>
+                            <div  class="brand-box-item">
+                                <img src="img/brands/3.png" alt="">
+                            </div>
+                            <div  class="brand-box-item">
+                                <img src="img/brands/4.png" alt="">
+                            </div>
+                            <div  class="brand-box-item">
+                                <img src="img/brands/5.png" alt="">
+                            </div>
+                            <div  class="brand-box-item">
+                                <img src="img/brands/6.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!--main-->
+
+        <!--footer-->
+        <footer class="footer container-fluid clearfix">
+            <div class=" footer-mask">
+                <div class="container footer-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 social-pay hidden-sm hidden-xs">
+                            <div class="logo">
+                                <a href="index.html"><img src="img/logo-inverse.png" alt=""></a>
+                            </div>
+                            <div class="social">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pay-method">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/btc.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/vs.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/footer/mc.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 contacts">
+                            <div class="title">
+                                <h4>Контакты</h4>
+                            </div>
+                            <ul class="list list-contact  list-news">
+                                <li>Казахстан, Астана ул. Радужная 49</li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="tel:+385 (0)1 123 321"><i class="fa fa-phone"></i> +385 (0)1 123 321</a></li>
+                                <li><a href="mailto:info@my-website.com"><i class="fa fa-envelope"></i>  info@my-website.com</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6  info">
+                            <div class="title">
+                                <h4>Информация</h4>
+                            </div>
+                            <ul class="list list-news">
+                                <li>
+                                    <a href="page_gallery.html" class="title">Гарантия возврата</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Вопрос-ответ</a>
+                                </li>
+                                <li>
+                                    <a href="page_gallery.html" class="title">Реклама на сате</a>
+                                </li>
+                                <li>
+                                    <a href="#modal-feedback" class="title">Обратная связь</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.footer-content -->
+                <div class="footer-bottom">
+                    <div class="container text-center">
+                        <span class=""><a href="webtool.team">Webtool © 2017</a></span>
+                    </div>
+                </div>
+                <!-- /.footer-bottom -->
+            </div>
+        </footer>
+        <!--footer-->
+
+        <!--modal-feedback-->
+        <div class="remodal remodal-feedback" data-remodal-id="modal-feedback">        
+            <div class="remodal-inner">
+                <button data-remodal-action="close" class="remodal-close"></button>
+                <div class="title">Обратная связь</div>
+                <div class="subtitle">  Если у Вас возникли вопросы, предложения или пожелания о сайте, <br> заполните форму и мы рассмотрим Вашу заявку в ближайшее время </div>
+
+                <form action="file-upload.php"    class="form-feedback" id="form-feedback">
+                    <div class="form-group">
+                        <label>Ваше имя :</label>
+                        <input type="text" name="name" class="js-vn"   data-type="name" placeholder="Имя " value="" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Электронная почта :</label>
+                        <input type="email" name="email" class="js-vn"  data-type="email"  placeholder="Email" value="" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Сообщение :</label>
+                        <textarea name="text" name="message" class="js-vn"  data-type="message"  placeholder="Текст" value="" required=""></textarea>
+                    </div>
+
+                    <input type="hidden" name="formData" class="control-label" value="Обратная связь">
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-submit">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--modal-feedback-->
+
+    </div>
+    <!--wrapper-->
+
+    <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script type="text/javascript" src="js/select2.min.js"></script>
+    <script type="text/javascript" src="js/remodal.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+textarea {
+    width: 100%;
+    border-radius: 0px;
+    padding: 10px 15px;
+    border:1px solid #a6a6a6;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.3s all ease;
+    resize: none;
+    height: 100px;
+    color: #434850;
+    font-size: 15px;
+  font-weight: 500;
+    &:focus {
+        border: solid 1px #000;
+    }
+}

@@ -1,0 +1,37 @@
+.col-xs-five,
+.col-sm-five,
+.col-md-five,
+.col-lg-five {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+
+@media (min-width: 576px) {
+    .col-sm-five {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+@media (min-width: 768px) {
+    .col-md-five {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-five {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-five {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
