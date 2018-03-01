@@ -9,7 +9,6 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\Config;
-use yii\httpclient\Client;
 
 class SiteController extends Controller
 {
@@ -67,73 +66,36 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Displays orders page.
      *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-//    public function actionLogin()
-//    {
-//        if (!Yii::$app->user->isGuest) {
-//            return $this->goHome();
-//        }
-//
-//        $model = new LoginForm();
-//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//            return $this->goBack();
-//        }
-//
-//        $model->password = '';
-//        return $this->render('login', [
-//            'model' => $model,
-//        ]);
-//    }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
-//    public function actionLogout()
-//    {
-//        Yii::$app->user->logout();
-//
-//        return $this->goHome();
-//    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
+     * @return Response|string orders page
      */
     public function actionOrders()
     {
         $orders = self::restGET('/rest/get-orders');
-       // print_r($orders);exit();
         return $this->render('orders', [
             'orders' => $orders['result']['data']
         ]);
     }
 
+    /**
+     * Displays references page.
+     *
+     * @return Response|string references page (consts)
+     */
     public function actionConsts()
     {
         $result = self::restGET('/rest/get-consts');
-        
-       // print_r($result);exit();
         return $this->render('consts', [
             'consts' => $result['result']['data']
         ]);
     }
 
+    /**
+     * Set status to order
+     *
+     * @return Response|resource redirect to orders page
+     */
     public function actionOrderStatus()
     {
         $get = Yii::$app->request->get();
@@ -147,6 +109,11 @@ class SiteController extends Controller
         return $this->redirect('/orders');
     }
 
+    /**
+     * Edit reference
+     *
+     * @return Response|resource redirect to references page
+     */
     public function actionEditConst()
     {
         $get = Yii::$app->request->get();
@@ -158,6 +125,11 @@ class SiteController extends Controller
         return $this->redirect('/consts');
     }
 
+    /**
+     * REST API Get request
+     *
+     * @return Response|array response from Rest Api
+     */
     public static function restGET( $url = false ) {
         if(!$url) return null;
         else $url = Yii::$app->getRequest()->getHostInfo() . $url;
@@ -173,7 +145,7 @@ class SiteController extends Controller
         curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
         curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-                'REST_API: ' . Config::REST_API_KEY
+                'REST_API: ' . Config::REST_API_KEY // Rest api key
             ]
         );
 
@@ -184,6 +156,11 @@ class SiteController extends Controller
         return [ 'result' => json_decode($result, true), 'plain' => $result, 'error' => $error ];
     }
 
+    /**
+     * REST API Post request
+     *
+     * @return Response|array response from Rest Api
+     */
     public static function restPOST( $url = false, $data = [] ) {
         if(!$url) return null;
         else $url = Yii::$app->getRequest()->getHostInfo() . $url;
@@ -204,7 +181,7 @@ class SiteController extends Controller
         curl_setopt($ch,CURLOPT_USERAGENT,'REST API Client v.1.1');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/x-www-form-urlencoded',
-                'REST_API: ' . Config::REST_API_KEY,
+                'REST_API: ' . Config::REST_API_KEY, // Rest api key
                 'Content-Length: ' . strlen( http_build_query($data) )
             ]
         );
