@@ -169,7 +169,7 @@ $this->title = 'Create An Ad';
     <script type="text/javascript">
         function imgName (){
             var arrName = document.getElementsByName('upload-img[]');
-                arrName.forEach ( function( item, i, arrName ) {
+                arrName.forEach(function(item, i, arrName) {
                     console.log(item.value);
                 });
         };
@@ -178,7 +178,7 @@ $this->title = 'Create An Ad';
         //var arrName = $('[name = upload-img[]]');
         console.log(arrName.value);
             //arrName.onchange =
-                    forEach( function ( item, i, arrName){
+                    forEach(function(item, i, arrName){
                  //for (var i = 0; i < arrName; i++){
 
                 console.log(arrName[i]);

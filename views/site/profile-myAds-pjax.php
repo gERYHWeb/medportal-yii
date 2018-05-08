@@ -5,7 +5,7 @@
 
                         foreach ($data_my_ads as $key => $val) {
 
-                            //for ( $key = $x; )
+                            //for($key = $x; )
                             /*                             * ***************************
                               echo '<pre>';
                               print_r($data_my_ads);

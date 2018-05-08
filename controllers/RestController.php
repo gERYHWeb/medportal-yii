@@ -421,18 +421,19 @@ class RestController extends Controller {
                     $result       = false;
                     $this->result = [
                         "result" => false,
-                        "data"   => "Не совпадают пароли. Новый пароль должен равен быть Потверждение пароля."
+                        "data"   => "invalid_passwords_dont_match"
                     ];
                 } else {
                     $url         = Constant::$root_rest_url . "user/check-exist-password";
                     $post_string = http_build_query( $this->postValue );
                     $set_prof    = Utility::postData( $url, $post_string );
+
                     $_res        = json_decode( $set_prof["res"], true );
                     if ( $_res["result"] != true ) {
                         $result = false;
                         $this->result = [
                             "result" => false,
-                            "data"   => "Введите правильный Старый пароль"
+                            "data"   => "invalid_curr_password"
                         ];
                     }
                 }
@@ -442,7 +443,6 @@ class RestController extends Controller {
                 $url         = Constant::$root_rest_url . "user/profile";
                 $post_string = http_build_query( $this->postValue );
                 $set_prof    = Utility::postData( $url, $post_string );
-
 
                 $_res = json_decode( $set_prof["res"], true );
 
@@ -483,38 +483,54 @@ class RestController extends Controller {
 	}
 
 	public function actionSignUp() {
+	    $post = $this->postValue;
 		if ( $this->request->isAjax ) {
-			if ( isset( $this->postValue ) &&
-			     isset( $this->postValue["login"] ) &&
-			     isset( $this->postValue["password"] ) &&
-			     isset( $this->postValue["email"] ) &&
-			     isset( $this->postValue["check-term"] )
+			if ( $post["login"] &&
+			     $post["password"] &&
+			     $post["email"] &&
+			     $post["check-term"]
 			) {
+                $errors = [];
+			    if(!preg_match("/^[a-zA-Z0-9\_\-]{5,20}$/", $post["login"])){
+                    $errors['username'] = "invalid_username";
+                }
+			    if(!preg_match("/^.{6,100}$/", $post["password"])){
+                    $errors['password'] = "invalid_password";
+                }
+			    if(!preg_match("/^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-zA-Z]{2,6}$/", $post["email"])){
+                    $errors['email'] = "invalid_email";
+                }
+                if(!$errors) {
+                    $form_data = [
+                        'username' => $post["login"],
+                        'password' => $post["password"],
+                        'email' => $post["email"],
+                        'ra' => ($post["check-term"] == "on") ? 1 : 0
+                    ];
 
-				$form_data = [
-					'username' => $this->postValue["login"],
-					'password' => $this->postValue["password"],
-					'email'    => $this->postValue["email"],
-					'ra'       => ( $this->postValue["check-term"] = "on" ) ? 1 : 0
-				];
-
-				$url         = Constant::$root_rest_url . "user/sign-up";
-				$post_string = http_build_query( $form_data );
-				$asd         = Utility::postData( $url, $post_string );
-				$res         = json_decode( $asd['res'], true );
-				if ( $res['result'] == true && isset( $res['data']['token'] ) && $res['data']['token'] != "" ) {
-					$_SESSION['token']   = $res['data']['token'];
-					$_SESSION['user_id'] = $res['data']['id'];
-					$this->result        = [
-						"result" => true,
-						"data"   => ""
-					];
-				} else {
-					$this->result = [
-						"result" => false,
-						"data"   => $res["data"]
-					];
-				}
+                    $url = Constant::$root_rest_url . "user/sign-up";
+                    $post_string = http_build_query($form_data);
+                    $result = Utility::postData($url, $post_string);
+                    $res = json_decode($result['res'], true);
+                    if ($res['result'] == true && isset($res['data']['token']) && $res['data']['token'] != "") {
+                        $_SESSION['token'] = $res['data']['token'];
+                        $_SESSION['user_id'] = $res['data']['id'];
+                        $this->result = [
+                            "result" => true,
+                            "data" => ""
+                        ];
+                    } else {
+                        $this->result = [
+                            "result" => false,
+                            "data" => $res["data"]
+                        ];
+                    }
+                }else{
+                    $this->result = [
+                        "result" => false,
+                        "error"   => $errors
+                    ];
+                }
 			} else {
 				$this->result = [
 					"result" => false,
@@ -640,7 +656,7 @@ class RestController extends Controller {
 				];
 				$post_string = http_build_query( $params );
 				$_post_data  = Utility::postData( $url, $post_string );
-
+//dd($_post_data);
 				if ( isset( $_post_data["res"] ) ) {
 					$tmp_data = json_decode( $_post_data["res"], true );
 				}
@@ -692,13 +708,13 @@ class RestController extends Controller {
 
 			$params      = [
 				"advert_id" => $this->postValue["advert_id"],
-				"section1"  => $this->postValue["section1"],
-				"section2"  => $this->postValue["section2"],
+				"package"  => $this->postValue["package"],
+				"addons"  => $this->postValue["addons"],
 				"token"     => $this->postValue["token"]
 			];
 			$post_string = http_build_query( $params );
 			$_post_data  = Utility::postData( $url, $post_string );
-
+            dd($_post_data);
 			if ( isset( $_post_data["res"] ) ) {
 				$tmp_data = json_decode( $_post_data["res"], true );
 			}

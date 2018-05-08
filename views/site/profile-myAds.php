@@ -18,25 +18,25 @@ use yii\widgets\Breadcrumbs;
         <div class="my-a-container">
 
             <h2>Мои объявления</h2>
-	        <?php Pjax::begin( [ 'id' => 'container_advert' ] ); ?>
+	        <?php Pjax::begin([ 'id' => 'container_advert' ]); ?>
 	        <?php if (count($list_adverts) > 0) {  ?>
 			<?php
-			foreach ( $list_adverts as $key => $val ) {
-				isset( $val['media'][0]['value'] ) ? $main_img = $val['media'][0]['value'] : $main_img = '';
-				isset( $val['cur_symbol'] ) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-				isset( $val['price'] ) ? $price = $val['price'] : $price = '';
-				isset( $val['title'] ) ? $title = $val['title'] : $title = '';
-				isset( $val['category']['name_category'] ) ? $name_category = $val['category']['name_category'] : $name_category = '';
-				isset( $val['category']['name_sub_category'] ) ? $name_sub_category = $val['category']['name_sub_category'] : $name_sub_category = '';
-				isset( $val['date_create'] ) ? $date_create = $val['date_create'] : $date_create = '';
-				isset( $val['count_views'] ) ? $count_views = $val['count_views'] : $count_views = '';
-				isset( $val['count_views_phone'] ) ? $count_views_phone = $val['count_views_phone'] : $count_views_phone = '';
-				isset( $val['count_add_favorites'] ) ? $count_add_favorites = $val['count_add_favorites'] : $count_add_favorites = '';
-				isset( $val['meta_title'] ) ? $meta_title = $val['meta_title'] : $meta_title = '';
-				isset( $val['id_ads'] ) ? $id_ads = $val['id_ads'] : $id_ads = '';
-				(isset( $val['user'] ) && isset( $val['user']["id_user"] )) ? $id_user = $val['user']["id_user"] : $id_user = '';
+			foreach($list_adverts as $key => $val) {
+				isset($val['media'][0]['value']) ? $main_img = $val['media'][0]['value'] : $main_img = '';
+				isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
+				isset($val['price']) ? $price = $val['price'] : $price = '';
+				isset($val['title']) ? $title = $val['title'] : $title = '';
+				isset($val['category']['name_category']) ? $name_category = $val['category']['name_category'] : $name_category = '';
+				isset($val['category']['name_sub_category']) ? $name_sub_category = $val['category']['name_sub_category'] : $name_sub_category = '';
+				isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
+				isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
+				isset($val['count_views_phone']) ? $count_views_phone = $val['count_views_phone'] : $count_views_phone = '';
+				isset($val['count_add_favorites']) ? $count_add_favorites = $val['count_add_favorites'] : $count_add_favorites = '';
+				isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
+				isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
+				(isset($val['user']) && isset($val['user']["user_id"])) ? $id_user = $val['user']["user_id"] : $id_user = '';
 
-				if ( $meta_title != "" ) {
+				if($meta_title != "") {
 					?>
                     <div class="my-a-item" id="ad-item<?= $key ?>">
 	                    <?php
@@ -54,7 +54,9 @@ use yii\widgets\Breadcrumbs;
                                 <!-- item-info -->
                                 <div class="item-info ">
                                     <div class="a-info">
-                                        <h3 class="item-price"><?php echo $price . " " . $symbol_currency; ?></h3>
+                                        <h3 class="item-price"><?php
+                                            app\models\Utility::setPrice($val);
+                                        ?></h3>
                                         <h4 class="item-title"><a href="/advert/<?php echo $id_ads . "-" . $meta_title ?>"><?php echo $title ?></a></h4>
                                         <div class="item-cat">
                                             <span><a href="#"><?php echo $name_category ?></a></span> /
@@ -110,7 +112,7 @@ use yii\widgets\Breadcrumbs;
 
 				<?php } ?>
 			<?php } ?>
-			<?php if ( $count_page > 1 ) { ?>
+			<?php if($count_page > 1) { ?>
                 <div class="pagination-box">
                     <ul class="pagination">
                         <li class="disabled">
@@ -120,8 +122,8 @@ use yii\widgets\Breadcrumbs;
                         </li>
 						<?php
 						$str = '';
-						for ( $i = 1; $i <= $count_page; $i ++ ) {
-							if ( $i == ( $active_page + 1 ) ) {
+						for($i = 1; $i <= $count_page; $i ++) {
+							if($i ==($active_page + 1)) {
 								$str .= '<li class="active"><span>' . $i . '</span></li>';
 							} else {
 								$str .= '<li><a href="javascript:gotoPage(' . $i . ');">' . $i . '</a></li>';
@@ -236,7 +238,6 @@ use yii\widgets\Breadcrumbs;
         form_data.append('token', $("#token_user").val());
         form_data.append('id_ads', id);
 
-
         $.ajax({
             type: "POST",
             url: '/liftup-advert',
@@ -250,7 +251,6 @@ use yii\widgets\Breadcrumbs;
                 if (data != undefined && data.result != undefined) {
                     if (data.result == true) {
                         Notification.showSuccess("Объявлению был выставлен признак поднятия вверх");
-                        $.pjax.reload({container: '#container_profile'});
                         //location.reload();
                     } else {
                         if (data.data != undefined && data.data != "") {

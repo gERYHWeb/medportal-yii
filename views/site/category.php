@@ -14,11 +14,11 @@ $list_vip = $this->params["vip_adverts"];
             <ol class="breadcrumb">
                 <?php
                 $str = '';
-                foreach ( $this->params["BreadCrumbs"] as $key => $val ) {
-                    if ( $key == end( $this->params["BreadCrumbs"] ) ) {
+                foreach($this->params["BreadCrumbs"] as $key => $val) {
+                    if($key == end($this->params["BreadCrumbs"])) {
                         $str .= "<li class='active'>" . $val["label"] . "</li>";
                     } else {
-                        if ( isset( $val["notlink"] ) && $val["notlink"] == true ) {
+                        if(isset($val["notlink"]) && $val["notlink"] == true) {
                             $str .= "<li>" . $val["label"] . "</li>";
                         } else {
                             $str .= "<li><a href='" . $val["url"] . "'>" . $val["label"] . "</a></li>";
@@ -29,36 +29,36 @@ $list_vip = $this->params["vip_adverts"];
                 ?>
             </ol>
 
-			<?php if ( count( $list_vip ) > 0 ) { ?>
+			<?php if(count($list_vip) > 0) { ?>
                 <div class="title-page">
                     <h1 class="text">Vip объявления</h1>
                 </div>
                 <div class="section-vip">
                     <div class="vip-box vip-box-1">
 						<?php
-						foreach ( $list_vip as $key => $val ) {
+						foreach($list_vip as $key => $val) {
 							$main_img = "";
-							foreach ( $val["media"] as $item_media ) {
-								if ( isset( $item_media['type_media'] ) && $item_media['type_media'] == "main_image" ) {
+							foreach($val["media"] as $item_media) {
+								if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
 									$main_img = $item_media['value'];
 								}
 							}
-							isset( $val['meta_title'] ) ? $meta_title = $val['meta_title'] : $meta_title = '';
-							isset( $val['cur_symbol'] ) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-							isset( $val['price'] ) ? $price = $val['price'] : $price = '';
-							isset( $val['title'] ) ? $title = $val['title'] : $title = '';
-							isset( $val['name_category'] ) ? $name_category = $val['name_category'] : $name_category = '';
-							isset( $val['date_create'] ) ? $date_create = $val['date_create'] : $date_create = '';
-							isset( $val['count_views'] ) ? $count_views = $val['count_views'] : $count_views = '';
-							isset( $val['id_ads'] ) ? $id_ads = $val['id_ads'] : $id_ads = '';
-							( isset( $val['user'] ) && isset( $val['user']["id_user"] ) ) ? $id_user = $val['user']["id_user"] : $id_user = '';
+							isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
+							isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
+							isset($val['price']) ? $price = $val['price'] : $price = '';
+							isset($val['title']) ? $title = $val['title'] : $title = '';
+							isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
+							isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
+							isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
+							isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
+							(isset($val['user']) && isset($val['user']["user_id"])) ? $id_user = $val['user']["user_id"] : $id_user = '';
 							?>
 
-							<?php if ( $meta_title != "" && $id_ads != "" ) { ?>
+							<?php if($meta_title != "" && $id_ads != "") { ?>
 
 								<?php
 								$url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
-								if ( ! @fopen( $url_image, "r" ) || $main_img == "" ) {
+								if(! @fopen($url_image, "r") || $main_img == "") {
 									$url_image = "/img/default.jpg";
 								}
                                 $url_advert = '/advert/' . $id_ads . "-" . $meta_title;
@@ -87,13 +87,13 @@ $list_vip = $this->params["vip_adverts"];
             </div>
 
 			<?php
-			if ( count( $list_adverts ) > 0 ) { ?>
+			if(count($list_adverts) > 0) { ?>
 
 
                 <div class="row sidebar-content">
                     <aside class="sidebar" id="sidebar">
                         <form action="/search" method="get" class="widget shop-categories" id="shop-categories">
-							<?php if ( isset( $id_category["category"] ) && isset( $id_category["category2"] ) ) {
+							<?php if(isset($id_category["category"]) && isset($id_category["category2"])) {
 								echo '<input type="hidden" value="' . $id_category["category"] . '" name="category">';
 								echo '<input type="hidden" value="' . $id_category["category2"] . '" name="category2">';
 							} else {
@@ -157,36 +157,36 @@ $list_vip = $this->params["vip_adverts"];
 
                     <div class="content ">
 
-						<?php Pjax::begin( [ 'id' => 'container_advert' ] ); ?>
+						<?php Pjax::begin([ 'id' => 'container_advert' ]); ?>
                         <div class="a-container row">
 							<?php
-							foreach ( $list_adverts as $key => $val ) {
+							foreach($list_adverts as $key => $val) {
 								$main_img = "";
-								foreach ( $val["media"] as $item_media ) {
-									if ( isset( $item_media['type_media'] ) && $item_media['type_media'] == "main_image" ) {
+								foreach($val["media"] as $item_media) {
+									if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
 										$main_img = $item_media['value'];
 									}
 								}
-								isset( $val['meta_title'] ) ? $meta_title = $val['meta_title'] : $meta_title = '';
-								isset( $val['cur_symbol'] ) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-								isset( $val['price'] ) ? $price = $val['price'] : $price = '';
-								isset( $val['title'] ) ? $title = $val['title'] : $title = '';
-								isset( $val['name_category'] ) ? $name_category = $val['name_category'] : $name_category = '';
-								isset( $val['date_create'] ) ? $date_create = $val['date_create'] : $date_create = '';
-								isset( $val['count_views'] ) ? $count_views = $val['count_views'] : $count_views = '';
-								isset( $val['id_ads'] ) ? $id_ads = $val['id_ads'] : $id_ads = '';
-								( isset( $val['user'] ) && isset( $val['user']["id_user"] ) ) ? $id_user = $val['user']["id_user"] : $id_user = '';
-								if ( $id_ads != "" ) {
+								isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
+								isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
+								isset($val['price']) ? $price = $val['price'] : $price = '';
+								isset($val['title']) ? $title = $val['title'] : $title = '';
+								isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
+								isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
+								isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
+								isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
+								(isset($val['user']) && isset($val['user']["user_id"])) ? $id_user = $val['user']["user_id"] : $id_user = '';
+								if($id_ads != "") {
                                     $url_advert = '/advert/' . $id_ads . "-" . $meta_title;
 									?>
-									<?php if ( $meta_title != "" ) { ?>
+									<?php if($meta_title != "") { ?>
                                         <div class="col-6 col-md-6 col-lg-4 col-xl-3 a-item">
                                             <a href="<?php echo $url_advert; ?>" class="product-item">
                                                 <div class="image-box">
 													<?php
 													$url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
 
-													if ( ! @fopen( $url_image, "r" ) || $main_img == "" ) {
+													if(! @fopen($url_image, "r") || $main_img == "") {
 														$url_image = "/img/default.jpg";
 													}
 													?>
@@ -207,7 +207,7 @@ $list_vip = $this->params["vip_adverts"];
 							?>
                         </div>
 
-						<?php if ( $count_page > 1 ) { ?>
+						<?php if($count_page > 1) { ?>
                             <div class="pagination-box">
                                 <ul class="pagination">
                                     <li class="disabled">
@@ -218,8 +218,8 @@ $list_vip = $this->params["vip_adverts"];
                                     </li>
 									<?php
 									$str = '';
-									for ( $i = 1; $i <= $count_page; $i ++ ) {
-										if ( $i == ( $active_page + 1 ) ) {
+									for($i = 1; $i <= $count_page; $i ++) {
+										if($i ==($active_page + 1)) {
 											$str .= '<li class="active"><span>' . $i . '</span></li>';
 										} else {
 											$str .= '<li><a href="javascript:gotoPage(' . $i . ');">' . $i . '</a></li>';

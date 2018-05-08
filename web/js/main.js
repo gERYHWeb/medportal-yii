@@ -127,7 +127,7 @@ function event_button() {
     });
 
     $(".btn-message").on("click",function () {
-        toUser = $(this).attr("id_user");
+        toUser = $(this).attr("user_id");
         if (toUser == undefined || toUser == "") {
             Notification.showError("Ошибка конфигурации. Данное объявление не пренадлежит не одному пользователя.", "Ошибка");
         } else {
@@ -252,8 +252,8 @@ var Core = function () {
             }]
         });
         $('.vip-box').slick({
-            autoplay: false,
-            autoplaySpeed: 5000,
+            autoplay: true,
+            autoplaySpeed: 2000,
             slidesToShow: 5,
             slidesToScroll: 1,
             arrows: true,
@@ -347,28 +347,32 @@ var Core = function () {
     }
 
     var initProductGalery = function () {
-        $('.sliderGalleryThumb-big').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            fade: true,
-            infinite: false,
-            asNavFor: '.sliderGalleryThumb-thumbs'
-        });
-        $('.sliderGalleryThumb-thumbs').slick({
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            asNavFor: '.sliderGalleryThumb-big',
-            dots: false,
-            centerMode: false,
+        if($('.sliderGalleryThumb-big')[0]) {
+            $('.sliderGalleryThumb-big').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: true,
+                infinite: false,
+                asNavFor: '.sliderGalleryThumb-thumbs'
+            });
+        }
+        if($('.sliderGalleryThumb-thumbs')[0]) {
+            $('.sliderGalleryThumb-thumbs').slick({
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                asNavFor: '.sliderGalleryThumb-big',
+                dots: false,
+                centerMode: false,
 
-            arrows: false,
-            /*    infinite: true,
+                arrows: false,
+                /*    infinite: true,
                  centerMode: true,*/
-            focusOnSelect: true,
-            infinite: false,
+                focusOnSelect: true,
+                infinite: false,
 
-        });
+            });
+        }
     }
 
     var scrollToHref = function () {
@@ -426,7 +430,7 @@ var Core = function () {
             $(this).parent().addClass('active');
             $(this).parent().siblings().removeClass('active');
             var target = $(this).attr('href');
-            $('.form-auth-reg .tab-content > div').not(target).hide();
+            $('.tab-content > *').not(target).hide();
             $(target).fadeIn(600);
         });
     }
@@ -912,11 +916,20 @@ var ViewMessageFromData = function ($this, data) {
             var msg = data.msg;
 
             if (typeof msg === "object") {
-                msg = msg.success;
+                msg = msg.text;
+                var timeout = ("timeout" in data.msg) ? data.msg.timeout : 2000;
                 if ("img" in data.msg) {
                     if ($($this.data('imgsef'))[0])
                         $($this.data('imgsef')).attr('src', data.msg.img);
                     else location.reload();
+                }else if("redirect" in data.msg){
+                    setTimeout(function(){
+                        location = data.msg.redirect;
+                    }, timeout);
+                }else if("reload" in data.msg){
+                    setTimeout(function(){
+                        location.reload();
+                    }, timeout);
                 }
             }
             // $hdMsg.headerMessage({
@@ -924,6 +937,7 @@ var ViewMessageFromData = function ($this, data) {
             //     type: "success",
             //     formMsg: true
             // }).viewMessage();
+            // console.log(msg);
             Notification.showSuccess(config.getMsg(msg));
         } else {
             return data;

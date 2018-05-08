@@ -16,28 +16,28 @@ use yii\widgets\Breadcrumbs;
         <div class="my-favourite-container">
             <h2>Избранное</h2>
 
-			<?php Pjax::begin( [ 'id' => 'container_advert' ] ); ?>
+			<?php Pjax::begin([ 'id' => 'container_advert' ]); ?>
             <div class="row">
 				<?php
                 if (count($list_adverts) > 0) {
-	                foreach ( $list_adverts as $key => $val ) {
-		                isset( $val['media'][0]['value'] ) ? $main_img = $val['media'][0]['value'] : $main_img = '';
-		                isset( $val['cur_symbol'] ) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-		                isset( $val['price'] ) ? $price = $val['price'] : $price = '';
-		                isset( $val['title'] ) ? $title = $val['title'] : $title = '';
-		                isset( $val['name_category'] ) ? $name_category = $val['name_category'] : $name_category = '';
-		                isset( $val['name_sub_category'] ) ? $name_sub_category = $val['name_sub_category'] : $name_sub_category = '';
-		                isset( $val['date_create'] ) ? $date_create = $val['date_create'] : $date_create = '';
-		                isset( $val['count_views'] ) ? $count_views = $val['count_views'] : $count_views = '';
-		                isset( $val['count_views_phone'] ) ? $count_views_phone = $val['count_views_phone'] : $count_views_phone = '';
-		                isset( $val['count_add_favorites'] ) ? $count_add_favorites = $val['count_add_favorites'] : $count_add_favorites = '';
-		                isset( $val['meta_title'] ) ? $meta_title = $val['meta_title'] : $meta_title = '';
-		                isset( $val['id_ads'] ) ? $id_ads = $val['id_ads'] : $id_ads = '';
-		                ( isset( $val['user'] ) && isset( $val['user']["id_user"] ) ) ? $id_user = $val['user']["id_user"] : $id_user = '';
+	                foreach($list_adverts as $key => $val) {
+		                isset($val['media'][0]['value']) ? $main_img = $val['media'][0]['value'] : $main_img = '';
+		                isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
+		                isset($val['price']) ? $price = $val['price'] : $price = '';
+		                isset($val['title']) ? $title = $val['title'] : $title = '';
+		                isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
+		                isset($val['name_sub_category']) ? $name_sub_category = $val['name_sub_category'] : $name_sub_category = '';
+		                isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
+		                isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
+		                isset($val['count_views_phone']) ? $count_views_phone = $val['count_views_phone'] : $count_views_phone = '';
+		                isset($val['count_add_favorites']) ? $count_add_favorites = $val['count_add_favorites'] : $count_add_favorites = '';
+		                isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
+		                isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
+		               (isset($val['user']) && isset($val['user']["user_id"])) ? $id_user = $val['user']["user_id"] : $id_user = '';
 
-		                if ( $meta_title != "" ) {
+		                if($meta_title != "") {
                             $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
-                            if ( ! @fopen( $url_image, "r" ) || $main_img == "" ) {
+                            if(! @fopen($url_image, "r") || $main_img == "") {
                                 $url_image = "/img/default.jpg";
                             }
                             $url_advert = '/advert/' . $id_ads . "-" . $meta_title;
@@ -69,7 +69,9 @@ use yii\widgets\Breadcrumbs;
                                             </a>
                                         </div>
                                         <div class="price"
-                                             id="currency<?php echo $key ?>"><?php echo $symbol_currency . $price ?></div>
+                                             id="currency<?php echo $key ?>"><?php
+                                            app\models\Utility::setPrice($val);
+                                        ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +84,7 @@ use yii\widgets\Breadcrumbs;
                 }
 				echo '</div>';
 				?>
-				<?php if ( $count_page > 1 ) { ?>
+				<?php if($count_page > 1) { ?>
                     <div class="pagination-box">
                         <ul class="pagination">
                             <li class="disabled">
@@ -92,8 +94,8 @@ use yii\widgets\Breadcrumbs;
                             </li>
 							<?php
 							$str = '';
-							for ( $i = 1; $i <= $count_page; $i ++ ) {
-								if ( $i == ( $active_page + 1 ) ) {
+							for($i = 1; $i <= $count_page; $i ++) {
+								if($i ==($active_page + 1)) {
 									$str .= '<li class="active"><span>' . $i . '</span></li>';
 								} else {
 									$str .= '<li><a href="javascript:gotoPage(' . $i . ');">' . $i . '</a></li>';

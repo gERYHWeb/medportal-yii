@@ -6,21 +6,21 @@ use yii\captcha\Captcha;
 
 use app\models\Constant;
 
-$title_advert      = '';
+$title_advert = '';
 $phone_user_advert = '';
 $email_user_advert = '';
-$description       = "";
+$description = "";
 
-if ( isset( $model["title"] ) ) {
+if(isset($model["title"])) {
 	$title_advert = $model["title"];
 }
-if ( isset( $profile_user["email"] ) ) {
+if(isset($profile_user["email"])) {
 	$email_user_advert = $profile_user["email"];
 }
-if ( isset( $model["phone"] ) ) {
+if(isset($model["phone"])) {
 	$phone_user_advert = $model["phone"];
 }
-if ( isset( $model["description"] ) ) {
+if(isset($model["description"])) {
 	$description = str_replace("<br>","\n",$model["description"]);
 }
 $affiliation = "";
@@ -28,8 +28,8 @@ if(isset($model['city'])) {
     $affiliation = $model['city'] . ((isset($model['affiliation'])) ? " (" . $model['affiliation'] . ")" : "");
 }
 
-isset( $val['is_private'] ) ? $is_private = $val['is_private'] : $is_private = 1;
-$isNew = ( isset( $type ) && $type === "new" );
+isset($val['is_private']) ? $is_private = $val['is_private'] : $is_private = 1;
+$isNew =(isset($type) && $type === "new");
 ?>
 
 <pre>
@@ -46,8 +46,8 @@ $isNew = ( isset( $type ) && $type === "new" );
             <ol class="breadcrumb">
                 <?php
                 $str = '';
-                foreach ( $this->params["BreadCrumbs"] as $key => $val ) {
-                    if ( $key == end( $this->params["BreadCrumbs"] ) ) {
+                foreach($this->params["BreadCrumbs"] as $key => $val) {
+                    if($key == end($this->params["BreadCrumbs"])) {
                         $str .= "<li class='active'>".$val["label"]."</li>";
                     } else {
                         if (isset($val["notlink"]) && $val["notlink"] == true) {
@@ -64,7 +64,7 @@ $isNew = ( isset( $type ) && $type === "new" );
 
             <div class="title-page">
                 <h1 class="text text-center"><?php
-					if ( $isNew ) {
+					if($isNew) {
 						echo "Подать объявление";
 					} else {
 						echo "Редактировать объявление";
@@ -95,10 +95,10 @@ $isNew = ( isset( $type ) && $type === "new" );
                         <ul class="tab-group">
                             <?php
                             $str_select = "";
-//                            if ( isset( $type ) && $type === "new" ) {
+//                            if(isset($type ) && $type === "new" ) {
 //                                $str_select = "<option value='0'>-----</option>";
 //                            } else {
-//                                if ( isset( $model["category"] ) && isset( $model["category"]["name_sub_category"] ) && $model["category"]["name_sub_category"] != "" ) {
+//                                if(isset($model["category"] ) && isset($model["category"]["name_sub_category"] ) && $model["category"]["name_sub_category"] != "" ) {
 //                                    $str_select = "<option value='" . $model["category"]["id_sub_category"] . "'>".$model["category"]["name_sub_category"]."</option>";
 //                                    $str_select = "<a href=\"#\"  data-value=\"$model[category][name_sub_category]\" class=\"has-sub\">$model[category][name_sub_category]</a>";
 //                                } else {
@@ -113,13 +113,13 @@ $isNew = ( isset( $type ) && $type === "new" );
                                 if(!isset($val["child"])) {
                                     $str_select .= 'data-value="' . $val["value"] . '" data-id="' . $val["id_category"] . '"';
                                 }
-                                if ( isset( $model["id_category"] ) && $val["id_category"] == $model["id_category"] ) {
+                                if(isset($model["id_category"]) && $val["id_category"] == $model["id_category"]) {
                                     $str_select .= ' class="active valid-category" ';
                                 }else if(isset($val["child"])){
                                     $str_select .= ' class="has-sub" ';
                                 }
                                 $str_select .= ">";
-                                if ( isset( $val["value"] ) && $val["value"] != "" ) {
+                                if(isset($val["value"]) && $val["value"] != "") {
                                     $str_select .= $val["value"];
                                 } else {
                                     $str_select .= $default_lang . "_" . $val["sys_name"];
@@ -136,7 +136,7 @@ $isNew = ( isset( $type ) && $type === "new" );
                                 $str_select .= "</li>";
                             }
 
-                            foreach ( $list_category as $val ) {
+                            foreach($list_category as $val) {
                                 preCategory($val ,$str_select);
                             }
                             echo $str_select;
@@ -172,8 +172,12 @@ $isNew = ( isset( $type ) && $type === "new" );
                 <div class="col-6 form-group form-group-select ">
                     <label>Состояние:</label>
                     <select class="select select100" form="FormPostNewItem" name="state">
-                        <option value="old" selected="">Б/У</option>
-                        <option value="new">Новое</option>
+                        <option <?php
+                            echo ($model['state'] == "new") ? 'selected=""' : "";
+                        ?> value="new">Новое</option>
+                        <option value="old" <?php
+                        echo ($model['state'] == "old") ? 'selected=""' : "";
+                        ?>>Б/У</option>
                     </select>
                 </div>
 
@@ -193,22 +197,22 @@ $isNew = ( isset( $type ) && $type === "new" );
                 </div>
 
                 <?php
-                if ( $isNew ) {
+                if($isNew) {
                     $disabled = '';
-                    $btn_txt  = 'Опубликовать';
+                    $btn_txt = 'Опубликовать';
                 } else {
                     $disabled = 'disabled'; //'disabled';
-                    $btn_txt  = 'Сохранить изменения';
+                    $btn_txt = 'Сохранить изменения';
                 }
                 ?>
 
                 <div class="col-6 form-group form-group-select ">
                     <label>Цена:</label>
                     <div class="price-box">
-                        <input type="number" name="price" class="price-input js-vn" data-type="price" form="FormPostNewItem" value="<?php echo isset( $model["price"] ) ? $model["price"] : "0" ?>">
+                        <input type="number" name="price" class="price-input js-vn" data-type="price" form="FormPostNewItem" value="<?php echo isset($model["price"]) ? $model["price"] : "0" ?>">
                         <?php
-                        foreach ( $list_currency as $val ) {
-                            if ( $val["id_currency"] == $_SESSION["id_currency"] ) {
+                        foreach($list_currency as $val) {
+                            if($val["id_currency"] == $_SESSION["id_currency"]) {
                                 echo "<span class=\"title-currency\">" . $val["symbol"] . " (" . $val["code"] . ")</span>";
                             }
                         }
@@ -226,39 +230,36 @@ $isNew = ( isset( $type ) && $type === "new" );
                     <label>Вид объявления:</label>
                     <select class="select select100" name="view" form="FormPostNewItem">
                         <option value="1" <?php
-                        if ( $is_private == 1 ) {
-                            echo "selected";
-                        }
+                            echo($is_private == 1) ? 'selected=""' : "";
                         ?>>Частное
                         </option>
                         <option value="2" <?php
-                        if ( $is_private != 1 ) {
-                            echo "selected";
-                        }
+                            echo($is_private == 2) ? 'selected=""' : "";
                         ?>>От компании
                         </option>
                     </select>
                 </div>
 
+                <?php if(false){ ?>
                 <!--<div class="col-12 form-group form-group-select ">
                     <label>Цена:</label>
                     <div class="row">
                         <div class="col-6">
                             <input type="number" name="price" class="price-input"
-                                   value="<?php echo isset( $model["price"] ) ? $model["price"] : "" ?>">
+                                   value="<?php echo isset($model["price"]) ? $model["price"] : "" ?>">
                         </div>
                         <div class="col-6">
                             <select class="select " name="currency" class="select-curr"
                                     form="FormPostNewItem">
 								<?php
 								$str_select = "";
-								foreach ( $list_currency as $val ) {
+								foreach($list_currency as $val) {
 									$str_select .= "<option value='" . $val["id_currency"] . "'";
-									if ( isset( $model["id_currency"] ) && $val["id_currency"] == $model["id_currency"] ) {
+									if(isset($model["id_currency"]) && $val["id_currency"] == $model["id_currency"]) {
 										$str_select .= " selected  ";
 									}
 									$str_select .= ">";
-									if ( isset( $val["symbol"] ) && $val["symbol"] != "" && isset( $val["code"] ) && $val["code"] != "" ) {
+									if(isset($val["symbol"]) && $val["symbol"] != "" && isset($val["code"]) && $val["code"] != "") {
 										$str_select .= $val["symbol"] . " (" . $val["code"] . ")";
 									}
 
@@ -270,6 +271,7 @@ $isNew = ( isset( $type ) && $type === "new" );
                         </div>
                     </div>
                 </div>-->
+                <?php } ?>
 
                 <div class="col-12 form-group form-group-textarea clearfix">
                     <label for="">Описание:</label>
@@ -282,12 +284,12 @@ $isNew = ( isset( $type ) && $type === "new" );
                     </small>
                 </div>
 
-				<?php if ( 1 != 1 ) { ?>
+				<?php if(1 != 1) { ?>
                     <div class="col-12 form-group form-group-textarea clearfix">
                         <fieldset class="form-group row">
                             <!-- <div class="sliderGalleryThumb-thumbs product-gallery-thumbnails ">-->
                             <!--<div class="thumb">-->
-							<?php foreach ( $model['media'] as $val ) { ?>
+							<?php foreach($model['media'] as $val) { ?>
                                 <div style="display: inline-block">
                                     <img src="/images/<?php echo $val['value']; ?>" width="103" height="100" hspace="5"
                                          vspace="7" alt="" align="left">
@@ -374,9 +376,9 @@ $isNew = ( isset( $type ) && $type === "new" );
                                         result = false;
                                         $('html, body').animate({scrollTop: $("#list_currency").offset().top - 50}, 800);
                                     } else {
-                                        if ($("#title_advert").val().length > 200 ) {
+                                        if ($("#title_advert").val().length > 200) {
                                             result = false;
-                                            Notification.showWarning( "Заголовок не должен быть длинее 200 символов");
+                                            Notification.showWarning("Заголовок не должен быть длинее 200 символов");
                                         }
                                     }
                                 }
@@ -404,7 +406,6 @@ $isNew = ( isset( $type ) && $type === "new" );
                         if (this != undefined && this.upload != undefined && this.upload.filename != undefined) {
                             arr_files.push(this.upload.filename);
                         }
-
                     });
                     form_data.append("images", arr_files);
                 }
@@ -434,12 +435,12 @@ $isNew = ( isset( $type ) && $type === "new" );
                     success: function (data, textStatus) {
                         if (data != undefined && data.result != undefined) {
                             if (data.result == true) {
-						        <?php if ( $advert_id != "new" ) { ?>
-                                Notification.showSuccess("Объявление было сохраненно.");
+						        <?php if($advert_id != "new") { ?>
+                                Notification.showSuccess("Объявление было сохранено.");
 						        <?php } else { ?>
-                                Notification.showSuccess("Объявление было добавленно.");
+                                Notification.showSuccess("Объявление было добавлено.");
 						        <?php } ?>
-                                $(location).attr('href', '/profile-my-ads')
+                                location = '/profile-my-ads';
                             } else {
                                 if (data.data != undefined) {
                                     Notification.showWarning(data.data);
@@ -459,23 +460,20 @@ $isNew = ( isset( $type ) && $type === "new" );
 
     function load_file_to_dropzone() {
         var existingFiles = [];
-
-		<?php if ( isset( $model['media'] ) ) {
-		foreach ( $model['media'] as $val ) {
-		$path_info = pathinfo( $val['value'] );
-		if ( isset( $path_info['extension'] ) ) {
+		<?php if(isset($model['media'])) {
+		foreach($model['media'] as $val) {
+		$path_info = pathinfo($val['value']);
+		if(isset($path_info['extension'])) {
 			$name_file = $path_info['filename'] . "_media." . $path_info['extension'];
 		} else {
 			$name_file = "";
 		}
-		?>
-        existingFiles.push(
-            {
-                url: "<?php echo Constant::$url_client_site?>/images/<?php echo $name_file; ?>",
-                name: "<?php echo $val['value']; ?>",
-                size: 12345678
-            });
-		<?php } } ?>
+		?>existingFiles.push({
+            url: "<?php echo Yii::$app->params['url_client_site']; ?>/images/<?php echo $name_file; ?>",
+            name: "<?php echo $val['value']; ?>",
+            size: 12345678
+        });<?php } } ?>
+
 
         for (var i in existingFiles) {
             if (i != undefined && existingFiles[i] && existingFiles[i].name != "") {
@@ -488,11 +486,11 @@ $isNew = ( isset( $type ) && $type === "new" );
                 };
 
                 myDropzone.emit("addedfile", mockFile);
-                //myDropzone.createThumbnailFromUrl(mockFile, "<?php echo Constant::$url_client_site?>/images/");
+                //myDropzone.createThumbnailFromUrl(mockFile, "<?php echo Yii::$app->params['url_client_site']?>/images/");
                 myDropzone.emit("thumbnail", mockFile, existingFiles[i].url);
                 //myDropzone.emit("success", mockFile);
                 myDropzone.emit("complete", mockFile);
-                //myDropzone.files.push(mockFile);
+                myDropzone.files.push(mockFile);
             }
         }
     }
@@ -505,7 +503,7 @@ $isNew = ( isset( $type ) && $type === "new" );
 //            btn_save();
 //        });
 
-		<?php if ( $advert_id != "new" ) { ?>
+		<?php if($advert_id != "new") { ?>
         setTimeout(load_file_to_dropzone, 500);
 		<?php }?>
 

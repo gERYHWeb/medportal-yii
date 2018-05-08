@@ -8,16 +8,16 @@ use yii\captcha\Captcha;
 ?>
 <div class="row">
     <div class="col-lg-9">
-        <div class="delete-acc-container">
-            <h2>Удалить аккаунт</h2>
+        <section class="delete-acc-container">
             <div class="content-delete text-center">
-                <h4 class="title"> Вы действительно хотите навсегда удалить Ваш аккаунт? </h4>
+                <h2 class="title"> Вы действительно хотите удалить Ваш аккаунт? </h2>
                 <div class="btns">
                     <a href="/profile" class="btn btn-inverse btn-cancel">Отмена</a>
                     <button class="btn btn-ok">Удалить аккаунт</button>
                 </div>
+                <p>* Вы сможете позже восстановить аккаунт, но тогда нужно будет обращаться в службу поддержки.</p>
             </div>
-        </div>
+        </section>
     </div>
 
     <div class="col-lg-3 text-center">

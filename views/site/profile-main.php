@@ -12,9 +12,9 @@ use yii\widgets\Breadcrumbs;
 
 <div class="row">
     <div class=" col-lg-9">
-        <div class="form user-pro-section">
+        <form action="/save-profile" method="post" class="form user-pro-section" id="formProfile">
             <!-- profile-details -->
-            <form action="/save-profile" method="post" class=" profile-details user-info-section" id="formProfile">
+            <div class=" profile-details user-info-section">
                 <h2>Профайл</h2>
                 <input type="hidden" name="token" value="<?php echo $this->params["token"]; ?>">
                 <div class="row row-12-5">
@@ -42,11 +42,11 @@ use yii\widgets\Breadcrumbs;
                     <div class="item col-md-12 form-group form-group-select">
                         <label>Кто Вы</label>
                         <select name="is_private" class="form-control js-is_private select select100">
-                            <option value="0" <?php if ( $is_private !== 1 ) {
+                            <option value="0" <?php if($is_private !== 1) {
 								echo "selected";
 							} ?> >Компания
                             </option>
-                            <option value="1" <?php if ( $is_private == 1 ) {
+                            <option value="1" <?php if($is_private == 1) {
 								echo "selected";
 							} ?> >Частное лицо
                             </option>
@@ -54,7 +54,7 @@ use yii\widgets\Breadcrumbs;
                     </div>
 
                 </div>
-            </form>
+            </div>
             <!-- profile-details -->
 
             <!-- change-password -->
@@ -64,17 +64,17 @@ use yii\widgets\Breadcrumbs;
                     <!-- form -->
                     <div class="col-md-4 form-group">
                         <label>Старый пароль</label>
-                        <input type="password" id="old_password" class="input">
+                        <input type="password" name="old_password" class="input">
                     </div>
 
                     <div class="col-md-4 form-group">
                         <label>Новый пароль</label>
-                        <input type="password" id="new_password" class="input">
+                        <input type="password" name="new_password" class="input">
                     </div>
 
                     <div class="col-md-4 form-group">
                         <label>Потверждение пароля</label>
-                        <input type="password" id="repeat_password" class="input">
+                        <input type="password" name="repeat_password" class="input">
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@ use yii\widgets\Breadcrumbs;
                 <button id="btn_cancel" class="btn btn-inverse cancel mr-2">Отмена</button>
                 <button form="formProfile" id="btn_save" class="btn update">Сохранить</button>
             </div>
-        </div>
+        </form>
         <!-- user-pro-edit -->
     </div>
     <!-- profile -->
@@ -178,6 +178,7 @@ use yii\widgets\Breadcrumbs;
 
     function validation_form() {
         var result = true;
+        var $form = $formProfile;
         $form.find(".js-first_name").removeClass("error");
         if ($.trim($form.find(".js-first_name").val()) == "") {
             $form.find(".js-first_name").addClass("error");
@@ -218,52 +219,18 @@ use yii\widgets\Breadcrumbs;
         return result;
     }
 
-    function btn_save() {
+    function btn_save(e) {
+        var $this = $(this);
+        e.preventDefault();
         if (validation_form()) {
-            var form_data = new FormData();
-
-            form_data.append('token', $("#token_user").val());
-            form_data.append('last_name', $("#last_name").val());
-            form_data.append('first_name', $("#first_name").val());
-            form_data.append('email', $("#email").val());
-            form_data.append('phone', $("#phone").val());
-            if($("#city").val()) {
-                form_data.append('city', $("#city").val());
-            }
-//            form_data.append('is_private', $("#is_private").val());
-
-            if ($.trim($("#old_password").val()) != "") {
-                form_data.append('old_password', $("#old_password").val());
-            }
-
-            if ($.trim($("#new_password").val()) != "") {
-                form_data.append('new_password', $("#new_password").val());
-            }
-
-            if ($.trim($("#repeat_password").val()) != "") {
-                form_data.append('repeat_password', $("#repeat_password").val());
-            }
-
             $.ajax({
                 type: "POST",
                 url: '/save-profile',
                 dataType: "json",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
+                data: $formProfile.serialize(),
                 success: function (data, textStatus) {
-                    if (data != undefined && data.result != undefined) {
-                        if (data.result == true) {
-                            Notification.showSuccess("Сохранено.");
-                            //location.reload();
-                        } else {
-                            if(data.data) {
-                                Notification.showWarning(data.data);
-                            }else{
-                                Notification.showWarning("Произошла ошибка на сервере.");
-                            }
-                        }
+                    if (data != undefined) {
+                        return ViewMessageFromData($this, data);
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -274,7 +241,7 @@ use yii\widgets\Breadcrumbs;
     }
 
     $(document).ready(function () {
-        window.$form = $('#formProfile');
-        $form.on("submit", btn_save);
+        window.$formProfile = $('#formProfile');
+        $formProfile.on("submit", btn_save);
     });
 </script>

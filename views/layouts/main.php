@@ -7,9 +7,9 @@ use yii\widgets\Pjax;
 use yii\bootstrap\Html;
 use app\assets\AppAsset;
 
-AppAsset::register( $this );
+AppAsset::register($this);
 $session = Yii::$app->session;
-if ( ! $session->isActive ) {
+if(! $session->isActive) {
 	$session->open();
 }
 ?>
@@ -60,6 +60,17 @@ if ( ! $session->isActive ) {
             "timeout_saved_advert": "Объявления не было сохранено по причине ограничения сайта на сохранения одного объявления раз в 5 минут.",
             "invalid_data": "Неверные данные передаются на сервер",
             "not_found": "Не найдено.",
+            "undefined_user": "Пользователь не найден",
+            "already_exists_user_login": "Пользователь с таким логином существует",
+            "already_exists_user_email": "Пользователь с таким e-mail существует",
+            "not_enough_money": "Недостаточно денег на счету",
+            "invalid_term_cond":"Вы должны согласиться с правилами сервиса",
+            "invalid_username":"Логин состоит из латиницы, цифр, нижнее подчёркивание и тире",
+            "invalid_username_min":"В логине должно быть минимум 5 символов",
+            "invalid_username_max":"В логине должно быть максимум 20 символов",
+            "invalid_password":"Некорректно указан пароль",
+            "invalid_password_min":"В пароле должно быть минимум 6 символов",
+            "invalid_password_max":"В пароле должно быть максимум 100 символов",
             "invalid_city": "Выберите пож-та города из выпадающего списка",
             "invalid_price": "Нужно ввести цену или поставить договорную цену",
             "invalid_phone": "Вы не ввели Ваш телефон",
@@ -67,6 +78,11 @@ if ( ! $session->isActive ) {
             "invalid_state": "Вы не выбрали состояние",
             "invalid_view": "Выберите вид предлагаемого товара (услуги)",
             "invalid_description": "Нужно ввести описание",
+            "invalid_description_min":"Минимальная длина описания 5 символов",
+            "invalid_descriptione_max":"Максимальная длина описания 2000 символов",
+            "invalid_curr_password": "Текущий пароль указан неверно",
+            "invalid_confirm_password": "Подтверждение пароля указано неверно",
+            "invalid_passwords_dont_match": "Пароли не совпадают",
             "success_edited_advert": "Объявление успешно сохранено",
             "success_added_advert": "Объявление успешно добавлено",
             "ads_undefined": "Объявление не найдено.",
@@ -85,10 +101,14 @@ if ( ! $session->isActive ) {
             "invalid_min_message":"Сообщение не должно быть меньше 10 симв.",
             "invalid_price_min":"Минимальная сумма 10",
             "invalid_price_max":"Максимальная сумма 1 000 000",
+            "invalid_title_min":"Минимальная длина заголовка 5 символов",
+            "invalid_title_max":"Максимальная длина заголовка 150 символов",
             "invalid_min_price_min":"Минимальная сумма 10",
             "invalid_category_product":"Выберите категорию",
             "invalid_desc_product":"Описание не должно быть меньше 20 симв.",
             "invalid_pass_confirm":"Пароли не совпадают",
+            "not_saved_profile":"Профиль не был сохранён",
+            "session_expired":"Сессия авторизации истекла",
             "diapazone_price":"Сумма не входит в диапазон"
         }
     }
@@ -114,14 +134,14 @@ if ( ! $session->isActive ) {
 </div>
 
 <input type="hidden" id="token_user"
-       value="<?php echo isset( $this->params["token"] ) ? $this->params["token"] : 0; ?>">
+       value="<?php echo isset($this->params["token"]) ? $this->params["token"] : 0; ?>">
 <input type="hidden" id="user_id"
-       value="<?php echo isset( $this->params["user_id"] ) ? $this->params["user_id"] : 0; ?>">
+       value="<?php echo isset($this->params["user_id"]) ? $this->params["user_id"] : 0; ?>">
 
-<div class="wrapper <?php if ( isset( $this->params["is_index"] ) && $this->params["is_index"] !== true ) {
+<div class="wrapper <?php if(isset($this->params["is_index"]) && $this->params["is_index"] !== true) {
 	echo 'wrapper-pages';
 } ?>">
-    <header class="header <?php if ( isset( $this->params["is_index"] ) && $this->params["is_index"] === true ) {
+    <header class="header <?php if(isset($this->params["is_index"]) && $this->params["is_index"] === true) {
 		echo 'container-fluid';
 	} ?>">
 
@@ -132,13 +152,13 @@ if ( ! $session->isActive ) {
                 </a>
                 <div class="sign-add">
                     <div class="sign">
-						<?php if ( isset( $_SESSION['token'] ) ) {
+						<?php if(isset($_SESSION['token'])) {
 						    $profile = $this->params["profile_user"]; ?>
                             <a href="/sign-out" class="btn-link">
                                 <span class="icon-box">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 </span>
-                                <span class="btn-text">Выйти<?php //echo isset( $this->params['Translations']['sign_out'] ) ? $this->params['Translations']['sign_out'] : $this->params['Language'] . "_" . "sign_out";  ?></span>
+                                <span class="btn-text">Выйти<?php //echo isset($this->params['Translations']['sign_out'] ) ? $this->params['Translations']['sign_out'] : $this->params['Language'] . "_" . "sign_out";  ?></span>
                             </a>
                             <a href="/profile" class="btn-link">
                                 <span class="icon-box profile-cmsgs">
@@ -149,7 +169,7 @@ if ( ! $session->isActive ) {
                                     ?>"><?php echo $profile['count_message']; ?></span>
                                     <?php } ?>
                                 </span>
-                                <span class="btn-text">Профайл<?php //echo isset( $this->params['Translations']['private_office'] ) ? $this->params['Translations']['private_office'] : $this->params['Language'] . "_" . "profile";  ?></span>
+                                <span class="btn-text">Профайл<?php //echo isset($this->params['Translations']['private_office'] ) ? $this->params['Translations']['private_office'] : $this->params['Language'] . "_" . "profile";  ?></span>
                             </a>
 
 						<?php } else { ?>
@@ -157,20 +177,20 @@ if ( ! $session->isActive ) {
                                 <span class="icon-box">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </span>
-                                <span class="btn-text">Регистрация<?php //echo isset( $this->params['Translations']['sign_up'] ) ? $this->params['Translations']['sign_up'] : $this->params['Language'] . "_" . "sign_up";  ?></span>
+                                <span class="btn-text">Регистрация<?php //echo isset($this->params['Translations']['sign_up'] ) ? $this->params['Translations']['sign_up'] : $this->params['Language'] . "_" . "sign_up";  ?></span>
                             </a>
                             <a href="/auth-reg/login" class="btn-link">
                                 <span class="icon-box">
                                     <i class="fa fa-sign-in" aria-hidden="true"></i>
                                 </span>
-                                <span class="btn-text">Вход<?php //echo isset( $this->params['Translations']['sign_out'] ) ? $this->params['Translations']['sign_in'] : $this->params['Language'] . "_" . "sign_in";  ?></span>
+                                <span class="btn-text">Вход<?php //echo isset($this->params['Translations']['sign_out'] ) ? $this->params['Translations']['sign_in'] : $this->params['Language'] . "_" . "sign_in";  ?></span>
                             </a>
 						<?php } ?>
                     </div>
 
                     <div class="add">
                         <!--<a href="" class="btn">-->
-						<?php if ( $this->params["is_login"] ) { ?>
+						<?php if($this->params["is_login"]) { ?>
                         <a href="/edit-advert/new" class="btn">
 							<?php } else { ?>
                             <a href="/auth-reg/login" class="btn">
@@ -183,14 +203,14 @@ if ( ! $session->isActive ) {
             </div>
         </div>
 
-		<?php if ( isset( $this->params["is_index"] ) && $this->params["is_index"] === true ) { ?>}
+		<?php if(isset($this->params["is_index"]) && $this->params["is_index"] === true) { ?>
 
             <div class="header-slider container-fluid">
                 <div class="main-slider">
-					<?php if ( isset( $this->params["content"] ) && isset( $this->params["content"]["main-slider"] ) ) {
+					<?php if(isset($this->params["content"]) && isset($this->params["content"]["main-slider"])) {
 						$str = '';
-						foreach ( $this->params["content"]["main-slider"] as $val ) {
-							if ( isset( $val ) && isset( $val["html"] ) ) {
+						foreach($this->params["content"]["main-slider"] as $val) {
+							if(isset($val) && isset($val["html"])) {
 								$str .= $val["html"];
 							}
 						}
@@ -206,7 +226,7 @@ if ( ! $session->isActive ) {
                 <form id="form-search" method="get" action="/search" class="form form-search row">
                     <div class="form-group form-group-input">
                         <input type="search" class="input-search" name="query" placeholder="Пример: вагонка"
-                               value="<?php if ( isset( $_GET["query"] ) && isset( $_GET["query"] ) && $_GET["query"] != "" ) {
+                               value="<?php if(isset($_GET["query"]) && isset($_GET["query"]) && $_GET["query"] != "") {
 							       echo $_GET["query"];
 						       } ?>">
                     </div>

@@ -22,7 +22,7 @@ function msgTemplate($val){ ?>
             <a href="/profile-message-chat/<?php echo $val['id_ads']; ?>"><?php echo User::fullName($val['from_user']); ?></a>
         </td>
         <td class="date">
-            <a href="/profile-message-chat/<?php echo $val['id_ads']; ?>" class="mess-info"><?php echo date( "d.m.y H:i:s", strtotime( $val['date_create'] ) ); ?></a>
+            <a href="/profile-message-chat/<?php echo $val['id_ads']; ?>" class="mess-info"><?php echo date("d.m.y H:i:s", strtotime($val['date_create'])); ?></a>
         </td>
         <td>
             <a href="/profile-message-chat/<?php echo $val['id_ads']; ?>" class="mess-info">
@@ -33,7 +33,7 @@ function msgTemplate($val){ ?>
     </tr>
 <?php } ?>
 
-<?php echo Breadcrumbs::widget( [ 'links' => isset( $this->params['breadcrumbs'] ) ? $this->params['breadcrumbs'] : [], ] ); ?>
+<?php echo Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
 
 <div class="my-message-container">
     <h2>Сообщения</h2>
@@ -47,7 +47,7 @@ function msgTemplate($val){ ?>
                         <a href="/profile-message/inbox" class="btn btn-inverse<?php if($type == "inbox") echo ' active'; ?>">Входящие</a>
                         <a href="/profile-message/outbox" class="btn btn-inverse<?php if($type == "outbox") echo ' active'; ?>">Исходящие</a>
                     </div>
-					<?php if ( ( isset( $model["inbox"] ) && count( $model["inbox"] ) > 10 ) || ( isset( $model["outbox"] ) && count( $model["outbox"] ) > 10 ) ) { ?>
+					<?php if((isset($model["inbox"]) && count($model["inbox"]) > 10) ||(isset($model["outbox"]) && count($model["outbox"]) > 10)) { ?>
                         <div class="search-mess-box">
                             <input type="text" id="text_search" placeholder="Поиск...">
                             <button type="submit" class="btn">
@@ -57,8 +57,8 @@ function msgTemplate($val){ ?>
 					<?php } ?>
                 </div>
 				<?php
-				//Pjax::begin( [ 'id' => 'container_message' ] );
-				if ( (isset($model[$type]) && count( $model[$type] ) > 0)) { ?>
+				//Pjax::begin([ 'id' => 'container_message' ] );
+				if((isset($model[$type]) && count($model[$type]) > 0)) { ?>
                 <div class="table-container">
                     <table class="table table-bordered">
                         <tr>
@@ -67,19 +67,19 @@ function msgTemplate($val){ ?>
                             <th style="width:55%;">Сообщение</th>
                         </tr>
     					<?php
-						if ( isset( $model[$type] ) && count( $model[$type] ) > 0 ) {
-							foreach ( $model[$type] as $val ) {
+						if(isset($model[$type]) && count($model[$type]) > 0) {
+							foreach($model[$type] as $val) {
                                 msgTemplate($val);
 							}
 						}
 
-//						if ( isset( $model["outbox"] ) && count( $model["outbox"] ) > 0 ) {
-//							foreach ( $model["outbox"] as $val ) {
+//						if(isset($model["outbox"] ) && count($model["outbox"] ) > 0 ) {
+//							foreach($model["outbox"] as $val ) {
 //							    msgTemplate($val);
 //                            }
 //						}
 
-						if(count( $model[$type] ) < 1){ ?>
+						if(count($model[$type]) < 1){ ?>
 							<tr>
                                 <td colspan="4">
                                     <p class="title-not-content">- Сообщений нет -</p>

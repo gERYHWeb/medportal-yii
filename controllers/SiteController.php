@@ -31,6 +31,7 @@ class SiteController extends Controller {
 	private $status = false;
 	private $value = '';
 	private $data = [];
+	private $config;
 	private $list_countries;
 	private $list_currency;
 	private $list_cities;
@@ -166,6 +167,18 @@ class SiteController extends Controller {
 		}
 	}
 
+	private function getListConfig() {
+		$_res = Utility::getData( Constant::$root_rest_url . 'help/configuration' );
+        //dd($_res);
+		if ( isset( $_res['res'] ) && $_res['res'] != "" ) {
+			$config = json_decode( $_res['res'], true );
+			if ( $config["result"] && isset( $config["data"] ) ) {
+				$this->config = $config["data"];
+				$this->view->params['list_config'] = $config["data"];
+			}
+		}
+	}
+
 	private function getListCities() {
 		$_res = Utility::getData( Constant::$root_rest_url . 'help/city' );
 
@@ -228,10 +241,12 @@ class SiteController extends Controller {
 		} else {
 			$this->getDefaultLanguage();
 		}
+        $this->getListConfig();
 	    $this->getListCategories();
 	    $this->getListCountries();
 	    $this->getListCurrency();
 	    $this->getListCities();
+	    $this->getPageInfo();
 
 		$this->getListLanguage();
         //$this->getListAffiliation();
@@ -887,147 +902,6 @@ class SiteController extends Controller {
 		return $this->render( 'terms', [] );
 	}
 
-	/*
-		public function actionGetProfile() {
-			$res = [ 'data' => '' ];
-			$err = '';
-			print_r( $_SESSION['token'] . "\n" );
-
-			if ( isset( $_SESSION['token'] ) ) {
-				$url      = Constant::$root_rest_url . "user/profile?token=" . $_SESSION['token'];
-				$get_prof = Utility::getData( $url );
-
-				print_r( $url );
-
-				$res = json_decode( $get_prof['res'], true );
-				$err = json_decode( $get_prof['err'], true );
-
-				$this->view->params["profile_data"] = $res["data"];
-				var_dump( $this->view->params["profile_data"] );
-				$model = new UserProfile();
-
-				return $this->render( 'user_profile', [
-					'model' => $model,
-					'res'   => $res,
-					'err'   => $err
-				] );
-			} else {
-				return $this->render( 'index' );
-			}
-		}
-
-		public function actionUpdateProfile() {
-			$res   = [ 'data' => '' ];
-			$err   = '';
-			$model = new UserProfile();
-			if ( $model->load( Yii::$app->request->post() ) && isset( $_SESSION['token'] ) ) {
-				$url       = Constant::$root_rest_url . "user/profile";
-				$form_data = [
-					'token'         => $_SESSION['token'],
-					'title'         => $model->getTitle(),
-					'description'   => $model->getDescription(),
-					'first_name'    => $model->getFirstName(),
-					'last_name'     => $model->getLastName(),
-					'email'         => $model->getEmail(),
-					'mobile_number' => $model->getMobileNumber(),
-					'about'         => $model->getAbout(),
-					'meta_title'    => $model->getMetaTitle(),
-					'meta_desc'     => $model->getMetaDesc(),
-					'keywords'      => $model->getKeywords(),
-					'id_currency'   => $model->getIdCurrency(),
-					'phone'         => $model->getPhone(),
-					'address'       => $model->getAddress(),
-					'name'          => $model->getName()
-				];
-
-				foreach ( $form_data as $key => $value ) {
-					if ( $value == '' ) {
-						$form_data[ $key ] = null;
-					}
-				}
-
-				var_dump( $form_data );
-				$post_string = http_build_query( $form_data );
-				var_dump( $post_string );
-
-				$set_prof = Utility::postData( $url, $post_string );
-				var_dump( $set_prof );
-
-				$res = json_decode( $set_prof['res'], true );
-				$err = json_decode( $set_prof['err'], true );
-				$res['result'] == true ? $res['result'] = 'Request passed' : $res['result'] = 'Request not passed';
-
-				return $this->actionGetProfile();
-			} else {
-				print_r( 'HET' );
-			}
-		}
-
-		public function actionUserProfile() {
-			// print_r('Вход');
-			$res = [ 'data' => '' ];
-			$err = '';
-			//print_r($_SESSION['token']);
-			$model = new UserProfile();
-
-			if ( $model->load( Yii::$app->request->post() ) && isset( $_SESSION['token'] ) ) {
-				$url       = Constant::$root_rest_url . "user/profile";
-				$form_data = [
-					'token'         => $_SESSION['token'],
-					'title'         => $model->getTitle(),
-					'description'   => $model->getDescription(),
-					'first_name'    => $model->getFirstName(),
-					'last_name'     => $model->getLastName(),
-					'email'         => $model->getEmail(),
-					'mobile_number' => $model->getMobileNumber(),
-					'about'         => $model->getAbout(),
-					'meta_title'    => $model->getMetaTitle(),
-					'meta_desc'     => $model->getMetaDesc(),
-					'keywords'      => $model->getKeywords(),
-					'id_currency'   => $model->getIdCurrency(),
-					'phone'         => $model->getPhone(),
-					'address'       => $model->getAddress(),
-					'name'          => $model->getName()
-				];
-
-				foreach ( $form_data as $key => $value ) {
-					if ( $value == '' ) {
-						$form_data[ $key ] = null;
-					}
-				}
-
-				//var_dump( $form_data );
-				$post_string = http_build_query( $form_data );
-				//var_dump( $post_string );
-
-				$set_prof = Utility::postData( $url, $post_string );
-				//var_dump( $set_prof );
-
-				$res = json_decode( $set_prof['res'], true );
-				$err = json_decode( $set_prof['err'], true );
-				$res['result'] == true ? $res['result'] = 'Request passed' : $res['result'] = 'Request not passed';
-			}
-
-			if ( isset( $_SESSION['token'] ) ) {
-
-				$url                                = Constant::$root_rest_url . "user/profile?token=" . $_SESSION['token'];
-				$get_prof                           = Utility::getData( $url );
-				$res                                = json_decode( $get_prof['res'], true );
-				$err                                = json_decode( $get_prof['err'], true );
-				$this->view->params["profile_data"] = $res["data"];
-
-				return $this->render( 'user_profile', [
-					'model' => $model,
-					'res'   => $res,
-					'err'   => $err
-				] );
-			} else {
-				return $this->goBack();
-			}
-		}
-
-
-	*/
 
 	private function getProfileUser() {
 		if ( count( $this->view->params["profile_user"] ) == 0 ) {
@@ -1040,6 +914,25 @@ class SiteController extends Controller {
 
 			if ( isset( $res['result'] ) && $res["result"] == true && isset( $res["data"] ) ) {
 				$this->view->params["profile_user"] = $res["data"];
+			}
+		}
+	}
+
+	private function getPageInfo() {
+        $url = preg_replace("/^(.*)\?.*/","$1",Yii::$app->request->getUrl());
+		if ( !$this->view->params["page_info"] ) {
+			$url      = Constant::$root_rest_url . "help/get-page-info?url=" . urlencode($url);
+			$get_prof = Utility::getData( $url );
+//			dd($get_prof);
+			$res = json_decode( $get_prof['res'], true );
+
+			if ( isset( $res['result'] ) && $res["result"] == true && isset( $res["data"] ) ) {
+			    $page = $res["data"];
+                $this->setViewParams([
+                    "page_info" => $page,
+                    "title" => $page['seo_title'],
+                    "description" => $page['seo_desc']
+                ]);
 			}
 		}
 	}
@@ -1331,6 +1224,13 @@ class SiteController extends Controller {
 	}
 
 	public function actionAddPro() {
+	    $ads = new \app\models\Advertisement();
+	    $ads->setPackages($this->config);
+//	    dd($ads->getPackages());
+        $this->setViewParams([
+            "packages" => $ads->getPackages(),
+            "addons" => $ads->getAddons()
+        ]);
 		if ( $this->isUserOnline() ) {
 			if ( isset( $this->getValue["id"] ) && $this->getValue["id"] !== "" ) {
 				$model      = [];

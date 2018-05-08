@@ -353,7 +353,7 @@
 .views__title{
 
 }
-.banner{
+.side-slide{
     margin-bottom: 30px;
     display: inline-block;
 }
@@ -563,11 +563,48 @@ select + .select2-container--default .select2-selection--single {
     color: #fff;
 }
 .product-item .price .is-contract-price{
-    font-size: 14px;
+    font-size: 15px;
     color: #6cd96b;
+}
+.my-a-item .item-cat{
+    margin-top: 10px;
+}
+.my-a-item .item-price {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+.package{
+
+}
+.package__input{
+
+}
+.package__label{
+
+}
+.package__label span{
+    display: block;
+}
+.product-item .price{
+
+    background: rgba(255, 255, 255, 0.8);
+
+    font-size: 20px;
+
+    padding: 5px;
+}
+.a-item--light .product-item{
+    background: #ffe6b8;
+    border: 5px solid #ffe6b8;
 }
 @media(max-width: 768px){
     .header-slider{
         overflow: hidden;
     }
+}
+.hidden{
+    display: none !important;
+}
+.form-auth-reg .field-wrap{
+    margin-bottom: 15px;
 }

@@ -6,8 +6,7 @@
                     <input type="hidden" name="is_save" value="yes"/>
                     <h2 class="title"> Востановление пароля </h2>
                     <div class="form-group field-wrap">
-                        <label>Ваш Email</label>
-                        <input type="email" id="email" name="email" required autocomplete="off"/>
+                        <input type="email" id="email" placeholder="Ваш E-mail" name="email" required autocomplete="off"/>
                     </div>
                     <div class="form-group form-group-submit">
                         <button type="submit" class="btn btn-submit btn-restore">Восстановить</button>
@@ -26,7 +25,7 @@
             $("#email").addClass("error");
             result = false;
             $('html, body').animate({scrollTop: $("#email").offset().top - 100}, 800);
-            Notification.showWarning("EMail не должен быть пустым");
+            Notification.showWarning("E-mail не должен быть пустым");
         } else {
             var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i;
             var mail = $("#email");
@@ -59,7 +58,7 @@
                         Notification.showSuccess(data.data);
                     } else {
                         if (data.data != undefined) {
-                            Notification.showWarning( data.data);
+                            Notification.showWarning(data.data);
                         }else {
                             Notification.showWarning("Возникле проблемы на сервере. Попробуйте повторить позже.");
                         }

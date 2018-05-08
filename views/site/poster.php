@@ -11,14 +11,14 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
 		<?php
 		$str = '';
 		$i = 1;
-		foreach ( $this->params["BreadCrumbs"] as $key => $val ) {
+		foreach($this->params["BreadCrumbs"] as $key => $val) {
 		    if($i == count($this->params["BreadCrumbs"])){
 		        $val['notlink'] = true;
             }
-			if ( $key == end( $this->params["BreadCrumbs"] ) ) {
+			if($key == end($this->params["BreadCrumbs"])) {
 				$str .= "<li class='active'>" . $val["label"] . "</li>";
 			} else {
-				if ( isset( $val["notlink"] ) && $val["notlink"] == true ) {
+				if(isset($val["notlink"]) && $val["notlink"] == true) {
 					$str .= "<li>" . $val["label"] . "</li>";
 				} else {
 					$str .= "<li><a href='" . $val["url"] . "'>" . $val["label"] . "</a></li>";
@@ -31,37 +31,37 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
 
     <section class="section section-category  container clearfix">
         <div>
-			<?php if ( $list_vip ) { ?>
+			<?php if($list_vip) { ?>
                 <div class="title-page">
                     <h1 class="text">Vip объявления</h1>
                 </div>
                 <div class=" section-vip ">
                     <div class="vip-box vip-box-1">
 						<?php
-						foreach ( $list_vip as $key => $val ) {
+						foreach($list_vip as $key => $val) {
 							$main_img = "";
-							foreach ( $val["media"] as $item_media ) {
-								if ( isset( $item_media['type_media'] ) && $item_media['type_media'] == "main_image" ) {
+							foreach($val["media"] as $item_media) {
+								if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
 									$main_img = $item_media['value'];
 								}
 							}
-							isset( $val['meta_title'] ) ? $meta_title = $val['meta_title'] : $meta_title = '';
-							isset( $val['cur_symbol'] ) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-							isset( $val['price'] ) ? $price = $val['price'] : $price = '';
-							isset( $val['title'] ) ? $title = $val['title'] : $title = '';
-							isset( $val['name_category'] ) ? $name_category = $val['name_category'] : $name_category = '';
-							isset( $val['date_create'] ) ? $date_create = $val['date_create'] : $date_create = '';
-							isset( $val['count_views'] ) ? $count_views = $val['count_views'] : $count_views = '';
-							isset( $val['id_ads'] ) ? $id_ads = $val['id_ads'] : $id_ads = '';
-							isset( $val['id_user'] ) ? $id_user = $val['id_user'] : $id_user = '';
+							isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
+							isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
+							isset($val['price']) ? $price = $val['price'] : $price = '';
+							isset($val['title']) ? $title = $val['title'] : $title = '';
+							isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
+							isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
+							isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
+							isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
+							isset($val['id_user']) ? $id_user = $val['id_user'] : $id_user = '';
 							?>
 
-							<?php if ( $meta_title != "" && $id_ads != "" ) { ?>
+							<?php if($meta_title != "" && $id_ads != "") { ?>
                                 <a href="/advert/<?php echo $id_ads . "-" . $meta_title; ?>" class="product-item ">
                                     <div class="image-box">
                                         <?php
                                         $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
-                                        if ( ! @fopen( $url_image, "r" ) || $main_img == "" ) {
+                                        if(! @fopen($url_image, "r") || $main_img == "") {
                                             $url_image = "/img/default.jpg";
                                         }
                                         ?>
@@ -98,7 +98,7 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                             <br>
 
                             <div class="widget-content">
-                                <?php Pjax::begin( [ 'id' => 'container_category', "timeout" => 5000 ] ); ?>
+                                <?php Pjax::begin([ 'id' => 'container_category', "timeout" => 5000 ]); ?>
                                 <?php
                                     $name_category = (isset($category)) ? $category['value'] : '- Выберите категорию -';
                                 ?>
@@ -121,7 +121,7 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                                     $key = $val['id_category'];
                                                     ?>
                                                     <li data-value="<?php echo $key; ?>" class="select-category__li <?php
-                                                        echo (( $select_category == $key )?'select-category__li--selected':'');
+                                                        echo (($select_category == $key)?'select-category__li--selected':'');
                                                     ?>">
                                                         <a href="<?php
                                                             if(!isset($val['child']))
@@ -154,7 +154,7 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                                     </li>
                                                     <?php
                                                 }
-                                                foreach ( $list_category as $val ) {
+                                                foreach($list_category as $val) {
                                                     preCategory($val, $select_category);
                                                 }
                                                 ?>
@@ -167,19 +167,19 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                 <div class="form-group form-group-select column  col-second">
                                     <label>Вид объявления</label>
                                     <select  class="select select100" name="view">
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['view'] ) &&
-                                                           $this->params["filter"]['view'] == "" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['view']) &&
+                                                           $this->params["filter"]['view'] == "") {
 	                                        echo " selected ";
                                         } ?> value="">- Выберите вид -</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['view'] ) &&
-                                                           $this->params["filter"]['view'] == "0" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['view']) &&
+                                                           $this->params["filter"]['view'] == "0") {
 	                                        echo " selected ";
                                         } ?> value="0">От компании</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['view'] ) &&
-                                                           $this->params["filter"]['view'] == "1" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['view']) &&
+                                                           $this->params["filter"]['view'] == "1") {
 	                                        echo " selected ";
                                         } ?> value="1">Частное</option>
                                     </select>
@@ -187,19 +187,19 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                 <div class="form-group form-group-select column  col-third">
                                     <label>Состояние</label>
                                     <select  class="select select100" name="condition">
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['condition'] ) &&
-                                                           $this->params["filter"]['condition'] == "" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['condition']) &&
+                                                           $this->params["filter"]['condition'] == "") {
 	                                        echo " selected ";
                                         } ?> value="">- Выберите состояние -</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['condition'] ) &&
-                                                           $this->params["filter"]['condition'] == "old" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['condition']) &&
+                                                           $this->params["filter"]['condition'] == "old") {
 	                                        echo " selected ";
                                         } ?> value="old">Б/У</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['condition'] ) &&
-                                                           $this->params["filter"]['condition'] == "new" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['condition']) &&
+                                                           $this->params["filter"]['condition'] == "new") {
 	                                        echo " selected ";
                                         } ?> value="new">Новое</option>
                                     </select>
@@ -207,39 +207,39 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                 <div class="form-group form-group-price column col-first">
                                     <label>Цена</label>
                                     <div class="price-box">
-                                        <input  value="<?php if ( isset( $this->params["filter"] ) && isset( $this->params["filter"]['price-min'] ) && $this->params["filter"]['price-min'] != "" ) {
+                                        <input  value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['price-min']) && $this->params["filter"]['price-min'] != "") {
 	                                        echo $this->params["filter"]['price-min']; } ?>" type="number" placeholder="от (тенге)" name="price-min">
                                         <div class="dash">&nbsp;</div>
-                                        <input  value="<?php if ( isset( $this->params["filter"] ) && isset( $this->params["filter"]['price-max'] ) && $this->params["filter"]['price-max'] != "" ) {
+                                        <input  value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['price-max']) && $this->params["filter"]['price-max'] != "") {
 	                                        echo $this->params["filter"]['price-max']; } ?>" type="number" placeholder="до (тенге)" name="price-max">
                                     </div>
                                 </div>
                                 <div class="form-group form-group-select column col-third">
                                     <label>Сортировка</label>
                                     <select  class="select select100" name="sort">
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['sort'] ) &&
-                                                           $this->params["filter"]['sort'] == "" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['sort']) &&
+                                                           $this->params["filter"]['sort'] == "") {
 	                                        echo " selected ";
                                         } ?> value="">- Выберите тип сортировки -</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['sort'] ) &&
-                                                           $this->params["filter"]['sort'] == "1" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['sort']) &&
+                                                           $this->params["filter"]['sort'] == "1") {
 	                                        echo " selected ";
                                         } ?> value="1">Самые новые</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['sort'] ) &&
-                                                           $this->params["filter"]['sort'] == "2" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['sort']) &&
+                                                           $this->params["filter"]['sort'] == "2") {
 	                                        echo " selected ";
                                         } ?> value="2">От дешевых к дорогим</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['sort'] ) &&
-                                                           $this->params["filter"]['sort'] == "3" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['sort']) &&
+                                                           $this->params["filter"]['sort'] == "3") {
 	                                        echo " selected ";
                                         } ?> value="3">От дорогих к дешевым</option>
-                                        <option <?php if ( isset( $this->params["filter"] ) &&
-                                                           isset( $this->params["filter"]['sort'] ) &&
-                                                           $this->params["filter"]['sort'] == "4" ) {
+                                        <option <?php if(isset($this->params["filter"]) &&
+                                                           isset($this->params["filter"]['sort']) &&
+                                                           $this->params["filter"]['sort'] == "4") {
 	                                        echo " selected ";
                                         } ?> value="4">Популярные</option>
                                     </select>
@@ -250,8 +250,8 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                         <input type="checkbox"
                                                id="check-withFoto"
                                                class="checkbox"
-	                                        <?php if ( isset( $this->params["filter"] ) &&
-                                                       isset( $this->params["filter"]['hasImage'] )) {
+	                                        <?php if(isset($this->params["filter"]) &&
+                                                       isset($this->params["filter"]['hasImage'])) {
 		                                        echo " checked ";
 	                                        } ?>
                                                name="check-withFoto">
@@ -259,11 +259,11 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                     </div>
                                 </div>
                                 <input type="hidden" name="search"
-                                       value="<?php if ( isset( $this->params["filter"] ) && isset( $this->params["filter"]['search'] ) && $this->params["filter"]['search'] != "" ) {
+                                       value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['search']) && $this->params["filter"]['search'] != "") {
 		                                   echo $this->params["filter"]['search'];
 	                                   } ?>">
                                 <input type="hidden" name="city"
-                                       value="<?php if ( isset( $this->params["filter"] ) && isset( $this->params["filter"]['city'] ) && $this->params["filter"]['city'] != "" ) {
+                                       value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['city']) && $this->params["filter"]['city'] != "") {
 		                                   echo $this->params["filter"]['city'];
 	                                   } ?>">
                             </div>
@@ -279,36 +279,38 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                     </form>
                 </aside>
                 <div class="content ">
-                    <?php if ( $list_adverts ) { ?>
-					<?php Pjax::begin( [ 'id' => 'container_advert', 'timeout' => 5000 ] ); ?>
+                    <?php if($list_adverts) { ?>
+					<?php Pjax::begin([ 'id' => 'container_advert', 'timeout' => 5000 ]); ?>
                     <div class="a-container row">
 
 						<?php
-						foreach ( $list_adverts as $key => $val ) {
+						foreach($list_adverts as $key => $val) {
 							$main_img = "";
-							foreach ( $val["media"] as $item_media ) {
-								if ( isset( $item_media['type_media'] ) && $item_media['type_media'] == "main_image" ) {
+							foreach($val["media"] as $item_media) {
+								if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
 									$main_img = $item_media['value'];
 								}
 							}
-							isset( $val['meta_title'] ) ? $meta_title = $val['meta_title'] : $meta_title = '';
-							isset( $val['cur_symbol'] ) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-							isset( $val['price'] ) ? $price = $val['price'] : $price = '';
-							isset( $val['title'] ) ? $title = $val['title'] : $title = '';
-							isset( $val['name_category'] ) ? $name_category = $val['name_category'] : $name_category = '';
-							isset( $val['date_create'] ) ? $date_create = $val['date_create'] : $date_create = '';
-							isset( $val['count_views'] ) ? $count_views = $val['count_views'] : $count_views = '';
-							isset( $val['id_ads'] ) ? $id_ads = $val['id_ads'] : $id_ads = '';
-							isset( $val['id_user'] ) ? $id_user = $val['id_user'] : $id_user = '';
-							if ( $id_ads != "" ) {
+							isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
+							isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
+							isset($val['price']) ? $price = $val['price'] : $price = '';
+							isset($val['title']) ? $title = $val['title'] : $title = '';
+							isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
+							isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
+							isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
+							isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
+							isset($val['id_user']) ? $id_user = $val['id_user'] : $id_user = '';
+							if($id_ads != "") {
 								?>
-								<?php if ( $meta_title != "" ) { ?>
-                                    <div class="col-6 col-md-6 col-lg-4 col-xl-3 a-item">
+								<?php if($meta_title != "") { ?>
+                                    <div class="col-6 col-md-6 col-lg-4 col-xl-3 a-item <?php
+                                        echo ($val['is_light']) ? "a-item--light" : "";
+                                    ?>">
                                         <a href="/advert/<?php echo $id_ads . "-" . $meta_title; ?>" class="product-item ">
                                             <div class="image-box">
                                                 <?php
                                                 $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
-                                                if ( ! @fopen( $url_image, "r" ) || $main_img == "" ) {
+                                                if(! @fopen($url_image, "r") || $main_img == "") {
                                                     $url_image = "/img/default.jpg";
                                                 }
                                                 ?>
@@ -327,7 +329,7 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
 						} ?>
                     </div>
 
-					<?php if ( $count_page > 1 ) { ?>
+					<?php if($count_page > 1) { ?>
                         <div class="pagination-box">
                             <ul class="pagination">
                                 <li class="disabled">
@@ -338,8 +340,8 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                 </li>
 								<?php
 								$str = '';
-								for ( $i = 1; $i <= $count_page; $i ++ ) {
-									if ( $i == ( $active_page + 1 ) ) {
+								for($i = 1; $i <= $count_page; $i ++) {
+									if($i ==($active_page + 1)) {
 										$str .= '<li class="active"><span>' . $i . '</span></li>';
 									} else {
 										$str .= '<li><a href="javascript:gotoPage(' . $i . ');">' . $i . '</a></li>';

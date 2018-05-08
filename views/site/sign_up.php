@@ -29,7 +29,7 @@ $this->title = 'Sign Up';
             'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],*/
     ]); ?>
-        <?php echo $form->field($model, 'login')->textInput( ['autofocus' => true]); //var_dump($form->field($model, 'login')->textInput()) ?>
+        <?php echo $form->field($model, 'login')->textInput(['autofocus' => true]); //var_dump($form->field($model, 'login')->textInput()) ?>
         
         <?php echo $form->field($model, 'password')->passwordInput() ?>
     

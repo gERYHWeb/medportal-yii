@@ -9,8 +9,8 @@ use yii\widgets\Pjax;
 $ilName = (
         (isset($interlocutor['first_name'])) ? $interlocutor['first_name'] .
             ((isset($interlocutor['last_name'])) ? " " . $interlocutor['last_name'] : "")
-            : $interlocutor['nickname']
-    );
+            : $interlocutor['username']
+   );
 ?>
 <div class="my-message-container">
     <h2>Сообщение</h2>
@@ -26,36 +26,36 @@ $ilName = (
                 </div>
                 <div class="right"></div>
             </div>
-	        <?php Pjax::begin( [ 'id' => 'container_message', 'timeout' => 5000 ] ); ?>
+	        <?php Pjax::begin([ 'id' => 'container_message', 'timeout' => 5000 ]); ?>
             <div class="chat-history js-chat-container" data-count="<?php echo count($model); ?>">
                 <ul>
 					<?php
-					$prEvent   = true;
-					$str       = '';
+					$prEvent = true;
+					$str = '';
 					$id_parent = 0;
-					$id_to     = 0;
+					$id_to = 0;
                     $idAds = 0;
-					if ( isset( $model[0]["to_user"] ) ) {
+					if(isset($model[0]["to_user"])) {
 						$id_to_user = $model[0]["to_user"];
 						$id_parent = $model[0]['id_message'];
                         $idAds = $model[0]['id_ads'];
-						foreach ( $model as $val ) {
-							if ( isset( $val ) && isset( $val["value"] ) && $val["value"] != "" ) {
-								//if ( $prEvent == true ) {
+						foreach($model as $val) {
+							if(isset($val) && isset($val["value"]) && $val["value"] != "") {
+								//if($prEvent == true ) {
 
                                 $class = ($this_user['id_user'] == $val['from_user']) ? "isSelf" : "isInterlocutor";
-                                $nickname = ($this_user['id_user'] == $val['from_user']) ? "Ваше сообщение" :
-                                    $val['from_user_name'] . '(' . $val['from_nickname'] . ')';
-								if ( $id_to_user != $val['from_user'] ) {
+                                $username = ($this_user['id_user'] == $val['from_user']) ? "Ваше сообщение" :
+                                    $val['from_user_name'] . '(' . $val['from_username'] . ')';
+								if($id_to_user != $val['from_user']) {
 									//	$prEvent = false;
 									$str .= '<li class="clearfix ' . $class . '">
                                                     <div class="message-data">
                                                     <span class="message-data-time">'
-									        . date( "d.m.y", strtotime( $val['date_create'] ) )
+									        . date("d.m.y", strtotime($val['date_create']))
 									        . "&nbsp;&nbsp;&nbsp;"
-									        . date( "H:i:s", strtotime( $val['date_create'] ) ) .
+									        . date("H:i:s", strtotime($val['date_create'])) .
 									        '</span> &nbsp; &nbsp;
-                                                            <span class="message-data-name">' . $nickname . '</span>
+                                                            <span class="message-data-name">' . $username . '</span>
                                                             <i class="fa fa-circle me"></i>
                                                         </div>
                                                         <div class="message other-message">
@@ -66,11 +66,11 @@ $ilName = (
 									$str .= '<li class="clearfix ' . $class . '">
                                                     <div class="message-data">
                                                     <span class="message-data-time">'
-									        . date( "d.m.y", strtotime( $val['date_create'] ) )
+									        . date("d.m.y", strtotime($val['date_create']))
 									        . "&nbsp;&nbsp;&nbsp;"
-									        . date( "H:i:s", strtotime( $val['date_create'] ) ) .
+									        . date("H:i:s", strtotime($val['date_create'])) .
 									        '</span> &nbsp; &nbsp;
-                                                    <span class="message-data-name">' . $nickname . '</span>
+                                                    <span class="message-data-name">' . $username . '</span>
                                                     <i class="fa fa-circle me"></i>
                                                 </div>
                                                 <div class="message other-message">
@@ -142,7 +142,7 @@ $ilName = (
                             $("#messagetosend").val("");
                             update_message();
                         } else {
-                            if ( data.data != undefined && data.data != "") {
+                            if(data.data != undefined && data.data != "") {
 								Notification.showWarning(data.data);
 							} else {
 								Notification.showWarning("Возникли проблемы, обратитесь к администратору сайта");

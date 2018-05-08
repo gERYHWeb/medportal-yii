@@ -2,7 +2,15 @@
 
 var validation = {
     username: function(v){
-        return this.stdName(v, 3, 151, "invalid_username");
+        var error = "invalid_username";
+        if(typeof v !== "string" || v.length < 5){
+            return error + "_min";
+        }else if(typeof v !== "string" || v.length > 20){
+            return error + "_max";
+        }else if(!v.match(/^[a-zA-Z0-9\_\-]{5,20}$/)){
+            return error;
+        }
+        return null;
     },
     firstName: function(v){
         var error = null;
@@ -56,33 +64,19 @@ var validation = {
         }
         return error;
     },
-
-    roomName: function(v){
-        return this.stdName(v, 3, 150, "invalid_roomname");
-    },
-    timeRound: function(v){
-        return this.stdNumber(v, 3, 150, "invalid_timeround");
-    },
-    minBet: function(v){
-        return this.stdNumber(v, 10, 1000000, "invalid_minbet");
-    },
-
     password: function(v){
-        var error = null;
-        if (!v.match(/^[a-zA-Z0-9\_]{6,15}$/)) {
-            error = "invalid_password";
-        }
-        return error;
+        return this.stdString(v, 6, 100, "invalid_password");
     },
     confirmPassword: function(v, v2){
         return (v === v2) ? null : "invalid_confirm_password";
     },
     newPassword: function(v, v2){
         var error = null;
-        if (!v.match(/^[a-zA-Z0-9\_]{6,15}$/)) {
-            error = "invalid_password";
+        var pass = this.stdString(v, 6, 100, "invalid_password");
+        if(pass){
+            error = pass;
         }
-        else if( v == v2){
+        else if(v === v2){
             error = "invalid_repeat_password";
         }
         return error;
@@ -97,7 +91,7 @@ var validation = {
     },
     email: function(v){
         var error = null;
-        if (!v.match(/^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-zA-Z]{2,6}$/)) {
+        if (!v.match(/^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i)) {
             error = "invalid_email";
         }
         return error;
@@ -148,6 +142,18 @@ var validation = {
     stdName: function(v, min, max, msg){
         var error = null;
         if(typeof v !== "string" || !v || !v.match(/^[а-яёЁА-Яa-zA-Z\d\-\_]*$/)){
+            error = msg;
+        }else if(v.length < min){
+            error = msg + "_min";
+        }else if(v.length > max){
+            error = msg + "_max";
+        }
+        return error;
+    },
+    stdString: function(v, min, max, msg){
+        var error = null;
+        v = $.trim(v);
+        if(typeof v !== "string" || !v){
             error = msg;
         }else if(v.length < min){
             error = msg + "_min";

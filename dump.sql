@@ -1,18 +1,20 @@
 -- --------------------------------------------------------
--- Хост:                         127.0.0.1
--- Версия сервера:               5.6.26-log - MySQL Community Server (GPL)
--- ОС Сервера:                   Win32
--- HeidiSQL Версия:              9.3.0.4984
+-- Host:                         127.0.0.1
+-- Server version:               5.6.26-log - MySQL Community Server (GPL)
+-- Server OS:                    Win32
+-- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Дамп структуры для таблица board.ads
+-- Dumping structure for table board.ads
 CREATE TABLE IF NOT EXISTS `ads` (
   `id_ads` int(11) NOT NULL AUTO_INCREMENT,
+  `chain` int(11) NOT NULL DEFAULT '1',
   `phone` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `meta_title` text CHARACTER SET utf8 COLLATE utf8_bin,
@@ -21,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `ads` (
   `is_private` tinyint(4) NOT NULL DEFAULT '1',
   `is_contract_price` tinyint(4) NOT NULL DEFAULT '0',
   `view` tinyint(4) NOT NULL DEFAULT '1',
-  `price` int(11) DEFAULT NULL,
+  `price` float DEFAULT NULL,
   `id_currency` int(11) NOT NULL DEFAULT '0',
   `price_negotiable` int(10) unsigned DEFAULT '0',
   `count_views` int(11) DEFAULT '0',
@@ -32,39 +34,43 @@ CREATE TABLE IF NOT EXISTS `ads` (
   `date_delete` datetime DEFAULT NULL,
   `date_blocked` datetime DEFAULT NULL,
   `is_active` int(1) DEFAULT '1',
+  `is_moderate` int(1) DEFAULT '0',
   `is_delete` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_ads`,`id_city`,`id_currency`)
-) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.ads: 15 rows
+-- Dumping data for table board.ads: 19 rows
 /*!40000 ALTER TABLE `ads` DISABLE KEYS */;
-INSERT INTO `ads` (`id_ads`, `phone`, `email`, `meta_title`, `state`, `id_city`, `is_private`, `is_contract_price`, `view`, `price`, `id_currency`, `price_negotiable`, `count_views`, `count_views_phone`, `count_add_favorites`, `date_create`, `date_modify`, `date_delete`, `date_blocked`, `is_active`, `is_delete`) VALUES
-	(109, '099 450 6832, 0291312312', 'geryh213921@gmail.com', 'kran-membrannyy', 'new', 1, 1, 1, 0, 147, 5, 0, 26, 5, 4, '2018-01-09 17:32:06', '2018-02-21 09:44:09', NULL, NULL, 1, 0),
-	(110, '067 473 3207', 'user2018@mail.ru', 'prodam-rakovinu-villeroy--boch-onovo-65h51', 'new', 2, 1, 1, 0, 256, 5, 0, 1, 0, 0, '2018-01-09 20:56:22', '2018-01-14 16:36:43', NULL, NULL, 1, 0),
-	(111, '095 642 5489', 'petr.ivanenko@gmail.com', 'penoplast-m25-35-vata-kley-setka-polistirol', 'new', 4, 1, 1, 0, 1299, 5, 0, 1, 1, 0, '2018-01-09 21:29:12', '2018-01-14 16:37:45', NULL, NULL, 1, 0),
-	(121, '+7 (775) 222-22-31,+7 (707) 224-44-09', 'user1@mail.ru', 'beton-vseh-marok', 'old', 8936, 0, 0, 1, 8000, 5, 0, 1, 0, 0, '2018-01-25 13:08:26', '2018-02-20 16:41:05', NULL, NULL, 1, 0),
-	(122, '+7 (747) 414-56-38, +7 (775) 450-33-21, +7 (776) 2', 'user1@mail.ru', 'kran-sharovyy-latunnyy-muftovyy', 'old', 8936, 0, 1, 1, 0, 5, 0, 2, 0, 0, '2018-01-25 13:18:56', '2018-02-16 22:50:40', NULL, NULL, 1, 0),
-	(123, '+7 (707) 720-67-65', 'gERYH@i.ua', 'vodoemulsiya-vodoemulsionnaya-kraska-protirayushchayasya', 'old', 8936, 0, 1, 1, 3850, 5, 0, 1, 2, 0, '2018-02-19 09:08:35', '2018-02-20 00:24:01', NULL, NULL, 1, 0),
-	(124, '+7 (727) 3272602,+7 (707) 729-86-16,+7 (701) 729-8', 'gERYH@i.ua', 'luchshie-kraski-iz-anglii', 'new', 8936, 0, 1, 1, 0, 5, 0, 1, 0, 0, '2018-02-19 14:05:18', '2018-02-19 14:13:21', NULL, NULL, 1, 0),
-	(125, '+7 (701) 7776013', 'gERYH@i.ua', 'kraska-termos-izollat', 'new', 8936, 0, 0, 1, 100, 5, 0, 2, 0, 0, '2018-02-19 14:37:25', '2018-02-20 14:24:07', NULL, NULL, 1, 0),
-	(126, '+7 (747) 814-59-80', 'gERYH@i.ua', 'iranskaya-kraska-alvan', 'old', 8936, 0, 1, 1, 0, 5, 0, 5, 0, 0, '2018-02-19 14:50:58', '2018-02-20 14:30:11', NULL, NULL, 1, 0),
-	(127, '+7 (778) 467-79-07', 'gERYH@i.ua', 'prodam-zatirku-10kg-nedorogo', 'new', 8888, 0, 0, 1, 1000, 5, 0, 4, 0, 0, '2018-02-20 13:48:04', '2018-02-20 15:29:10', NULL, NULL, 1, 0),
-	(120, ' +7 (701) 357-41-62', '', 'cement-s-dostavkoy', 'new', 10123, 0, 0, 1, 20000, 5, 0, 10, 0, 0, '2018-01-19 09:55:56', '2018-02-20 14:36:49', '2018-01-19 17:32:37', NULL, 1, 0),
-	(119, '+7 (776) 354-02-03', 'user1@mail.ru', 'mebelnaya-rakovina-alfa-55', 'old', 8936, 0, 0, 1, 10000, 5, 0, 0, 0, 0, '2018-01-19 09:26:16', NULL, NULL, NULL, 1, 0),
-	(116, '+7 (701) 8098898', 'geryh213921@gmail.com', 'penopleks', 'old', 8936, 0, 1, 0, 4500, 5, 0, 0, 0, 0, '2018-01-12 12:27:58', NULL, NULL, NULL, 1, 0),
-	(117, '+7 (707) 429-19-85', '', 'prodam-generator-benzinovyy', 'old', 8936, 0, 0, 1, 30000, 5, 0, 2, 3, 0, '2018-01-13 20:55:25', '2018-01-19 15:30:56', NULL, NULL, 1, 0),
-	(118, '+7 (775) 991-88-01', 'user1@mail.ru', 'elektrorubanok', 'old', 10123, 0, 1, 1, 15000, 5, 0, 75, 1, 0, '2018-01-13 21:03:23', '2018-02-17 22:07:15', NULL, NULL, 1, 0);
+INSERT INTO `ads` (`id_ads`, `chain`, `phone`, `email`, `meta_title`, `state`, `id_city`, `is_private`, `is_contract_price`, `view`, `price`, `id_currency`, `price_negotiable`, `count_views`, `count_views_phone`, `count_add_favorites`, `date_create`, `date_modify`, `date_delete`, `date_blocked`, `is_active`, `is_moderate`, `is_delete`) VALUES
+	(109, 1, '099 450 6832, 0291312312', 'geryh213921@gmail.com', 'kran-membrannyy', 'new', 1, 1, 1, 0, 147.1, 5, 0, 28, 5, 4, '2018-01-09 17:32:06', '2018-04-28 20:50:25', NULL, NULL, 1, 1, 0),
+	(110, 1, '067 473 3207', 'user2018@mail.ru', 'prodam-rakovinu-villeroy--boch-onovo-65h51', 'new', 2, 1, 1, 0, 256, 5, 0, 1, 0, 0, '2018-01-09 20:56:22', '2018-01-14 16:36:43', NULL, NULL, 1, 1, 0),
+	(111, 1, '095 642 5489', 'petr.ivanenko@gmail.com', 'penoplast-m25-35-vata-kley-setka-polistirol', 'new', 4, 1, 1, 0, 1299, 5, 0, 1, 1, 0, '2018-01-09 21:29:12', '2018-01-14 16:37:45', NULL, NULL, 1, 1, 0),
+	(121, 1, '+7 (775) 222-22-31,+7 (707) 224-44-09', 'user1@mail.ru', 'beton-vseh-marok', 'old', 8936, 0, 0, 1, 8000, 5, 0, 1, 0, 0, '2018-01-25 13:08:26', '2018-02-20 16:41:05', NULL, NULL, 1, 1, 0),
+	(122, 1, '+7 (747) 414-56-38, +7 (775) 450-33-21, +7 (776) 2', 'user1@mail.ru', 'kran-sharovyy-latunnyy-muftovyy', 'old', 8936, 0, 1, 1, 0, 5, 0, 9, 0, 0, '2018-01-25 13:18:56', '2018-02-26 14:43:57', NULL, NULL, 1, 1, 0),
+	(123, 1, '+7 (707) 720-67-65', 'gERYH@i.ua', 'vodoemulsiya-vodoemulsionnaya-kraska-protirayushchayasya', 'old', 8936, 0, 1, 1, 3850, 5, 0, 6, 2, 0, '2018-02-19 09:08:35', '2018-03-11 21:22:20', NULL, NULL, 1, 1, 0),
+	(124, 1, '+7 (727) 3272602,+7 (707) 729-86-16,+7 (701) 729-8', 'gERYH@i.ua', 'luchshie-kraski-iz-anglii', 'new', 8936, 0, 1, 1, 0, 5, 0, 1, 0, 0, '2018-02-19 14:05:18', '2018-02-19 14:13:21', NULL, NULL, 1, 1, 0),
+	(125, 1, '+7 (701) 7776013', 'gERYH@i.ua', 'kraska-termos-izollat', 'new', 8936, 0, 0, 1, 100, 5, 0, 2, 0, 0, '2018-02-19 14:37:25', '2018-02-20 14:24:07', NULL, NULL, 1, 1, 0),
+	(126, 1, '+7 (747) 814-59-80', 'gERYH@i.ua', 'iranskaya-kraska-alvan', 'old', 9434, 0, 1, 1, 0, 5, 0, 10, 0, 0, '2018-02-19 14:50:58', '2018-03-08 23:34:02', NULL, NULL, 1, 1, 0),
+	(127, 1, '+7 (778) 467-79-07', 'gERYH@i.ua', 'prodam-zatirku-10kg-nedorogo', 'new', 8888, 0, 0, 1, 1000, 5, 0, 7, 0, 0, '2018-02-20 13:48:04', '2018-03-08 23:36:22', NULL, NULL, 1, 1, 0),
+	(120, 1, ' +7 (701) 357-41-62', '', 'cement-s-dostavkoy', 'new', 10123, 0, 0, 1, 20000, 5, 0, 10, 0, 0, '2018-01-19 09:55:56', '2018-02-20 14:36:49', '2018-01-19 17:32:37', NULL, 1, 1, 0),
+	(119, 1, '+7 (776) 354-02-03', 'user1@mail.ru', 'mebelnaya-rakovina-alfa-55', 'old', 8936, 0, 0, 1, 10000, 5, 0, 0, 0, 0, '2018-01-19 09:26:16', NULL, NULL, NULL, 1, 1, 0),
+	(116, 1, '+7 (701) 8098898', 'geryh213921@gmail.com', 'penopleks', 'old', 8936, 0, 1, 0, 4500, 5, 0, 0, 0, 0, '2018-01-12 12:27:58', NULL, NULL, NULL, 1, 1, 0),
+	(117, 129, '+7 (707) 429-19-85', '', 'prodam-generator-benzinovyy', 'old', 8936, 0, 0, 1, 30000, 5, 0, 2, 3, 0, '2018-01-13 20:55:25', '2018-03-08 09:31:43', NULL, NULL, 1, 1, 0),
+	(118, 1, '+7 (775) 991-88-01', 'user1@mail.ru', 'elektrorubanok', 'old', 10123, 0, 1, 1, 15000, 5, 0, 75, 1, 0, '2018-01-13 21:03:23', '2018-02-17 22:07:15', NULL, NULL, 1, 1, 0),
+	(128, 129, '+7 (775) 414-14-34', 'gERYH@i.ua', 'truby', 'old', 8838, 0, 1, 1, 0, 5, 0, 0, 0, 0, '2018-03-07 08:19:09', '2018-03-08 13:15:26', NULL, NULL, 1, 1, 0),
+	(129, 129, '+7 (778) 462-45-86,+7 (771) 886-15-52', 'matrang1997@mail.ru', 'truby-pndd', 'new', 10123, 0, 1, 1, 0, 5, 0, 5, 0, 0, '2018-03-08 20:00:06', '2018-03-09 08:41:55', NULL, NULL, 1, 1, 0),
+	(130, 130, '380631291099', 'geryh2139211@gmail.com', 'fyv_hp-sdsd', 'new', 8838, 0, 1, 1, 111, 5, 0, 0, 0, 0, '2018-04-28 20:46:46', '2018-04-28 20:50:11', NULL, NULL, 1, 1, 0),
+	(131, 131, '380631291099', 'geryh2139211@gmail.com', 'test-ads', 'new', 8838, 0, 1, 1, 111111, 5, 0, 0, 0, 0, '2018-04-28 20:53:01', '2018-04-28 20:53:01', NULL, NULL, 1, 1, 0);
 /*!40000 ALTER TABLE `ads` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_category
+-- Dumping structure for table board.ads_category
 CREATE TABLE IF NOT EXISTS `ads_category` (
   `id_ads` int(11) NOT NULL,
   `id_category` int(11) NOT NULL,
   PRIMARY KEY (`id_ads`,`id_category`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.ads_category: 15 rows
+-- Dumping data for table board.ads_category: 19 rows
 /*!40000 ALTER TABLE `ads_category` DISABLE KEYS */;
 INSERT INTO `ads_category` (`id_ads`, `id_category`) VALUES
 	(109, 30),
@@ -81,11 +87,14 @@ INSERT INTO `ads_category` (`id_ads`, `id_category`) VALUES
 	(124, 45),
 	(125, 46),
 	(126, 45),
-	(127, 37);
+	(127, 37),
+	(128, 32),
+	(129, 32),
+	(130, 40),
+	(131, 40);
 /*!40000 ALTER TABLE `ads_category` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_expanded_statistics
+-- Dumping structure for table board.ads_expanded_statistics
 CREATE TABLE IF NOT EXISTS `ads_expanded_statistics` (
   `id_ads` int(11) NOT NULL,
   `ip_address` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
@@ -93,25 +102,23 @@ CREATE TABLE IF NOT EXISTS `ads_expanded_statistics` (
   PRIMARY KEY (`id_ads`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.ads_expanded_statistics: 0 rows
+-- Dumping data for table board.ads_expanded_statistics: 0 rows
 /*!40000 ALTER TABLE `ads_expanded_statistics` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ads_expanded_statistics` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_favorite
+-- Dumping structure for table board.ads_favorite
 CREATE TABLE IF NOT EXISTS `ads_favorite` (
   `id_user` int(10) unsigned DEFAULT NULL,
   `id_ads` int(10) unsigned DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.ads_favorite: 1 rows
+-- Dumping data for table board.ads_favorite: 1 rows
 /*!40000 ALTER TABLE `ads_favorite` DISABLE KEYS */;
 INSERT INTO `ads_favorite` (`id_user`, `id_ads`) VALUES
 	(50, 109);
 /*!40000 ALTER TABLE `ads_favorite` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_media
+-- Dumping structure for table board.ads_media
 CREATE TABLE IF NOT EXISTS `ads_media` (
   `id_ads` int(10) unsigned DEFAULT NULL,
   `type_media` enum('main_image','image','video') COLLATE utf8_bin DEFAULT 'image',
@@ -119,13 +126,19 @@ CREATE TABLE IF NOT EXISTS `ads_media` (
   KEY `id_ads` (`id_ads`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Дамп данных таблицы board.ads_media: 20 rows
+-- Dumping data for table board.ads_media: 26 rows
 /*!40000 ALTER TABLE `ads_media` DISABLE KEYS */;
 INSERT INTO `ads_media` (`id_ads`, `type_media`, `value`) VALUES
 	(127, 'image', 'prodam-zatirku-10kg-nedorogo_5c0eab7c0808bfb719c49e523c0dca66.jpg'),
+	(129, 'main_image', 'truby-pndd_fa170557efabe63b14d62a7c2c7a6fb6.jpg'),
+	(129, 'image', 'truby-pndd_f8a4ba88eb1da49c5b86166b42624f94.jpg'),
+	(129, 'image', 'truby-pndd_10f2d075907342cdaf4fc9105cc7698f.jpg'),
+	(130, 'main_image', 'fyv_hp-sdsd_72c0cfec2b6c06df42e3fbfcb8ed9c5c.png'),
+	(131, 'main_image', 'test-ads_a50f8cfa6b6bc93c151497a037edb6a9.png'),
 	(127, 'main_image', 'prodam-zatirku-10kg-nedorogo_90025fa834a7c3e3fbcf50d8d6306593.jpg'),
 	(125, 'main_image', 'kraska-termos-izollat_f1cde67689cfa26b04fd967288095479.jpeg'),
 	(126, 'main_image', 'iranskaya-kraska-alvan_1d2f4a6f760889fa8eb29980aa83b428.jpg'),
+	(128, 'main_image', 'truby_fa4ed069252c3d14b30c70813757a2a2.jpg'),
 	(124, 'main_image', ''),
 	(123, 'main_image', 'vodoemulsiya-vodoemulsionnaya-kraska-protirayushchayasya_0bc1126ce53ce9c43adede38fda80178.jpg'),
 	(122, 'main_image', ''),
@@ -144,28 +157,41 @@ INSERT INTO `ads_media` (`id_ads`, `type_media`, `value`) VALUES
 	(118, 'image', 'elektrorubanok_b3084e0ede764f248d667c5fbd1446b9.jpg');
 /*!40000 ALTER TABLE `ads_media` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_status
+-- Dumping structure for table board.ads_status
 CREATE TABLE IF NOT EXISTS `ads_status` (
   `id_ads` int(11) NOT NULL,
-  `status_ads` enum('raise_search','high_search','7_up','vip','premium') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'raise_search',
+  `status_ads` enum('raise','light','vip','premium') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'raise',
   `is_active` int(11) DEFAULT '1',
   `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
   `date_expiration` datetime DEFAULT NULL,
-  `period` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL
+  `period` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.ads_status: 4 rows
+-- Dumping data for table board.ads_status: 19 rows
 /*!40000 ALTER TABLE `ads_status` DISABLE KEYS */;
 INSERT INTO `ads_status` (`id_ads`, `status_ads`, `is_active`, `date_added`, `date_expiration`, `period`) VALUES
-	(127, 'raise_search', 1, '2018-02-20 15:29:21', '2018-02-21 16:29:21', ''),
-	(127, 'raise_search', 1, '2018-02-20 15:29:26', '2018-02-21 16:29:26', ''),
-	(118, 'vip', 1, '2018-01-16 17:20:52', '2018-02-05 21:01:05', NULL),
-	(120, 'vip', 1, '2018-01-16 17:20:52', '2018-02-05 21:01:05', NULL);
+	(109, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(110, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(111, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(116, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(117, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(118, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(119, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(120, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(120, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(121, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(122, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(123, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(126, 'vip', 1, '2018-01-16 17:20:52', '2018-04-25 21:01:05', NULL),
+	(128, 'raise', 1, '2018-03-08 17:23:34', '2018-03-27 18:23:34', 54),
+	(122, 'light', 1, '2018-03-08 17:23:34', '2022-03-11 18:23:34', 84),
+	(128, 'vip', 1, '2018-03-08 17:23:34', '2020-07-16 18:23:34', 56),
+	(129, 'raise', 1, '2018-03-08 20:38:23', '2018-03-09 21:38:23', 1),
+	(129, 'light', 1, '2018-03-08 20:02:32', '2018-03-29 21:02:32', 21),
+	(129, 'vip', 1, '2018-03-08 20:02:32', '2018-03-29 21:02:32', 21);
 /*!40000 ALTER TABLE `ads_status` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_translate
+-- Dumping structure for table board.ads_translate
 CREATE TABLE IF NOT EXISTS `ads_translate` (
   `id_ads` int(10) unsigned DEFAULT NULL,
   `id_language` int(10) unsigned DEFAULT '2',
@@ -175,14 +201,18 @@ CREATE TABLE IF NOT EXISTS `ads_translate` (
   `keywords` varchar(150) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Дамп данных таблицы board.ads_translate: 15 rows
+-- Dumping data for table board.ads_translate: 19 rows
 /*!40000 ALTER TABLE `ads_translate` DISABLE KEYS */;
 INSERT INTO `ads_translate` (`id_ads`, `id_language`, `title`, `description`, `meta_desc`, `keywords`) VALUES
+	(131, 2, 'Test ads', 'Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга\r<br>\r<br>Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга\r<br>\r<br>Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга\r<br>\r<br>Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга', NULL, NULL),
+	(130, 2, 'фыВ!"№;%:?*()_+х"::":\';{}p SDSD```', 'Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга\r<br>\r<br>Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга\r<br>\r<br>Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга\r<br>\r<br>Набираю команду в немецкую компанию. Ищем преимущественно женщин и девушек. Компания ЛР Германия. На основе алоэ вера. Сетевой маркетинг. Машина выдаётся бесплатно первоначальный доход от 60 000т и выше. Набираем в команду 5 желающих. Зачисление после собеседования. По пустякам не писать. . . По всем вопросам на ватсап. Проект серьезный. Поэтому прошу относится серьезно. Если сомневаетесь лучше вообще не пишите. Давайте ценить время и уважать друг друга', NULL, NULL),
+	(129, 2, 'Трубы ПНДД', 'Трубы ПНД нашего производства. Находимся в Шымкенте. Изготавливаем трубы ПНД от 6 до 200 диаметра', NULL, NULL),
+	(128, 2, 'Трубы', 'Стальные трубы\r<br>Ду 15*2, 5 \r<br>Ду 15*2, 8 \r<br>Ду 20*2, 5 \r<br>Ду 25*2, 8 \r<br>Ду 32*2, 8\r<br>Ду 40*3, 0\r<br>Ду 50*3, 0\r<br>Ду 65*3, 2 \r<br>Ду 80*3, 5\r<br>Ф 102*3, 5 \r<br>Ф 102*4, 0 \r<br>Ф 108*3, 5 \r<br>Ф 108*4, 0 \r<br>Ф 114*4, 0 \r<br>Ф 127*4, 0 \r<br>Ф 133*4, 0 \r<br>Ф 159*4, 0 \r<br>Ф 159*4, 5 \r<br>219*5 \r<br>219*6\r<br>219*4, 5 \r<br>219*5 \r<br>219*6 \r<br>273*6 \r<br>273*7 \r<br>273*8 \r<br>325*6 \r<br>325*7 \r<br>325*8\r<br>377*8\r<br>377*9\r<br>426*6\r<br>426*7 \r<br>426*8 \r<br>530*7\r<br>530*8 \r<br>530*9 \r<br>\r<br>Профильные трубы\r<br>15х15*1. 2 \r<br>20х20*1. 2 \r<br>25х25*1. 1 \r<br>25х25*1. 2 \r<br>30х30*1. 2 \r<br>15х15х1. 5 \r<br>20х20*1. 5 \r<br>25х25*1. 5 \r<br>30х30*1. 5 \r<br>40х20*1. 5 \r<br>40х25*1. 5 \r<br>40х40*1. 5 \r<br>50х25*1. 5 \r<br>60х40*1. 5 \r<br>40х25х1, 8 \r<br>40х40*1. 8 \r<br>50*50*1, 8 \r<br>60х40*1. 8 \r<br>60х60*1. 8 \r<br>80х40*1. 8\r<br>30х30х2, 0 \r<br>40х20*2, 0 \r<br>40х40*2, 0 \r<br>50х50*2, 0 \r<br>60х40*2, 0 \r<br>60х40*2, 3 \r<br>60х60*2, 0 \r<br>80х40*2, 0 \r<br>80х80х2, 0 \r<br>80х80х2, 3 \r<br>100х100х2, 5 \r<br>60х40*2, 8 \r<br>60х60*2, 8 \r<br>80х80*2, 8 \r<br>50х50*3, 0 \r<br>50х50*4, 0 \r<br>60х60х3, 0 \r<br>80х80*3, 0 \r<br>80х80*4, 0 \r<br>100х100*3\r<br>100х100*4\r<br>100х100*5 \r<br>100х100*6 \r<br>120х120*4 \r<br>120х120*5 \r<br>140х140*4 \r<br>140х140*5 \r<br>160х160*4 \r<br>160х160*5 \r<br>200х200*5 \r<br>200х200*6 \r<br>200х200*8 \r<br>100*50*3\r<br>\r<br>Трубы профильные, \r<br>\r<br>120*80*4 \r<br>160х120*6 \r<br>180х100*5 \r<br>200х160*5 \r<br>100х100*4\r<br>120х120*5 \r<br>120х120*6 \r<br>140х140*4 \r<br>140х140*5 \r<br>140х140*6 \r<br>150х150*4 \r<br>150х150*5 \r<br>160х160*4 \r<br>160х160*6 \r<br>160х160*8 \r<br>180х180*6 \r<br>180х180*7 \r<br>300*300*8\r<br>300*300*10 \r<br>Все в наличии. \r<br>По ценам уточнять у менеджера, по указанному номеру. \r<br>Так же в наличии арматуры, балки, швеллера, листы, проф листы, катанка.', NULL, NULL),
 	(127, 2, 'Продам затирку 10Кг недорого', 'Продам затирку 10 кг(по 5кг каждая) доставка в черте города бесплатно.', NULL, NULL),
 	(126, 2, 'Иранская краска ALVAN', 'иранская краска алван алкидная масленная. для внутренных и наружных работ', NULL, NULL),
 	(125, 2, 'Краска-термос Изоллат', 'Продам краску-термос Изоллат. Очень низкая теплопроводимость. Не горюча, паропроницаема, антикоррозийный материал - защищает от конденсата , от высоких температур, промораживания стен. Краска суспензия с вакумными микросферами. Долговечность 15 лет.', NULL, NULL),
 	(120, 2, 'Цемент с доставкой', 'Цемент с доставкой 20000 за тонну', NULL, NULL),
-	(121, 2, 'БЕТОН всех марок', 'Бетонный завод «Алатау бетон», являющийся лидером своей отрасли, реализует товарный бетон высокого качества соответствующий ГОСТ стандарту РК. На готовую продукцию имеются все необходимые документы (сертификаты, протоколы испытаний и тд. ) Бетон производиться на высокотехнологичном оборудовании, благодаря чему наш завод может производить бетон до 120м3/ в час (24часа в сутки). Доставка бетона осуществляется собственными автобетоносмесителями 8 м3 и 12 м3 Услуги бетоннонасоса! \r<br>Качество и количество - ГАРАНТИРОВАНО! М 50- 8700тг М 100 - 9600тг М 150 - 10200тг М 200 - 11000тг М 250 - 11500тг М 300 - 12000тг М 350 - 12500тг М 400 - 13700тг. Цены указаны с доставкой до вашего объекта! БЕЗ ПОСРЕДНИКОВ!', NULL, NULL),
+	(121, 2, 'БЕТОН всех марок', 'Бетонный завод «Алатау бетон», являющийся лидером своей отрасли, реализует товарный бетон высокого качества соответствующий ГОСТ стандарту РК. На готовую продукцию имеются все необходимые документы (сертификаты, протоколы испытаний и тд.) Бетон производиться на высокотехнологичном оборудовании, благодаря чему наш завод может производить бетон до 120м3/ в час (24часа в сутки). Доставка бетона осуществляется собственными автобетоносмесителями 8 м3 и 12 м3 Услуги бетоннонасоса! \r<br>Качество и количество - ГАРАНТИРОВАНО! М 50- 8700тг М 100 - 9600тг М 150 - 10200тг М 200 - 11000тг М 250 - 11500тг М 300 - 12000тг М 350 - 12500тг М 400 - 13700тг. Цены указаны с доставкой до вашего объекта! БЕЗ ПОСРЕДНИКОВ!', NULL, NULL),
 	(122, 2, 'Кран шаровый латунный муфтовый', 'Кран шаровый латунный муфтовый 11Б27П1 30/1 пр-во: Россия(Ру-16)\r<br>Кран шаровый латунный муфтовый 11Б27П1 30/1, пр-во: Россия (Ру-16)\r<br>Кран шаровый латунный муфтовый 11Б27П 10/1 пр-во: Россия,для газа (Ру-16)\r<br>Краны шаровые латунные муфтовые (Ру-16)\r<br>Краны шар.лат.муф. (Ру-16)\r<br>Кран шар.лат.муф. для газа\r<br>Краны латунные двухклапанные (Ру-16)', NULL, NULL),
 	(123, 2, 'Водоэмульсия. Водоэмульсионная краска протирающаяся', 'Водно-дисперсионная акриловая, протирающаяся краска ПРЕМИУМ КЛАССА высокого качества обладающая повышенной укрывистостью, не имеет запаха, для внутренних работ. Ведро 25 кг-3850 тг. 15кг-2530тг. Цена оптовая от 40 вёдер.', NULL, NULL),
 	(124, 2, 'Лучшие краски из Англии', 'Уважаемые господа! \r<br>\r<br>Представляем на строительном рынке Казахстана лакокрасочную продукцию компании Kalon Decorative Products (Англия) с торговой маркой «JOHNSTONE’S», которая действительно является законодателем стандартов, из-за ее высокого качества, отличных расходных данных и долгосрочных гарантийных обязательств.\r<br>\r<br>Благодаря более 100-летнему опыту, создан широкий спектр продукции:\r<br>\r<br>- Высококачественные фасадные краски на водной основе с применением акриловой резины, дающее более прочное покрытие со сроком службы 10-15 лет., устойчивое к загрязнению и неблагоприятным погодным условиям.\r<br>- Акриловые и виниловые краски для интерьера (от шелковистых до фактурных).\r<br>- Гигиенические грунтовки, краски для удаления и защиты от органических образований (плесень, грибок, мох) и антисоль (грунтовка устойчивая к щелочам).\r<br>- Высокоэффективные, специальные краски и грунтовки (в т.ч. антикоррозийные) для защиты различных поверхностей (металл, дерево, MDF).\r<br>- Профессиональная продукция «WOODWORKS» по отделки изделий из дерева (лаки, морилки, краски).\r<br>- Высокоукрывистые масляные и акриловые эмали (от матовых до ультра-глянцевых) для любых поверхностей.\r<br>- Специальные краски для различных видов полов: теннисные корты, спортзалы, технические производственные помещения (двухкомпонентная краска с эпоксидной смолой) и т. д.\r<br>\r<br>\r<br>Дополнительные цвета можно получить с помощью Дизайнерской компьютерной системы подбора цветовой гаммы на колеровочной машине «CHAMELEON», которая дает возможность по вашему желанию получить тысячи различных оттенков по принятым международным системам NCS, RAL и т.д.\r<br>\r<br>Товар стандартизирован ассоциацией «British Board of Agreement» и сертифицирован ГСС РК, соответствует всем санитарно-гигиеническим правилам и нормативам.\r<br>\r<br>Предусмотрена гибкая система скидок!\r<br>\r<br>Распродажа остатков товаров по сниженным ценам!', NULL, NULL),
@@ -195,15 +225,14 @@ INSERT INTO `ads_translate` (`id_ads`, `id_language`, `title`, `description`, `m
 	(118, 2, 'Электрорубанок', 'Советский электрорубанок в хорошем состоянии', NULL, NULL);
 /*!40000 ALTER TABLE `ads_translate` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.ads_user
+-- Dumping structure for table board.ads_user
 CREATE TABLE IF NOT EXISTS `ads_user` (
   `id_ads` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_ads`,`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.ads_user: 15 rows
+-- Dumping data for table board.ads_user: 19 rows
 /*!40000 ALTER TABLE `ads_user` DISABLE KEYS */;
 INSERT INTO `ads_user` (`id_ads`, `id_user`) VALUES
 	(109, 61),
@@ -220,11 +249,14 @@ INSERT INTO `ads_user` (`id_ads`, `id_user`) VALUES
 	(124, 50),
 	(125, 50),
 	(126, 50),
-	(127, 50);
+	(127, 50),
+	(128, 50),
+	(129, 64),
+	(130, 66),
+	(131, 66);
 /*!40000 ALTER TABLE `ads_user` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.attributes
+-- Dumping structure for table board.attributes
 CREATE TABLE IF NOT EXISTS `attributes` (
   `id_attribute` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `sys_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '0',
@@ -232,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `attributes` (
   PRIMARY KEY (`id_attribute`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.attributes: 17 rows
+-- Dumping data for table board.attributes: 17 rows
 /*!40000 ALTER TABLE `attributes` DISABLE KEYS */;
 INSERT INTO `attributes` (`id_attribute`, `sys_name`, `for_whom`) VALUES
 	(1, 'title', 'ads'),
@@ -254,8 +286,7 @@ INSERT INTO `attributes` (`id_attribute`, `sys_name`, `for_whom`) VALUES
 	(17, 'city', 'user');
 /*!40000 ALTER TABLE `attributes` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.attributes_lang
+-- Dumping structure for table board.attributes_lang
 CREATE TABLE IF NOT EXISTS `attributes_lang` (
   `id_attribute` int(10) unsigned DEFAULT NULL,
   `id_lang` int(10) unsigned DEFAULT NULL,
@@ -263,15 +294,14 @@ CREATE TABLE IF NOT EXISTS `attributes_lang` (
   KEY `id_attribute` (`id_attribute`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.attributes_lang: 2 rows
+-- Dumping data for table board.attributes_lang: 2 rows
 /*!40000 ALTER TABLE `attributes_lang` DISABLE KEYS */;
 INSERT INTO `attributes_lang` (`id_attribute`, `id_lang`, `value`) VALUES
 	(12, 4, 'Телефон'),
 	(13, 4, 'Адреса');
 /*!40000 ALTER TABLE `attributes_lang` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.categories
+-- Dumping structure for table board.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `id_category` int(11) NOT NULL AUTO_INCREMENT,
   `id_parent` int(11) DEFAULT NULL,
@@ -282,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id_category`)
 ) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.categories: 39 rows
+-- Dumping data for table board.categories: 39 rows
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`id_category`, `id_parent`, `sys_name`, `image`, `icon`, `is_service`) VALUES
 	(1, 0, 'instrumenti-oborudovanie', '1.jpg', 'AzynMdZW8Sg.jpg', 0),
@@ -326,8 +356,7 @@ INSERT INTO `categories` (`id_category`, `id_parent`, `sys_name`, `image`, `icon
 	(53, 1, 'hoztovary', NULL, NULL, 0);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.categories_lang
+-- Dumping structure for table board.categories_lang
 CREATE TABLE IF NOT EXISTS `categories_lang` (
   `id_category` int(10) unsigned DEFAULT NULL,
   `id_lang` int(10) unsigned DEFAULT NULL,
@@ -337,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `categories_lang` (
   KEY `id_categorie` (`id_category`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.categories_lang: 171 rows
+-- Dumping data for table board.categories_lang: 171 rows
 /*!40000 ALTER TABLE `categories_lang` DISABLE KEYS */;
 INSERT INTO `categories_lang` (`id_category`, `id_lang`, `value`, `seo_title`, `seo_desc`) VALUES
 	(1, 2, 'Инструменты, оборудование', 'Заголовок. Инструменты, оборудование', 'Описание. Инструменты, оборудование'),
@@ -513,37 +542,41 @@ INSERT INTO `categories_lang` (`id_category`, `id_lang`, `value`, `seo_title`, `
 	(53, 4, '', '', '');
 /*!40000 ALTER TABLE `categories_lang` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.config
+-- Dumping structure for table board.config
 CREATE TABLE IF NOT EXISTS `config` (
+  `id_config` int(11) NOT NULL AUTO_INCREMENT,
+  `chain` int(11) NOT NULL DEFAULT '10',
   `link` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `title` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `val` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `params` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id_config`),
   KEY `key` (`link`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.config: 16 rows
+-- Dumping data for table board.config: 17 rows
 /*!40000 ALTER TABLE `config` DISABLE KEYS */;
-INSERT INTO `config` (`link`, `val`) VALUES
-	('default_language', 'ru'),
-	('key_shop_walletone', '5b727057526f4c6f57697678634a4a5053584a6976436a4573617c'),
-	('merchant_id_walletone', '119617948978'),
-	('name_site', 'strouclub'),
-	('success_url_walletone', 'http://board.cyberrit.net/payment-successful'),
-	('fail_url_walletone', 'http://board.cyberrit.net/payment-fail'),
-	('raise_search_duration', '24'),
-	('raise_search_money', '5'),
-	('high_search_duration', '48'),
-	('high_search_money', '10'),
-	('7_up_duration', '1176'),
-	('7_up_money', '15'),
-	('vip_duration', '168'),
-	('vip_money', '25'),
-	('premium_duration', '168'),
-	('premium_money', '35');
+INSERT INTO `config` (`id_config`, `chain`, `link`, `title`, `val`, `params`) VALUES
+	(1, 10, 'default_language', 'Язык по умолчанию', 'ru', NULL),
+	(2, 10, 'key_shop_walletone', 'Ключ (W1)', '5b727057526f4c6f57697678634a4a5053584a6976436a4573617c', NULL),
+	(3, 10, 'merchant_id_walletone', 'ID Мерчанта (W1)', '119617948978', NULL),
+	(4, 0, 'name_site', 'Название', 'StroyClub', NULL),
+	(5, 10, 'success_url_walletone', 'URL в случае успеха (W1)', 'http://board.cyberrit.net/payment-successful', NULL),
+	(6, 10, 'fail_url_walletone', 'URL в случае неудачи (W1)', 'http://board.cyberrit.net/payment-fail', NULL),
+	(7, 10, 'raise_duration', 'Поднятие вверх, время (в часах)', '24', NULL),
+	(8, 10, 'raise_money', 'Поднятие вверх, стоимость (в тэнге)', '10', NULL),
+	(9, 10, 'light_duration', 'Выделенное объявление (дополнения), время (в часах)', '72', NULL),
+	(10, 10, 'light_money', 'Выделенное объявление (дополнения), стоимость (в тэнге)', '45', NULL),
+	(11, 10, 'm_raise_duration', 'Поднятия вверх (дополнения), ежедневно, время (в часах)', '168', NULL),
+	(12, 10, 'm_raise_money', 'Поднятия вверх (дополнения), ежедневно, стоимость (в тэнге)', '100', NULL),
+	(13, 10, 'vip_duration', 'VIP-объявление (дополнения), время (в часах)', '168', NULL),
+	(14, 10, 'vip_money', 'VIP-объявление (дополнения), стоимость (в тэнге)', '105', NULL),
+	(17, 10, 'easy_package', 'Лёгкий старт (в тэнге)', '115', NULL),
+	(18, 10, 'fast_package', 'Быстрая продажа (в тэнге)', '229', NULL),
+	(19, 10, 'turbo_package', 'Турбо продажа (в тэнге)', '759', NULL);
 /*!40000 ALTER TABLE `config` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.content
+-- Dumping structure for table board.content
 CREATE TABLE IF NOT EXISTS `content` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `chain` int(10) unsigned NOT NULL DEFAULT '0',
@@ -557,33 +590,33 @@ CREATE TABLE IF NOT EXISTS `content` (
   `container` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `html` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.content: 18 rows
+-- Dumping data for table board.content: 19 rows
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
 INSERT INTO `content` (`id`, `chain`, `id_lang`, `count_views`, `title`, `link`, `seo_title`, `seo_desc`, `params`, `container`, `html`) VALUES
-	(1, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'main-slider', '<div class="slick-slide slide slide--has-caption" style="background: url(\'img/slider/1.jpg\') no-repeat center / cover;">\r\n                        <div class="caption">Лучшие предложения строительных\r\n                            <br> материалов в Каахстане</div>\r\n                    </div>'),
-	(2, 1, 2, 0, NULL, NULL, NULL, NULL, NULL, 'main-slider', '<div class="slick-slide slide slide--has-caption" style="background: url(\'img/slider/2.jpg\') no-repeat center / cover;">\r\n                        <div class="caption">Лучшие предложения строительных\r\n                            <br> материалов в Казхстане</div>\r\n                    </div>'),
-	(3, 2, 2, 0, NULL, NULL, NULL, NULL, NULL, 'main-slider', '<div class="slick-slide slide slide--has-caption" style="background: url(\'img/slider/3.jpg\') no-repeat center / cover;">\r\n                        <div class="caption">Лучшие предложения строительных\r\n                            <br> материалов в Казхстан</div>\r\n                    </div>'),
-	(4, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', '<a href="" class="item"><img src="/img/banner/1.jpg" alt=""></a>'),
-	(5, 1, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', '<a href="" class="item"><img src="/img/banner/2.jpg" alt=""></a>'),
-	(6, 2, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', '<a href="" class="item"><img src="/img/banner/3.jpg" alt=""></a>'),
-	(7, 3, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', ' <a href="" class="item"><img src="/img/banner/4.jpg" alt=""></a>'),
-	(8, 4, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', ' <a href="" class="item item2">\r\n                                <img src="/img/banner/5.jpg" alt="">\r\n                                <img src="/img/banner/6.jpg" alt="">\r\n                            </a>'),
-	(9, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'section-category', '<div class="title-hr ">\r\n                        <h2>О портале doska-ads.kz</h2>\r\n                    </div>\r\n                    <div class="content clearfix">\r\n                        <img src="/img/about/1.jpg" alt="" class="img-in-text-left">\r\n                        <p> <span>  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe blanditiis quisquam fuga eos repellendus commodi hic at eaque, aspernatur ea repudiandae iure excepturi nostrum, iste asperiores quae voluptatum cum esse?</span>\r\n                        <span>Pariatur autem sit perferendis animi voluptatibus adipisci esse iste, quis quod amet omnis fuga modi, et sapiente nostrum veniam reiciendis perspiciatis nulla voluptatum voluptas, vel harum quidem? Quam, velit doloribus.</span>\r\n                        <span>Laudantium tenetur sint ducimus cum quibusdam, eligendi, unde expedita fuga earum nostrum fugiat dolor itaque error velit porro. Iure quis accusamus cupiditate blanditiis unde aperiam molestiae consequatur, sint, sunt sapiente.</span>\r\n                        <p>\r\n\r\n                        <img src="/img/about/2.jpg" alt="" class="img-in-text-right">\r\n\r\n                        </p>\r\n                        <span>Minus inventore beatae, sit ab aut, facilis maiores labore placeat rerum et ut molestias doloribus at fugiat impedit, accusamus reprehenderit aliquid exercitationem voluptates est distinctio voluptate. Culpa laboriosam illo fuga.</span>\r\n                        <span>Voluptate hic quas porro quis, cumque debitis quos quae asperiores impedit inventore placeat, aperiam cum quaerat laudantium temporibus, harum iusto assumenda eum accusantium ad commodi fugiat fugit. Similique exercitationem, eius.</span>\r\n                        <span>Vel optio ipsum eos laborum accusamus quibusdam porro hic sunt fuga, deserunt iusto minima perspiciatis similique sed aut quaerat, labore debitis voluptates dolor facere? Soluta minus ea aperiam cumque voluptatibus!</span>\r\n                        <span>Ducimus assumenda, impedit blanditiis eaque obcaecati molestias laboriosam, repellat tempora eius libero. Repudiandae, officiis excepturi. Architecto earum excepturi eligendi molestias molestiae quasi amet ipsum iure. Dicta aliquid, dolor laudantium repellat!</span>\r\n                        <span>Ullam, magni eos et minima tenetur vel. Libero, hic delectus sequi esse vel neque dicta aut, porro, numquam omnis ipsum odio, vero veniam adipisci quaerat obcaecati deleniti tenetur alias ea!</span></p>\r\n                    </div>'),
-	(10, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/1.png" alt=""></a>'),
-	(11, 1, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/2.png" alt=""></a>'),
-	(12, 2, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/3.png" alt=""></a>'),
 	(13, 3, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/4.png" alt=""></a>'),
 	(14, 4, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/5.png" alt=""></a>'),
 	(15, 5, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/6.png" alt=""></a>'),
-	(65, 0, 2, 0, 'Объявление', NULL, NULL, NULL, '[]', 'advert-banner', '<a href="#" class="banner"><img src="/img/banner/banner1.png" alt="" class="img-fluid"></a>'),
+	(65, 0, 2, 0, 'Объявление', NULL, NULL, NULL, '[]', 'advert-banner', '<a href="#" class="side-slide"><img src="/images/slide7.png" alt="" class="img-fluid"></a>'),
 	(60, 0, 2, 0, 'Контакты', '/contacts', 'Контакты', 'Контакты', '[]', 'page', 'Контакты'),
-	(59, 0, 2, 0, 'Главная', '/', 'Главная', 'Главная', '[]', 'page', 'Главная');
+	(59, 0, 2, 0, 'Главная', '/', 'Главная', 'Главная', '[]', 'page', 'Главная'),
+	(10, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/1.png" alt=""></a>'),
+	(11, 1, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/2.png" alt=""></a>'),
+	(12, 2, 2, 0, NULL, NULL, NULL, NULL, NULL, 'brand-box', '<a href="Javascript:" class=" brand-box-item"><img src="/img/brands/3.png" alt=""></a>'),
+	(6, 2, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', '<a href="" class="item"><img src="/images/slide3.jpg" alt=""></a>'),
+	(7, 3, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', ' <a href="" class="item"><img src="/images/slide4.jpg" alt=""></a>'),
+	(8, 4, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', ' <a href="" class="item item2">\r\n                                <img src="/images/slide5.jpg" alt="">\r\n                                <img src="/images/slide6.jpg" alt="">\r\n                            </a>'),
+	(9, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'section-category', '<div class="title-hr ">\r\n                        <h2>О портале doska-ads.kz</h2>\r\n                    </div>\r\n                    <div class="content clearfix">\r\n                        <img src="/img/about/1.jpg" alt="" class="img-in-text-left">\r\n                        <p> <span>  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe blanditiis quisquam fuga eos repellendus commodi hic at eaque, aspernatur ea repudiandae iure excepturi nostrum, iste asperiores quae voluptatum cum esse?</span>\r\n                        <span>Pariatur autem sit perferendis animi voluptatibus adipisci esse iste, quis quod amet omnis fuga modi, et sapiente nostrum veniam reiciendis perspiciatis nulla voluptatum voluptas, vel harum quidem? Quam, velit doloribus.</span>\r\n                        <span>Laudantium tenetur sint ducimus cum quibusdam, eligendi, unde expedita fuga earum nostrum fugiat dolor itaque error velit porro. Iure quis accusamus cupiditate blanditiis unde aperiam molestiae consequatur, sint, sunt sapiente.</span>\r\n                        <p>\r\n\r\n                        <img src="/img/about/2.jpg" alt="" class="img-in-text-right">\r\n\r\n                        </p>\r\n                        <span>Minus inventore beatae, sit ab aut, facilis maiores labore placeat rerum et ut molestias doloribus at fugiat impedit, accusamus reprehenderit aliquid exercitationem voluptates est distinctio voluptate. Culpa laboriosam illo fuga.</span>\r\n                        <span>Voluptate hic quas porro quis, cumque debitis quos quae asperiores impedit inventore placeat, aperiam cum quaerat laudantium temporibus, harum iusto assumenda eum accusantium ad commodi fugiat fugit. Similique exercitationem, eius.</span>\r\n                        <span>Vel optio ipsum eos laborum accusamus quibusdam porro hic sunt fuga, deserunt iusto minima perspiciatis similique sed aut quaerat, labore debitis voluptates dolor facere? Soluta minus ea aperiam cumque voluptatibus!</span>\r\n                        <span>Ducimus assumenda, impedit blanditiis eaque obcaecati molestias laboriosam, repellat tempora eius libero. Repudiandae, officiis excepturi. Architecto earum excepturi eligendi molestias molestiae quasi amet ipsum iure. Dicta aliquid, dolor laudantium repellat!</span>\r\n                        <span>Ullam, magni eos et minima tenetur vel. Libero, hic delectus sequi esse vel neque dicta aut, porro, numquam omnis ipsum odio, vero veniam adipisci quaerat obcaecati deleniti tenetur alias ea!</span></p>\r\n                    </div>'),
+	(5, 1, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', '<a href="" class="item"><img src="/images/slide2.jpg" alt=""></a>'),
+	(4, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, 'banner-box', '<a href="" class="item"><img src="/images/slide1.jpg" alt=""></a>'),
+	(66, 0, 2, 0, NULL, NULL, NULL, NULL, '[]', 'main-slider', '<div class="slick-slide slide slide--has-caption" style="background: url(\'img/slider/1.jpg\') no-repeat center / cover;">\r\n                        <div class="caption">У Вас есть объявление?\r\n                            <br> Разместите его на StroyClub.</div>\r\n                    </div>'),
+	(69, 0, 2, 0, 'Регистрация', NULL, NULL, NULL, NULL, 'mailer', 'register.php'),
+	(67, 1, 2, 0, NULL, NULL, NULL, NULL, '[]', 'main-slider', '<div class="slick-slide slide slide--has-caption" style="background: url(\'img/slider/2.jpg\') no-repeat center / cover;">\r\n                        <div class="caption">Лучшие предложения строительных\r\n                            <br> материалов в Казхстане</div>\r\n                    </div>'),
+	(68, 2, 2, 0, NULL, NULL, NULL, NULL, '[]', 'main-slider', '<div class="slick-slide slide slide--has-caption" style="background: url(\'img/slider/3.jpg\') no-repeat center / cover;">\r\n                        <div class="caption">Лучшие предложения строительных\r\n                            <br> материалов в Казхстан</div>\r\n                    </div>');
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.currencies
+-- Dumping structure for table board.currencies
 CREATE TABLE IF NOT EXISTS `currencies` (
   `id_currency` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(5) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
@@ -593,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   PRIMARY KEY (`id_currency`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.currencies: 5 rows
+-- Dumping data for table board.currencies: 5 rows
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
 INSERT INTO `currencies` (`id_currency`, `code`, `symbol`, `CurrencyName`, `is_active`) VALUES
 	(1, 'BTC', 'BTC', 'BTC', 0),
@@ -603,8 +636,7 @@ INSERT INTO `currencies` (`id_currency`, `code`, `symbol`, `CurrencyName`, `is_a
 	(5, 'KZT', '₸', 'Kazakhstani tenge', 1);
 /*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.currencies_lang
+-- Dumping structure for table board.currencies_lang
 CREATE TABLE IF NOT EXISTS `currencies_lang` (
   `id_currency` int(11) NOT NULL,
   `id_lang` int(11) NOT NULL DEFAULT '1',
@@ -612,12 +644,11 @@ CREATE TABLE IF NOT EXISTS `currencies_lang` (
   PRIMARY KEY (`id_currency`,`id_lang`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы board.currencies_lang: 0 rows
+-- Dumping data for table board.currencies_lang: 0 rows
 /*!40000 ALTER TABLE `currencies_lang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `currencies_lang` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.feedback
+-- Dumping structure for table board.feedback
 CREATE TABLE IF NOT EXISTS `feedback` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_bin DEFAULT '0',
@@ -627,14 +658,13 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Дамп данных таблицы board.feedback: 1 rows
+-- Dumping data for table board.feedback: 1 rows
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
 INSERT INTO `feedback` (`id`, `name`, `email`, `message`, `datetime`) VALUES
 	(1, 'Евгений', 'geryh213921@gmail.com', 'Hello!', '2017-12-13 13:57:31');
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.geo_affiliation
+-- Dumping structure for table board.geo_affiliation
 CREATE TABLE IF NOT EXISTS `geo_affiliation` (
   `id_affiliation` int(20) NOT NULL AUTO_INCREMENT,
   `id_country` bigint(20) NOT NULL,
@@ -643,7 +673,7 @@ CREATE TABLE IF NOT EXISTS `geo_affiliation` (
   PRIMARY KEY (`id_affiliation`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1638 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы board.geo_affiliation: ~1 663 rows (приблизительно)
+-- Dumping data for table board.geo_affiliation: ~1,399 rows (approximately)
 /*!40000 ALTER TABLE `geo_affiliation` DISABLE KEYS */;
 INSERT INTO `geo_affiliation` (`id_affiliation`, `id_country`, `value`, `id_lang`) VALUES
 	(1, 218, 'Санкт-Петербург и область', 1),
@@ -2260,8 +2290,7 @@ INSERT INTO `geo_affiliation` (`id_affiliation`, `id_country`, `value`, `id_lang
 	(1637, 1, 'Севастополь', 1);
 /*!40000 ALTER TABLE `geo_affiliation` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.geo_cities
+-- Dumping structure for table board.geo_cities
 CREATE TABLE IF NOT EXISTS `geo_cities` (
   `id_city` int(11) NOT NULL AUTO_INCREMENT,
   `id_affiliation` int(11) DEFAULT NULL,
@@ -2273,7 +2302,7 @@ CREATE TABLE IF NOT EXISTS `geo_cities` (
   PRIMARY KEY (`id_city`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17681 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы board.geo_cities: ~17 753 rows (приблизительно)
+-- Dumping data for table board.geo_cities: ~17,356 rows (approximately)
 /*!40000 ALTER TABLE `geo_cities` DISABLE KEYS */;
 INSERT INTO `geo_cities` (`id_city`, `id_affiliation`, `id_country`, `value`, `id_lang`, `status`, `order`) VALUES
 	(1, 1611, 218, 'Москва', 1, 1, 0),
@@ -11457,7 +11486,7 @@ INSERT INTO `geo_cities` (`id_city`, `id_affiliation`, `id_country`, `value`, `i
 	(9909, 819, 94, 'Cartago', 1, 1, 0),
 	(9910, 825, 95, 'Абиджан', 1, 1, 0),
 	(9911, 825, 95, 'Ямусукро', 1, 1, 0),
-	(9912, 436, 59, 'Ads', 1, 1, 0),
+	(9912, 436, 59, 'Advert', 1, 1, 0),
 	(9913, 436, 59, 'Anaphi', 1, 1, 0),
 	(9914, 436, 59, 'Xina', 1, 1, 0),
 	(9915, 436, 59, 'Zaimi', 1, 1, 0),
@@ -19228,8 +19257,7 @@ INSERT INTO `geo_cities` (`id_city`, `id_affiliation`, `id_country`, `value`, `i
 	(17680, 1612, 1, 'Ясиноватая', 1, 1, 0);
 /*!40000 ALTER TABLE `geo_cities` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.geo_countries
+-- Dumping structure for table board.geo_countries
 CREATE TABLE IF NOT EXISTS `geo_countries` (
   `id_country` int(20) NOT NULL AUTO_INCREMENT,
   `sys_country_name` varchar(150) DEFAULT NULL,
@@ -19243,7 +19271,7 @@ CREATE TABLE IF NOT EXISTS `geo_countries` (
   PRIMARY KEY (`id_country`)
 ) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы board.geo_countries: ~218 rows (приблизительно)
+-- Dumping data for table board.geo_countries: ~218 rows (approximately)
 /*!40000 ALTER TABLE `geo_countries` DISABLE KEYS */;
 INSERT INTO `geo_countries` (`id_country`, `sys_country_name`, `value`, `country_code_char2`, `country_code_char3`, `un_region`, `un_subregion`, `status`, `id_lang`) VALUES
 	(1, 'Ukraine', 'Украина', 'UA', 'UKR', 'Europe', 'Eastern Europe', 1, 1),
@@ -19466,15 +19494,14 @@ INSERT INTO `geo_countries` (`id_country`, `sys_country_name`, `value`, `country
 	(218, 'Russian Federation', 'Россия', 'RU', 'RUS', 'Europe', 'Eastern Europe', 1, 1);
 /*!40000 ALTER TABLE `geo_countries` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.lament
+-- Dumping structure for table board.lament
 CREATE TABLE IF NOT EXISTS `lament` (
   `id_message` int(10) unsigned DEFAULT NULL,
   `date_create` datetime DEFAULT NULL,
   `is_active` int(10) unsigned DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Дамп данных таблицы board.lament: ~32 rows (приблизительно)
+-- Dumping data for table board.lament: ~32 rows (approximately)
 /*!40000 ALTER TABLE `lament` DISABLE KEYS */;
 INSERT INTO `lament` (`id_message`, `date_create`, `is_active`) VALUES
 	(29, '2017-11-26 11:08:22', 1),
@@ -19511,8 +19538,7 @@ INSERT INTO `lament` (`id_message`, `date_create`, `is_active`) VALUES
 	(0, '2018-02-17 16:19:17', 1);
 /*!40000 ALTER TABLE `lament` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.language
+-- Dumping structure for table board.language
 CREATE TABLE IF NOT EXISTS `language` (
   `id_lang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `3Code` varchar(3) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '0',
@@ -19522,7 +19548,7 @@ CREATE TABLE IF NOT EXISTS `language` (
   PRIMARY KEY (`id_lang`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.language: 4 rows
+-- Dumping data for table board.language: 4 rows
 /*!40000 ALTER TABLE `language` DISABLE KEYS */;
 INSERT INTO `language` (`id_lang`, `3Code`, `2Code`, `SysLanguageName`, `LanguageName`) VALUES
 	(1, 'eng', 'en', 'english', 'English'),
@@ -19531,8 +19557,7 @@ INSERT INTO `language` (`id_lang`, `3Code`, `2Code`, `SysLanguageName`, `Languag
 	(4, 'ukr', 'ua', 'ukrain', 'Украiнський');
 /*!40000 ALTER TABLE `language` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.log_events
+-- Dumping structure for table board.log_events
 CREATE TABLE IF NOT EXISTS `log_events` (
   `id_log_event` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL DEFAULT '0',
@@ -19542,9 +19567,9 @@ CREATE TABLE IF NOT EXISTS `log_events` (
   `ip_address` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '0',
   `user_agent` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id_log_event`)
-) ENGINE=MyISAM AUTO_INCREMENT=397 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=428 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.log_events: 232 rows
+-- Dumping data for table board.log_events: 263 rows
 /*!40000 ALTER TABLE `log_events` DISABLE KEYS */;
 INSERT INTO `log_events` (`id_log_event`, `id_user`, `segment`, `date_event`, `value`, `ip_address`, `user_agent`) VALUES
 	(165, 27, 'authorization', '2017-11-29 08:18:10', 'Login REST:TRUE. Login=asd Token=E6582AFD-0855-0729-2775-D4633A6FDF03', '138.197.47.76', 'REST API Client v.1.1'),
@@ -19778,11 +19803,41 @@ INSERT INTO `log_events` (`id_log_event`, `id_user`, `segment`, `date_event`, `v
 	(393, 50, 'authorization', '2018-02-16 23:52:14', 'Login REST:TRUE. Login=gERYH Token=8B9B2F7C-5333-C322-2385-2B44BC8454E8', '127.0.0.1', 'REST API Client v.1.1'),
 	(394, 61, 'authorization', '2018-02-17 00:02:51', 'Login REST:TRUE. Login=user1 Token=0952A025-6BCC-D51C-A600-2FB222AFBD7B', '127.0.0.1', 'REST API Client v.1.1'),
 	(395, 61, 'authorization', '2018-02-20 15:36:44', 'Login REST:TRUE. Login=user1 Token=45BF32F6-B636-EA60-7EC5-B92506B8A548', '127.0.0.1', 'REST API Client v.1.1'),
-	(396, 61, 'authorization', '2018-02-20 15:36:44', 'Login REST:TRUE. Login=user1 Token=A94F8728-944E-9BDD-72DE-7946AB9FCF39', '127.0.0.1', 'REST API Client v.1.1');
+	(396, 61, 'authorization', '2018-02-20 15:36:44', 'Login REST:TRUE. Login=user1 Token=A94F8728-944E-9BDD-72DE-7946AB9FCF39', '127.0.0.1', 'REST API Client v.1.1'),
+	(397, 50, 'authorization', '2018-02-26 11:18:52', 'Login REST:TRUE. Login=gERYH Token=1775AA9F-36B0-947A-7B58-997F734892A3', '127.0.0.1', 'REST API Client v.1.1'),
+	(398, 61, 'authorization', '2018-02-26 15:45:04', 'Login REST:TRUE. Login=user1 Token=5CC5120C-4CF7-4BEA-1142-F777C0538F12', '127.0.0.1', 'REST API Client v.1.1'),
+	(399, 50, 'authorization', '2018-03-04 12:49:08', 'Login REST:TRUE. Login=gERYH Token=46468B6C-C160-86C0-12E9-16C195512D01', '127.0.0.1', 'REST API Client v.1.1'),
+	(400, 50, 'authorization', '2018-03-04 13:29:57', 'Logout:TRUE. Token=46468B6C-C160-86C0-12E9-16C195512D01', '127.0.0.1', 'REST API Client v.1.1'),
+	(401, 50, 'authorization', '2018-03-04 13:30:05', 'Login REST:TRUE. Login=gERYH Token=86F6FD0A-EB1B-86B4-75F1-B4C2813C765F', '127.0.0.1', 'REST API Client v.1.1'),
+	(402, 50, 'authorization', '2018-03-04 13:42:16', 'Logout:TRUE. Token=86F6FD0A-EB1B-86B4-75F1-B4C2813C765F', '127.0.0.1', 'REST API Client v.1.1'),
+	(403, 50, 'authorization', '2018-03-04 13:42:30', 'Login REST:TRUE. Login=gERYH Token=E5CF3B69-D74B-F790-36E5-81C1899A79C4', '127.0.0.1', 'REST API Client v.1.1'),
+	(404, 50, 'authorization', '2018-03-05 17:39:02', 'Login REST:TRUE. Login=gERYH Token=DC40E66F-F739-7268-F82A-5F29524D6DB1', '127.0.0.1', 'REST API Client v.1.1'),
+	(405, 1, 'authorization', '2018-03-05 19:10:43', 'Login:TRUE. Login=admin Token=9175DDB4-3022-93AE-77F1-50A227F75D38', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'),
+	(406, 50, 'authorization', '2018-03-06 17:39:06', 'Logout:TRUE. Token=DC40E66F-F739-7268-F82A-5F29524D6DB1', '127.0.0.1', 'REST API Client v.1.1'),
+	(407, 50, 'authorization', '2018-03-06 17:39:22', 'Login REST:TRUE. Login=gERYH Token=F50CA541-CBEC-140A-20D4-375134BAF0B3', '127.0.0.1', 'REST API Client v.1.1'),
+	(408, 50, 'authorization', '2018-03-06 19:45:04', 'Logout:TRUE. Token=F50CA541-CBEC-140A-20D4-375134BAF0B3', '127.0.0.1', 'REST API Client v.1.1'),
+	(409, 50, 'authorization', '2018-03-06 20:40:52', 'Login REST:TRUE. Login=gERYH Token=E287CD02-2E72-569A-99D1-F007B72DB12F', '127.0.0.1', 'REST API Client v.1.1'),
+	(410, 50, 'authorization', '2018-03-06 20:41:03', 'Logout:TRUE. Token=E287CD02-2E72-569A-99D1-F007B72DB12F', '127.0.0.1', 'REST API Client v.1.1'),
+	(411, 50, 'authorization', '2018-03-06 20:43:45', 'Login REST:TRUE. Login=gERYH Token=437129BD-92C5-63D1-643B-D9B48A56C42A', '127.0.0.1', 'REST API Client v.1.1'),
+	(412, 50, 'authorization', '2018-03-06 20:43:52', 'Logout:TRUE. Token=437129BD-92C5-63D1-643B-D9B48A56C42A', '127.0.0.1', 'REST API Client v.1.1'),
+	(413, 50, 'authorization', '2018-03-06 20:46:37', 'Login REST:TRUE. Login=gERYH Token=C4443A40-8936-F589-1273-A397E8BA6712', '127.0.0.1', 'REST API Client v.1.1'),
+	(414, 50, 'authorization', '2018-03-08 19:57:06', 'Logout:TRUE. Token=C4443A40-8936-F589-1273-A397E8BA6712', '127.0.0.1', 'REST API Client v.1.1'),
+	(415, 50, 'authorization', '2018-03-08 20:14:20', 'Login REST:TRUE. Login=gERYH Token=57228A3C-E9E4-87F0-1F15-3E0EB74E76DB', '127.0.0.1', 'REST API Client v.1.1'),
+	(416, 50, 'authorization', '2018-03-08 20:14:29', 'Logout:TRUE. Token=57228A3C-E9E4-87F0-1F15-3E0EB74E76DB', '127.0.0.1', 'REST API Client v.1.1'),
+	(417, 64, 'authorization', '2018-03-08 20:23:54', 'Login REST:TRUE. Login=matrang1997 Token=892A9444-57B6-73FA-52D1-8A8D6A07A78E', '127.0.0.1', 'REST API Client v.1.1'),
+	(418, 64, 'authorization', '2018-03-08 20:58:04', 'Logout:TRUE. Token=892A9444-57B6-73FA-52D1-8A8D6A07A78E', '127.0.0.1', 'REST API Client v.1.1'),
+	(419, 64, 'authorization', '2018-03-08 20:58:18', 'Login REST:TRUE. Login=matrang1997 Token=C0259067-FCBA-E1A6-2BD7-D42913F2E2AA', '127.0.0.1', 'REST API Client v.1.1'),
+	(420, 65, 'authorization', '2018-03-08 23:25:55', 'Login REST:TRUE. Login=Scrypto228 Token=710FA109-DD43-CE9C-4B35-6426A764694B', '127.0.0.1', 'REST API Client v.1.1'),
+	(421, 64, 'authorization', '2018-03-13 12:26:11', 'Login REST:TRUE. Login=matrang1997 Token=2D3A6E89-13E9-2533-A7BF-1869A562FF37', '127.0.0.1', 'REST API Client v.1.1'),
+	(422, 64, 'authorization', '2018-03-14 11:39:17', 'Logout:TRUE. Token=2D3A6E89-13E9-2533-A7BF-1869A562FF37', '127.0.0.1', 'REST API Client v.1.1'),
+	(423, 64, 'authorization', '2018-03-14 13:43:33', 'Login REST:TRUE. Login=matrang1997 Token=DABD07F4-7E03-DD28-DBE2-45C1756BF941', '127.0.0.1', 'REST API Client v.1.1'),
+	(424, 64, 'authorization', '2018-03-14 13:51:32', 'Logout:TRUE. Token=DABD07F4-7E03-DD28-DBE2-45C1756BF941', '127.0.0.1', 'REST API Client v.1.1'),
+	(425, 1, 'authorization', '2018-04-10 18:50:02', 'Login:TRUE. Login=Stroy_admin Token=B98989EC-1F65-C8D1-68D9-8491984A2407', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'),
+	(426, 66, 'authorization', '2018-04-28 20:33:21', 'Login REST:TRUE. Login=gERYH2 Token=56A2FCFC-1B4A-6A1E-D188-24DAAAE82D94', '127.0.0.1', 'REST API Client v.1.1'),
+	(427, 1, 'authorization', '2018-04-28 21:12:50', 'Login:TRUE. Login=Stroy_admin Token=F18632AC-C67D-3F65-35C5-9408C62CD4AB', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36');
 /*!40000 ALTER TABLE `log_events` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.menu
+-- Dumping structure for table board.menu
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL,
   `parentid` int(11) DEFAULT NULL,
@@ -19793,7 +19848,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.menu: 17 rows
+-- Dumping data for table board.menu: 17 rows
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
 INSERT INTO `menu` (`id`, `parentid`, `icon`, `url`, `title`, `permision`) VALUES
 	(1, 0, 'icon-bar-chart', '/', 'dashboard_title', '[2,3]'),
@@ -19815,8 +19870,7 @@ INSERT INTO `menu` (`id`, `parentid`, `icon`, `url`, `title`, `permision`) VALUE
 	(6, 0, 'fa fa-handshake-o', '/site/feedback', 'feedback', '[2,3]');
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.messages
+-- Dumping structure for table board.messages
 CREATE TABLE IF NOT EXISTS `messages` (
   `id_message` int(11) NOT NULL AUTO_INCREMENT,
   `id_parent` int(11) DEFAULT '0',
@@ -19828,11 +19882,12 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `title` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `value` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id_message`)
-) ENGINE=MyISAM AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.messages: 25 rows
+-- Dumping data for table board.messages: 31 rows
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`id_message`, `id_parent`, `id_ads`, `from_user`, `to_user`, `date_create`, `is_read`, `title`, `value`) VALUES
+	(102, 0, 122, 50, 61, '2018-02-26 10:19:45', 1, NULL, 'Hello! Хотел бы спросить по поводу этого объявления!'),
 	(101, 0, 120, 61, 50, '2018-02-20 14:37:15', 1, NULL, 'саллам аллейкум!'),
 	(98, 0, 120, 61, 50, '2018-02-18 22:16:20', 1, NULL, 'Здравствуйте, конечно! В наличии 15 тонн.'),
 	(96, 0, 118, 61, 50, '2018-02-18 21:49:25', 1, NULL, 'Я Вас понял!'),
@@ -19857,11 +19912,28 @@ INSERT INTO `messages` (`id_message`, `id_parent`, `id_ads`, `from_user`, `to_us
 	(94, 0, 118, 50, 61, '2018-02-18 21:28:03', 1, NULL, 'Типа того'),
 	(89, 0, 118, 61, 50, '2018-02-18 00:43:09', 1, NULL, 'Ну что нашёл товар?'),
 	(90, 0, 118, 50, 61, '2018-02-18 00:43:30', 1, NULL, 'Ну как товар?'),
-	(91, 0, 118, 61, 50, '2018-02-18 00:43:39', 1, NULL, 'Ну что нашёл товар?');
+	(91, 0, 118, 61, 50, '2018-02-18 00:43:39', 1, NULL, 'Ну что нашёл товар?'),
+	(103, 0, 122, 50, 61, '2018-02-26 10:30:32', 1, NULL, 'Здравствуйте! Интересно!'),
+	(104, 0, 122, 50, 61, '2018-02-26 14:44:14', 1, NULL, 'Здравствуйте! Хотел спросить о наличии.'),
+	(105, 0, 122, 61, 50, '2018-02-26 14:45:26', 1, NULL, 'Да здравствуйте!'),
+	(106, 0, 129, 65, 64, '2018-03-08 22:26:43', 1, NULL, 'Приветосики!'),
+	(107, 0, 129, 64, 65, '2018-03-08 22:27:08', 1, NULL, 'Даров бабангида');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
+-- Dumping structure for table board.migration
+CREATE TABLE IF NOT EXISTS `migration` (
+  `version` varchar(180) COLLATE utf8_bin NOT NULL,
+  `apply_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Дамп структуры для таблица board.orders
+-- Dumping data for table board.migration: ~1 rows (approximately)
+/*!40000 ALTER TABLE `migration` DISABLE KEYS */;
+INSERT INTO `migration` (`version`, `apply_time`) VALUES
+	('m000000_000000_base', 1524940413);
+/*!40000 ALTER TABLE `migration` ENABLE KEYS */;
+
+-- Dumping structure for table board.orders
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `token` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '0',
@@ -19873,7 +19945,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.orders: 27 rows
+-- Dumping data for table board.orders: 27 rows
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `token`, `summa`, `user_id`, `data`, `description`, `is_active`) VALUES
 	(1, 'A049F210-767F-56B4-C57F-E90C27489D5E', 100, 27, '2017-11-18 14:00:56', NULL, 1),
@@ -19905,8 +19977,7 @@ INSERT INTO `orders` (`id`, `token`, `summa`, `user_id`, `data`, `description`, 
 	(27, '6EC09999-4379-4A76-FAD1-BFACBFD17622', 91, 50, '2017-12-13 13:44:44', NULL, 1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.sessions
+-- Dumping structure for table board.sessions
 CREATE TABLE IF NOT EXISTS `sessions` (
   `token` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '0',
   `ip_address` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '0',
@@ -19920,20 +19991,22 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   UNIQUE KEY `token` (`token`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.sessions: 7 rows
+-- Dumping data for table board.sessions: 10 rows
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 INSERT INTO `sessions` (`token`, `ip_address`, `user_agent`, `last_activity`, `user_data`, `id_user`, `active`, `date_start`, `date_stop`) VALUES
-	('446CAE5E-C478-66DE-EEFB-6BF5621F7902', '138.197.47.76', 'REST API Client v.1.1', '2018-01-23 14:11:18', '', 1, 1, '2018-01-23 14:11:18', '2018-01-23 14:21:18'),
+	('F18632AC-C67D-3F65-35C5-9408C62CD4AB', '138.197.47.76', 'REST API Client v.1.1', '2018-04-28 21:12:50', '', 1, 1, '2018-04-28 21:12:50', '2018-04-28 21:22:50'),
 	('7716228D-B9CD-FB1E-E34F-CEDBA6F52413', '93.171.170.13', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.75 Safari/537.36', '2017-11-28 12:48:57', '', 46, 1, '2017-11-28 10:48:57', '2017-11-28 10:58:57'),
 	('AC09540D-92D8-B4D8-0CD1-E8FF37EB573B', '138.197.47.76', 'REST API Client v.1.1', '2017-12-05 11:37:08', '', 27, 1, '2017-12-05 11:37:08', '2017-12-05 11:47:08'),
 	('B673CAAD-8969-BBE9-AC7B-AB81061D59FD', '138.197.47.76', 'REST API Client v.1.1', '2017-12-03 17:32:14', '', 57, 1, '2017-12-03 17:32:14', '2017-12-03 17:42:14'),
-	('8B9B2F7C-5333-C322-2385-2B44BC8454E8', '138.197.47.76', 'REST API Client v.1.1', '2018-02-16 23:52:13', '', 50, 1, '2018-02-16 23:52:13', '2018-02-17 00:02:13'),
-	('A94F8728-944E-9BDD-72DE-7946AB9FCF39', '138.197.47.76', 'REST API Client v.1.1', '2018-02-20 15:36:44', '', 61, 1, '2018-02-20 15:36:44', '2018-02-20 15:46:44'),
-	('347E98C9-DD92-FA26-7C1C-63FE7D361AC5', '127.0.0.1', 'REST API Client v.1.1', '2018-01-14 16:44:58', '', 62, 1, '2018-01-14 16:44:58', '2018-01-14 16:54:58');
+	('57228A3C-E9E4-87F0-1F15-3E0EB74E76DB', '138.197.47.76', 'REST API Client v.1.1', '2018-03-08 19:14:29', '', 50, 0, '2018-03-08 20:14:20', '2018-03-08 20:24:20'),
+	('5CC5120C-4CF7-4BEA-1142-F777C0538F12', '138.197.47.76', 'REST API Client v.1.1', '2018-02-26 15:45:04', '', 61, 1, '2018-02-26 15:45:04', '2018-02-26 15:55:04'),
+	('347E98C9-DD92-FA26-7C1C-63FE7D361AC5', '127.0.0.1', 'REST API Client v.1.1', '2018-01-14 16:44:58', '', 62, 1, '2018-01-14 16:44:58', '2018-01-14 16:54:58'),
+	('DABD07F4-7E03-DD28-DBE2-45C1756BF941', '127.0.0.1', 'REST API Client v.1.1', '2018-03-14 12:51:32', '', 64, 0, '2018-03-14 13:43:33', '2018-03-14 13:53:33'),
+	('56A2FCFC-1B4A-6A1E-D188-24DAAAE82D94', '127.0.0.1', 'REST API Client v.1.1', '2018-04-28 20:33:21', '', 66, 1, '2018-04-28 20:33:21', '2018-04-28 20:43:21'),
+	('710FA109-DD43-CE9C-4B35-6426A764694B', '127.0.0.1', 'REST API Client v.1.1', '2018-03-08 22:25:55', '', 65, 1, '2018-03-08 23:25:55', '2018-03-08 23:35:55');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.statistics
+-- Dumping structure for table board.statistics
 CREATE TABLE IF NOT EXISTS `statistics` (
   `id_statistics` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date_point` date DEFAULT NULL,
@@ -19945,9 +20018,9 @@ CREATE TABLE IF NOT EXISTS `statistics` (
   `amount_payments` bigint(20) DEFAULT '0',
   PRIMARY KEY (`id_statistics`),
   KEY `date_point` (`date_point`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.statistics: 58 rows
+-- Dumping data for table board.statistics: 73 rows
 /*!40000 ALTER TABLE `statistics` DISABLE KEYS */;
 INSERT INTO `statistics` (`id_statistics`, `date_point`, `count_new_visitors`, `count_new_user`, `count_new_ads`, `count_new_lament`, `count_payments`, `amount_payments`) VALUES
 	(1, '2017-09-26', 0, 4, 0, 0, 0, 0),
@@ -20008,35 +20081,46 @@ INSERT INTO `statistics` (`id_statistics`, `date_point`, `count_new_visitors`, `
 	(62, '2018-02-18', 8, 0, 0, 0, 0, 0),
 	(63, '2018-02-19', 4, 0, 4, 0, 0, 0),
 	(64, '2018-02-20', 8, 0, 1, 0, 0, 0),
-	(65, '2018-02-21', 3, 0, 0, 0, 0, 0);
+	(65, '2018-02-21', 4, 0, 0, 0, 0, 0),
+	(66, '2018-02-26', 2, 0, 0, 0, 0, 0),
+	(67, '2018-02-27', 1, 0, 0, 0, 0, 0),
+	(68, '2018-03-04', 3, 0, 0, 0, 0, 0),
+	(69, '2018-03-05', 5, 0, 0, 0, 0, 0),
+	(70, '2018-03-06', 4, 1, 0, 0, 0, 0),
+	(71, '2018-03-07', 1, 0, 1, 0, 0, 0),
+	(72, '2018-03-08', 22, 2, 1, 0, 0, 0),
+	(73, '2018-03-09', 2, 0, 0, 0, 0, 0),
+	(74, '2018-03-11', 7, 0, 0, 0, 0, 0),
+	(75, '2018-03-13', 2, 0, 0, 0, 0, 0),
+	(76, '2018-03-14', 4, 0, 0, 0, 0, 0),
+	(77, '2018-03-15', 5, 0, 0, 0, 0, 0),
+	(78, '2018-03-15', 1, 0, 0, 0, 0, 0),
+	(79, '2018-04-28', 3, 1, 2, 0, 0, 0);
 /*!40000 ALTER TABLE `statistics` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.status
+-- Dumping structure for table board.status
 CREATE TABLE IF NOT EXISTS `status` (
   `id_status` int(11) NOT NULL AUTO_INCREMENT,
   `sys_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id_status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.status: 0 rows
+-- Dumping data for table board.status: 0 rows
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.status_lang
+-- Dumping structure for table board.status_lang
 CREATE TABLE IF NOT EXISTS `status_lang` (
   `id_status` int(10) unsigned DEFAULT NULL,
   `id_lang` int(10) unsigned DEFAULT NULL,
   `value` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.status_lang: 0 rows
+-- Dumping data for table board.status_lang: 0 rows
 /*!40000 ALTER TABLE `status_lang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `status_lang` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.transactions
+-- Dumping structure for table board.transactions
 CREATE TABLE IF NOT EXISTS `transactions` (
   `id_transaction` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned DEFAULT NULL,
@@ -20047,7 +20131,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   PRIMARY KEY (`id_transaction`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.transactions: 8 rows
+-- Dumping data for table board.transactions: 8 rows
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
 INSERT INTO `transactions` (`id_transaction`, `id_user`, `amount`, `transactions_type`, `time_create`, `description`) VALUES
 	(1, 27, 100, 1, '2017-11-27 11:25:44', 'Пополнения счета через перевод'),
@@ -20060,42 +20144,39 @@ INSERT INTO `transactions` (`id_transaction`, `id_user`, `amount`, `transactions
 	(8, 1, 1, 1, '2017-12-02 02:23:24', 'Пополнения счета через перевод');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.transaction_type
+-- Dumping structure for table board.transaction_type
 CREATE TABLE IF NOT EXISTS `transaction_type` (
   `id_transaction` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `sys_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_transaction`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.transaction_type: 2 rows
+-- Dumping data for table board.transaction_type: 2 rows
 /*!40000 ALTER TABLE `transaction_type` DISABLE KEYS */;
 INSERT INTO `transaction_type` (`id_transaction`, `sys_name`) VALUES
 	(1, 'refill'),
 	(2, 'payment');
 /*!40000 ALTER TABLE `transaction_type` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.transaction_type_lang
+-- Dumping structure for table board.transaction_type_lang
 CREATE TABLE IF NOT EXISTS `transaction_type_lang` (
   `id_transaction` int(10) unsigned DEFAULT NULL,
   `id_lang` int(10) unsigned DEFAULT NULL,
   `value` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.transaction_type_lang: 0 rows
+-- Dumping data for table board.transaction_type_lang: 0 rows
 /*!40000 ALTER TABLE `transaction_type_lang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `transaction_type_lang` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.translations
+-- Dumping structure for table board.translations
 CREATE TABLE IF NOT EXISTS `translations` (
   `link` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `lang` varchar(3) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `value` text CHARACTER SET utf8 COLLATE utf8_bin
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.translations: 526 rows
+-- Dumping data for table board.translations: 530 rows
 /*!40000 ALTER TABLE `translations` DISABLE KEYS */;
 INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('you_should', 'ru', 'Вы должны принять термин для использования нашего сервиса'),
@@ -20139,7 +20220,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('list_abs', 'ru', 'Последнии объявления'),
 	('list_user', 'ru', 'Последнии зарегистрированные пользователи'),
 	('moderators_title', 'ru', 'Модераторы'),
-	('nickname_title', 'ru', 'Логин'),
+	('username_title', 'ru', 'Логин'),
 	('email_title', 'ru', 'Электронный адрес'),
 	('date_create_title', 'ru', 'Дата создания'),
 	('default_lang_title', 'ru', 'Язык по умолчанию'),
@@ -20161,7 +20242,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('about_title', 'ru', 'Примечание'),
 	('jump', 'ru', 'Перейти'),
 	('private_user', 'ru', 'Приватный'),
-	('commercial_user', 'ru', 'Комерческий'),
+	('commercial_user', 'ru', 'Коммерческий'),
 	('no_open_session', 'ru', 'Нет открытых сессий'),
 	('site_translate', 'ru', 'Перевод сайта'),
 	('error_file_extend', 'ru', 'Данный тип файла фотографий не поддерживается. Выберите фотографию с другим разрешением .jpeg, .gif или .png '),
@@ -20204,7 +20285,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('list_abs', 'en', ''),
 	('list_user', 'en', ''),
 	('moderators_title', 'en', ''),
-	('nickname_title', 'en', ''),
+	('username_title', 'en', ''),
 	('email_title', 'en', ''),
 	('date_create', 'en', ''),
 	('default_lang', 'en', ''),
@@ -20274,7 +20355,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('list_abs', 'kk', ''),
 	('list_user', 'kk', ''),
 	('moderators_title', 'kk', ''),
-	('nickname_title', 'kk', ''),
+	('username_title', 'kk', ''),
 	('email_title', 'kk', ''),
 	('date_create', 'kk', ''),
 	('default_lang', 'kk', ''),
@@ -20339,7 +20420,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('list_abs', 'ua', ''),
 	('list_user', 'ua', ''),
 	('moderators_title', 'ua', ''),
-	('nickname_title', 'ua', ''),
+	('username_title', 'ua', ''),
 	('email_title', 'ua', ''),
 	('date_create', 'ua', ''),
 	('default_lang', 'ua', ''),
@@ -20404,7 +20485,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('add', 'ru', 'Добавить'),
 	('ban', 'ru', 'Забанить'),
 	('name_category', 'ru', 'Категория'),
-	('nickname_user', 'ru', 'Пользователь'),
+	('username_user', 'ru', 'Пользователь'),
 	('city', 'ru', 'Город'),
 	('price', 'ru', 'Цена'),
 	('delete', 'ru', 'Удален'),
@@ -20479,7 +20560,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('name_category', 'en', ''),
 	('name_root', 'en', ''),
 	('name_site', 'en', ''),
-	('nickname_user', 'en', ''),
+	('username_user', 'en', ''),
 	('not_enough', 'en', ''),
 	('premium_duration', 'en', ''),
 	('premium_money', 'en', ''),
@@ -20548,7 +20629,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('name_category', 'kk', ''),
 	('name_root', 'kk', ''),
 	('name_site', 'kk', ''),
-	('nickname_user', 'kk', ''),
+	('username_user', 'kk', ''),
 	('not_enough', 'kk', ''),
 	('premium_duration', 'kk', ''),
 	('premium_money', 'kk', ''),
@@ -20602,7 +20683,7 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('name_category', 'ua', ''),
 	('name_root', 'ua', ''),
 	('name_site', 'ua', ''),
-	('nickname_user', 'ua', ''),
+	('username_user', 'ua', ''),
 	('not_enough', 'ua', ''),
 	('premium_duration', 'ua', ''),
 	('premium_money', 'ua', ''),
@@ -20623,14 +20704,17 @@ INSERT INTO `translations` (`link`, `lang`, `value`) VALUES
 	('feedback', 'ru', 'Обратная связь'),
 	('erroneous_status', 'ru', 'Ошибка данных'),
 	('invalid_data', 'ru', 'Перепроверьте ещё раз данные.'),
-	('ads_undefined', 'ru', 'Объявление не найдено.');
+	('ads_undefined', 'ru', 'Объявление не найдено.'),
+	('moderate_advert', 'ru', 'Модерировать объявление'),
+	('moderate_advert', 'en', 'Модерировать объявление'),
+	('moderate_advert', 'kz', 'Модерировать объявление'),
+	('moderate_advert', 'ua', 'Модерировать объявление');
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.users
+-- Dumping structure for table board.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id_user` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `nickname` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_private` int(1) unsigned DEFAULT '1',
@@ -20644,12 +20728,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_active` int(1) unsigned DEFAULT '1',
   `default_lang` varchar(3) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '2',
   PRIMARY KEY (`id_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.users: 15 rows
+-- Dumping data for table board.users: 18 rows
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id_user`, `nickname`, `password`, `email`, `is_private`, `money`, `is_blocked`, `date_blocked`, `date_create`, `id_type_user`, `token`, `is_online`, `is_active`, `default_lang`) VALUES
-	(1, 'admin', 'fwu7UVSF4zI=', 'jvvukr@gmail.com', 1, 595, 0, '2017-11-21 22:37:59', NULL, 3, NULL, 1, 1, 'ru'),
+INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `is_private`, `money`, `is_blocked`, `date_blocked`, `date_create`, `id_type_user`, `token`, `is_online`, `is_active`, `default_lang`) VALUES
+	(1, 'Stroy_admin', 'cKSf26JwiR0+QeKxqMbcEg==', 'jvvukr@gmail.com', 1, 595, 0, '2017-11-21 22:37:59', NULL, 3, NULL, 1, 1, 'ru'),
 	(27, 'asd', 'Y0C9R/fSDO0=', 'TravisABryant@armyspy.com', 1, 5, 1, '2017-12-10 21:15:08', '2017-10-15 22:48:05', 1, '507CADFD-B439-2E43-8C08-C7886FB2963D', 1, 1, 'ru'),
 	(43, 'test1', 'DS5YFmQtgaY=', 'RitaMPerkins@dayrep.com', 1, 0, 1, '2017-11-28 10:56:58', '2017-11-21 22:32:58', 1, '9E0991C5-9AF9-2155-054E-0993EE182870', 1, 1, 'ru'),
 	(45, 'test33', 'AxSKzvIleU8=', 'test33@test33.com', 1, 0, 1, '2017-12-06 21:59:50', '2017-11-23 17:19:45', 2, '8EA4E1A9-A482-0F75-15A5-2EAC9C5A4060', 1, 1, 'ru'),
@@ -20657,17 +20741,19 @@ INSERT INTO `users` (`id_user`, `nickname`, `password`, `email`, `is_private`, `
 	(46, 'test_moderator', 'QLBFwp3w2XO4S2sUzaG5Dg==', 'test_moderator@test_moderator.com', 1, 0, 0, '2017-12-10 21:16:34', '2017-11-28 12:48:42', 2, '5E8BEA0D-2875-4871-CC35-98CF043B52B5', 1, 1, 'ru'),
 	(48, 'test12', 'Gd46uHjNoXs=', 'test12@test12.com', 1, 0, 0, NULL, '2017-12-01 09:53:59', 1, '874057D8-E543-D667-890F-46E0F622D15E', 1, 1, 'ru'),
 	(57, 'Muselor', 'liR8cgSvA2o=', 'SheltonPRomero@teleworm.us', 1, 0, 1, '2017-12-04 06:36:40', '2017-12-02 00:18:29', 1, 'CA583F88-1B13-2832-A939-38261EE8E24B', 1, 0, 'ru'),
-	(50, 'gERYH', '7+d67lQsJAA=', 'gERYH@i.ua', 1, 180, 0, '2017-12-04 06:25:41', '2017-12-01 12:07:40', 1, '8B9B2F7C-5333-C322-2385-2B44BC8454E8', 1, 1, 'ru'),
+	(50, 'gERYH', 'T1DVlfb8gfE=', 'gERYH@i.ua', 1, 0, 0, '2018-03-05 17:38:31', '2017-12-01 12:07:40', 1, '57228A3C-E9E4-87F0-1F15-3E0EB74E76DB', 1, 1, 'ru'),
 	(51, '999999@p33.org', 'eRDcLcX0QsIUBuum/bBR0w==', '999999@p33.org', 1, 0, 0, '2017-12-11 07:04:32', '2017-12-01 15:49:45', 1, '080B78C3-4BEE-C49C-42FD-61F6CFC84AA0', 1, 1, 'ru'),
-	(60, 'gERYH1', 'I2BnChvNmpE=', 'geryh213921@gmail.com', 1, 0, 0, NULL, '2017-12-12 15:04:58', 1, 'FA2F42FC-DEE6-7CAA-081A-7BF7C3BAFB90', 1, 1, 'ru'),
-	(61, 'user1', '7+d67lQsJAA=', 'user1@mail.ru', 1, 0, 0, NULL, '2017-12-26 18:35:08', 1, 'A94F8728-944E-9BDD-72DE-7946AB9FCF39', 1, 1, 'ru'),
+	(60, 'gERYH1', 'LXB0H6osnWk=', 'geryh213921@gmail.com', 1, 0, 0, NULL, '2017-12-12 15:04:58', 1, 'FA2F42FC-DEE6-7CAA-081A-7BF7C3BAFB90', 1, 1, 'ru'),
+	(61, 'user1', '7+d67lQsJAA=', 'user1@mail.ru', 1, 0, 0, NULL, '2017-12-26 18:35:08', 1, '5CC5120C-4CF7-4BEA-1142-F777C0538F12', 1, 1, 'ru'),
 	(59, 'kuku_moderator', 'H6hoZMMC3Gm4S2sUzaG5Dg==', 'kuku_moderator@kuku_moderator.com', 1, 0, 1, '2017-12-10 21:45:43', '2017-12-10 22:57:29', 2, 'D749C095-C9A7-D965-3171-5DF098E9259B', 1, 1, 'ru'),
-	(58, 'Muselor', 'liR8cgSvA2o=', 'Muselor@Muselor.com', 1, 0, 0, NULL, '2017-12-02 00:52:17', 1, '6EEB0634-1DB0-E687-D17F-607BCB7BEE86', 1, 1, 'ru'),
-	(62, 'user2', '7+d67lQsJAA=', 'user2@mail.ru', 1, 0, 0, NULL, '2018-01-09 16:18:27', 1, '347E98C9-DD92-FA26-7C1C-63FE7D361AC5', 1, 1, 'ru');
+	(63, 'aidar999', 'tLtljgl1MRE=', 'aidar999@gmail.com', 1, 0, 0, NULL, '2018-03-06 19:25:59', 1, '886CCD98-F358-7B6A-1327-C64C92482A8E', 1, 1, 'ru'),
+	(62, 'user2', '7+d67lQsJAA=', 'user2@mail.ru', 1, 0, 0, NULL, '2018-01-09 16:18:27', 1, '347E98C9-DD92-FA26-7C1C-63FE7D361AC5', 1, 1, 'ru'),
+	(64, 'matrang1997', 'pkxELzYXWg0=', 'matrang1997@mail.ru', 1, 89, 0, NULL, '2018-03-08 19:23:10', 1, 'DABD07F4-7E03-DD28-DBE2-45C1756BF941', 1, 1, 'ru'),
+	(65, 'Scrypto228', 'hklk4Pj+a1PYAjlQFiLCASRmuqjvwaef', 'scrypto228@gmail.com', 1, 0, 0, NULL, '2018-03-08 22:25:38', 1, '710FA109-DD43-CE9C-4B35-6426A764694B', 1, 1, 'ru'),
+	(66, 'gERYH2', 'jDCg6DKjHSP3dwO4zMUcVQ==', 'geryh2139211@gmail.com', 1, 0, 0, NULL, '2018-04-28 20:04:17', 1, '56A2FCFC-1B4A-6A1E-D188-24DAAAE82D94', 1, 1, 'ru');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.user_translate
+-- Dumping structure for table board.user_translate
 CREATE TABLE IF NOT EXISTS `user_translate` (
   `id_user` int(10) unsigned DEFAULT NULL,
   `id_language` int(10) unsigned DEFAULT '2',
@@ -20677,7 +20763,7 @@ CREATE TABLE IF NOT EXISTS `user_translate` (
   KEY `id_user` (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Дамп данных таблицы board.user_translate: 8 rows
+-- Dumping data for table board.user_translate: 13 rows
 /*!40000 ALTER TABLE `user_translate` DISABLE KEYS */;
 INSERT INTO `user_translate` (`id_user`, `id_language`, `first_name`, `last_name`, `phone`) VALUES
 	(1, 2, 'John  2222', 'Down  ', '+3844444444'),
@@ -20685,20 +20771,24 @@ INSERT INTO `user_translate` (`id_user`, `id_language`, `first_name`, `last_name
 	(43, 2, 'Reuben', 'Davis', '631-669-9435'),
 	(3, 2, 'Reuben', 'Davis', '631-669-9435'),
 	(57, 2, ' Shelton', ' Romero', '412-568-9377'),
-	(50, 2, 'Монархиялық', 'Vемлекет', '-- UNION SELECT * FROM `users`'),
+	(50, 2, 'Евгений', 'undefined', '71234567890'),
+	(66, 2, NULL, NULL, NULL),
+	(65, 2, NULL, NULL, NULL),
+	(64, 2, 'Паша', 'Север', '+789123566645'),
+	(64, 2, 'Паша', 'Север', '+789123566645'),
+	(63, 2, NULL, NULL, NULL),
 	(62, 2, 'Дмитрий', 'Тимошенко ', '0939692894'),
 	(61, 2, 'Евгений  ', 'Генов', '380939692894');
 /*!40000 ALTER TABLE `user_translate` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.user_type
+-- Dumping structure for table board.user_type
 CREATE TABLE IF NOT EXISTS `user_type` (
   `id_type_user` int(11) NOT NULL AUTO_INCREMENT,
   `sys_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id_type_user`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.user_type: 3 rows
+-- Dumping data for table board.user_type: 3 rows
 /*!40000 ALTER TABLE `user_type` DISABLE KEYS */;
 INSERT INTO `user_type` (`id_type_user`, `sys_name`) VALUES
 	(1, 'user'),
@@ -20706,8 +20796,7 @@ INSERT INTO `user_type` (`id_type_user`, `sys_name`) VALUES
 	(3, 'admin');
 /*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board.user_type_lang
+-- Dumping structure for table board.user_type_lang
 CREATE TABLE IF NOT EXISTS `user_type_lang` (
   `id_type_user` int(10) unsigned DEFAULT NULL,
   `id_lang` int(10) unsigned DEFAULT NULL,
@@ -20716,7 +20805,7 @@ CREATE TABLE IF NOT EXISTS `user_type_lang` (
   KEY `id_lang` (`id_lang`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board.user_type_lang: 9 rows
+-- Dumping data for table board.user_type_lang: 9 rows
 /*!40000 ALTER TABLE `user_type_lang` DISABLE KEYS */;
 INSERT INTO `user_type_lang` (`id_type_user`, `id_lang`, `value`) VALUES
 	(1, 1, 'User'),
@@ -20730,8 +20819,7 @@ INSERT INTO `user_type_lang` (`id_type_user`, `id_lang`, `value`) VALUES
 	(3, 3, 'Әкімші');
 /*!40000 ALTER TABLE `user_type_lang` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board._geo_affiliation
+-- Dumping structure for table board._geo_affiliation
 CREATE TABLE IF NOT EXISTS `_geo_affiliation` (
   `id_affiliation` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_country` int(11) DEFAULT NULL,
@@ -20739,7 +20827,7 @@ CREATE TABLE IF NOT EXISTS `_geo_affiliation` (
   PRIMARY KEY (`id_affiliation`)
 ) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board._geo_affiliation: 39 rows
+-- Dumping data for table board._geo_affiliation: 39 rows
 /*!40000 ALTER TABLE `_geo_affiliation` DISABLE KEYS */;
 INSERT INTO `_geo_affiliation` (`id_affiliation`, `id_country`, `value`) VALUES
 	(1, 1, 'Акмолинская область'),
@@ -20783,8 +20871,7 @@ INSERT INTO `_geo_affiliation` (`id_affiliation`, `id_country`, `value`) VALUES
 	(39, 3, 'Одеська область');
 /*!40000 ALTER TABLE `_geo_affiliation` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board._geo_cities
+-- Dumping structure for table board._geo_cities
 CREATE TABLE IF NOT EXISTS `_geo_cities` (
   `id_city` int(11) NOT NULL AUTO_INCREMENT,
   `value` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
@@ -20792,7 +20879,7 @@ CREATE TABLE IF NOT EXISTS `_geo_cities` (
   PRIMARY KEY (`id_city`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board._geo_cities: 4 rows
+-- Dumping data for table board._geo_cities: 4 rows
 /*!40000 ALTER TABLE `_geo_cities` DISABLE KEYS */;
 INSERT INTO `_geo_cities` (`id_city`, `value`, `id_affiliation`) VALUES
 	(1, 'Николаев', 28),
@@ -20801,8 +20888,7 @@ INSERT INTO `_geo_cities` (`id_city`, `value`, `id_affiliation`) VALUES
 	(4, 'Одесса', 39);
 /*!40000 ALTER TABLE `_geo_cities` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица board._geo_countries
+-- Dumping structure for table board._geo_countries
 CREATE TABLE IF NOT EXISTS `_geo_countries` (
   `id_country` int(11) NOT NULL AUTO_INCREMENT,
   `sys_country_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
@@ -20814,13 +20900,14 @@ CREATE TABLE IF NOT EXISTS `_geo_countries` (
   PRIMARY KEY (`id_country`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы board._geo_countries: 3 rows
+-- Dumping data for table board._geo_countries: 3 rows
 /*!40000 ALTER TABLE `_geo_countries` DISABLE KEYS */;
 INSERT INTO `_geo_countries` (`id_country`, `sys_country_name`, `country_name`, `country_code_char2`, `country_code_char3`, `un_region`, `un_subregion`) VALUES
 	(1, 'Kazakhstan', 'Қазақстан', 'KZ', 'KAZ', 'Asia', 'Central Asia'),
 	(2, 'Russian Federation', 'Россия', 'RU', 'RUS', 'Europe', 'Eastern Europe'),
 	(3, 'Ukraine', 'Україна', 'UA', 'UKR', 'Europe', 'Eastern Europe');
 /*!40000 ALTER TABLE `_geo_countries` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
