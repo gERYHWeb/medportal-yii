@@ -22,21 +22,26 @@ class WebController extends YiiController
 {
     protected $app;
     protected $rest;
-    protected $deps;
+    protected $language;
+    protected $currency;
     protected $request;
     protected $headers;
     protected $session;
     protected $json;
+    protected $url;
     protected $dependencies = [];
 
     public function init(){
         parent::init();
 
         $app = $this->app = Yii::$app;
-        $this->headers = Yii::$app->request->headers;
-        $this->rest = \Yii::$app->rest;
+        $this->headers = $app->request->headers;
+        $this->rest = $app->rest;
         $this->request = $app->request;
         $this->session = $app->session;
+        $this->language = $app->language;
+        $this->url = $app->request->url;
+        $this->currency = 5;
 
         $app->session->open();
     }
@@ -51,10 +56,14 @@ class WebController extends YiiController
         return $result;
     }
 
-    public function setDependency($dependency){
-        return $this->deps->set($dependency);
+    public function getDependence($route)
+    {
+        $deps = $this->rest->dependencies();
+        if(isset($deps[$route])){
+            return $deps[$route];
+        }
+        return [];
     }
-
 
     /**
      * Get parameter or all parameters from GET(PUT|PATCH|DELETE|HEAD) method's

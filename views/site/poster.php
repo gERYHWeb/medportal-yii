@@ -1,8 +1,10 @@
 <?php
 
+use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
+use \yii\helpers\Url;
 
-$select_category = (isset($category)) ? $category['id_category'] : 0;
+$breadcrumbs = $this->params['breadcrumbs'];
 ?>
 
 <main class="main">
@@ -29,55 +31,46 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
 		?>
     </ol>
 
-    <section class="section section-category  container clearfix">
+    <section class="section section-category container clearfix">
         <div>
-			<?php if($list_vip) { ?>
+			<?php if($vip) { ?>
                 <div class="title-page">
                     <h1 class="text">Vip объявления</h1>
                 </div>
                 <div class=" section-vip ">
                     <div class="vip-box vip-box-1">
 						<?php
-						foreach($list_vip as $key => $val) {
-							$main_img = "";
-							foreach($val["media"] as $item_media) {
+						foreach($vip as $key => $advert) {
+                            $mainImage = "";
+							foreach($advert["media"] as $item_media) {
 								if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
-									$main_img = $item_media['value'];
+                                    $mainImage = $item_media['value'];
 								}
 							}
-							isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
-							isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-							isset($val['price']) ? $price = $val['price'] : $price = '';
-							isset($val['title']) ? $title = $val['title'] : $title = '';
-							isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
-							isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
-							isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
-							isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
-							isset($val['id_user']) ? $id_user = $val['id_user'] : $id_user = '';
-							?>
-
-							<?php if($meta_title != "" && $id_ads != "") { ?>
-                                <a href="/advert/<?php echo $id_ads . "-" . $meta_title; ?>" class="product-item ">
-                                    <div class="image-box">
-                                        <?php
-                                        $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
-                                        if(! @fopen($url_image, "r") || $main_img == "") {
-                                            $url_image = "/img/default.jpg";
-                                        }
-                                        ?>
-                                        <img src="<?php echo $url_image ?>" alt="" class="">
-                                    </div>
-                                    <div class="product-title"><?php echo $title ?></div>
-                                    <div class="bottom-info">
-                                        <div class="price"><?php
-                                            app\models\Utility::setPrice($val);
-                                        ?></div>
-                                    </div>
-                                    <span class="badge badge-vip">Vip</span>
-                                </a>
-							<?php } ?>
-
-
+                            $slug = Url::toRoute([
+                                'site/advert',
+                                'id' => $advert["id_ads"],
+                                'slug' => $advert["slug"]
+                            ]);
+                            ?>
+                            <a href="<?php echo $slug; ?>" class="product-item">
+                                <div class="image-box">
+                                    <?php
+                                    $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $mainImage;
+                                    if(! @fopen($url_image, "r") || $mainImage == "") {
+                                        $url_image = "/img/default.jpg";
+                                    }
+                                    ?>
+                                    <img src="<?php echo $url_image ?>" alt="" class="">
+                                </div>
+                                <div class="product-title"><?php echo $advert['title']; ?></div>
+                                <div class="bottom-info">
+                                    <div class="price"><?php
+                                        app\models\Utility::setPrice($advert);
+                                    ?></div>
+                                </div>
+                                <span class="badge badge-vip">Vip</span>
+                            </a>
 						<?php } ?>
                     </div>
                 </div>
@@ -98,16 +91,16 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                             <br>
 
                             <div class="widget-content">
-                                <?php Pjax::begin([ 'id' => 'container_category', "timeout" => 5000 ]); ?>
+                                <?php if($categories){ ?>
                                 <?php
-                                    $name_category = (isset($category)) ? $category['value'] : '- Выберите категорию -';
+                                    $placeholder = (isset($category) && $category) ? $category['description']['value'] : '- Выберите категорию -';
                                 ?>
                                 <div class="form-group form-group-select column  col-first">
                                     <label>Категория</label>
                                     <div class="select-category">
                                         <div class="select-category__main select-category__li">
                                             <a href="#" onclick="return false;">
-                                                <span class="select-category__title"><?php echo $name_category; ?></span>
+                                                <span class="select-category__title"><?php echo $placeholder; ?></span>
                                                 <span class="select-category__arrow" ><i></i></span>
                                             </a>
                                             <ul class="select-category__ul">
@@ -116,23 +109,18 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                                         <strong class="select-category__title">- Сбросить категорию -</strong>
                                                     </a>
                                                 </li>
-                                                <?php
-                                                function preCategory($val, $select_category){
-                                                    $key = $val['id_category'];
-                                                    ?>
-                                                    <li data-value="<?php echo $key; ?>" class="select-category__li <?php
-                                                        echo (($select_category == $key)?'select-category__li--selected':'');
+                                                <?php function catsOutput($val){ ?>
+                                                    <?php $id = $val['id_category']; ?>
+                                                    <li data-value="<?php echo $id; ?>" class="select-category__li <?php
+                                                        echo (($category == $id)?'select-category__li--selected':'');
                                                     ?>">
                                                         <a href="<?php
-                                                            if(!isset($val['child']))
-                                                                echo "/category/" . $val['sys_name'];
-                                                            else echo "#";
-                                                        ?>"
-                                                           class="select-category__link">
-                                                            <span class="select-category__title"><?php echo $val['value']; ?></span>
+                                                            echo isset($val['children']) ? "#" : "/category/" . $val['sys_name'];
+                                                        ?>" class="select-category__link">
+                                                            <span class="select-category__title"><?php echo $val['description']['value']; ?></span>
                                                         </a>
                                                         <?
-                                                        if(isset($val['child'])){?>
+                                                        if(isset($val['children'])){?>
                                                             <ul class="select-category__ul select-category__ul--submenu">
                                                                 <li class="select-category__li">
                                                                     <a href="<?php
@@ -143,8 +131,8 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                                                     </a>
                                                                 </li>
                                                                 <?php
-                                                                foreach ($val['child'] as $key => $item) {
-                                                                    preCategory($item, $select_category);
+                                                                foreach ($val['children'] as $child) {
+                                                                    catsOutput($child);
                                                                 }
                                                                 ?>
                                                             </ul>
@@ -154,16 +142,16 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                                                     </li>
                                                     <?php
                                                 }
-                                                foreach($list_category as $val) {
-                                                    preCategory($val, $select_category);
+                                                foreach($categories as $val) {
+                                                    catsOutput($val);
                                                 }
                                                 ?>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
 
-                                <?php Pjax::end(); ?>
                                 <div class="form-group form-group-select column  col-second">
                                     <label>Вид объявления</label>
                                     <select  class="select select100" name="view">
@@ -279,86 +267,51 @@ $select_category = (isset($category)) ? $category['id_category'] : 0;
                     </form>
                 </aside>
                 <div class="content ">
-                    <?php if($list_adverts) { ?>
-					<?php Pjax::begin([ 'id' => 'container_advert', 'timeout' => 5000 ]); ?>
+                    <?php if(isset($adverts) && $adverts) { ?>
                     <div class="a-container row">
-
-						<?php
-						foreach($list_adverts as $key => $val) {
-							$main_img = "";
-							foreach($val["media"] as $item_media) {
-								if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
-									$main_img = $item_media['value'];
-								}
-							}
-							isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
-							isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
-							isset($val['price']) ? $price = $val['price'] : $price = '';
-							isset($val['title']) ? $title = $val['title'] : $title = '';
-							isset($val['name_category']) ? $name_category = $val['name_category'] : $name_category = '';
-							isset($val['date_create']) ? $date_create = $val['date_create'] : $date_create = '';
-							isset($val['count_views']) ? $count_views = $val['count_views'] : $count_views = '';
-							isset($val['id_ads']) ? $id_ads = $val['id_ads'] : $id_ads = '';
-							isset($val['id_user']) ? $id_user = $val['id_user'] : $id_user = '';
-							if($id_ads != "") {
-								?>
-								<?php if($meta_title != "") { ?>
-                                    <div class="col-6 col-md-6 col-lg-4 col-xl-3 a-item <?php
-                                        echo ($val['is_light']) ? "a-item--light" : "";
-                                    ?>">
-                                        <a href="/advert/<?php echo $id_ads . "-" . $meta_title; ?>" class="product-item ">
-                                            <div class="image-box">
-                                                <?php
-                                                $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $main_img;
-                                                if(! @fopen($url_image, "r") || $main_img == "") {
-                                                    $url_image = "/img/default.jpg";
-                                                }
-                                                ?>
-                                                <img src="<?php echo $url_image ?>" alt="" class="">
-                                            </div>
-                                            <div class="product-title"><?php echo $title ?></div>
-                                            <div class="bottom-info">
-                                                <div class="price"><?php
-                                                    app\models\Utility::setPrice($val);
-                                                ?></div>
-                                            </div>
-                                        </a>
-                                    </div>
-								<?php } ?>
-							<?php }
-						} ?>
+                    <?php
+                    foreach($adverts as $key => $advert) {
+                        $mainImage = "";
+                        foreach($advert["media"] as $item_media) {
+                            if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
+                                $mainImage = $item_media['value'];
+                            }
+                        }
+                        $slug = Url::toRoute([
+                            'site/advert',
+                            'id' => $advert["id_ads"],
+                            'slug' => $advert["slug"]
+                        ]);
+                        ?>
+                        <div class="col-6 col-md-6 col-lg-4 col-xl-3 a-item <?php
+                            echo ($advert['is_light']) ? "a-item--light" : "";
+                        ?>">
+                            <a href="<?php echo $slug; ?>" class="product-item">
+                                <div class="image-box">
+                                    <?php
+                                    $url_image = "http://" . $_SERVER["HTTP_HOST"] . "/images/" . $mainImage;
+                                    if(! @fopen($url_image, "r") || $mainImage == "") {
+                                        $url_image = "/img/default.jpg";
+                                    }
+                                    ?>
+                                    <img src="<?php echo $url_image ?>" alt="" class="">
+                                </div>
+                                <div class="product-title"><?php echo $advert['title']; ?></div>
+                                <div class="bottom-info">
+                                    <div class="price"><?php
+                                        app\models\Utility::setPrice($advert);
+                                    ?></div>
+                                </div>
+                            </a>
+                        </div>
+                        <?php } ?>
                     </div>
 
-					<?php if($count_page > 1) { ?>
-                        <div class="pagination-box">
-                            <ul class="pagination">
-                                <li class="disabled">
-                                    <a href="javascript:gotoPage('prev');">
-                                            <span class="caret"><i class="fa fa-angle-left"
-                                                                   aria-hidden="true"></i></span>
-                                    </a>
-                                </li>
-								<?php
-								$str = '';
-								for($i = 1; $i <= $count_page; $i ++) {
-									if($i ==($active_page + 1)) {
-										$str .= '<li class="active"><span>' . $i . '</span></li>';
-									} else {
-										$str .= '<li><a href="javascript:gotoPage(' . $i . ');">' . $i . '</a></li>';
-									}
-								}
-								echo $str;
-								?>
-                                <li>
-                                    <a href="javascript:gotoPage('next');">
-                                            <span class="caret"><i class="fa fa-angle-right"
-                                                                   aria-hidden="true"></i></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-					<?php } ?>
-					<?php Pjax::end(); ?>
+					<?php
+                        LinkPager::widget([
+                            'pagination' => $pagination,
+                        ]);
+					?>
                 </div>
                 <?php }else{ ?>
                     <div class="main-message isWarning" style="margin: 0;padding: 0;">

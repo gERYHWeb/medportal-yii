@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\components\TreeBuilder;
 use app\models\Advertisement;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -71,76 +74,43 @@ class SiteController extends WebController
     }
 
 	public function beforeAction($action) {
-        // Стандартное значение для валюты
-        $_SESSION["id_currency"] = 5;
+        $dependencies = $this->rest->dependencies([
+            'data' => [ 'cities', 'categories', 'languages', 'currencies', 'translations', 'contents' ]
+        ]);
 
-		if(isset($_SESSION["default_language"]) && $_SESSION["default_language"] != "") {
-			$this->default_language = $_SESSION["default_language"];
-		} else {
-			$this->getDefaultLanguage();
+        $language = $this->getDefaultLanguage();
+
+        $this->setViewParams(ArrayHelper::merge($dependencies, [
+            'is_index' => false,
+            'user_id' => false,
+            'is_login' => false,
+            'language' => $language
+        ]));
+//        $this->getListConfig();
+//	    $this->getListCategories();
+//	    $this->getListCountries();
+//	    $this->getListCurrency();
+//	    $this->getListCities();
+//	    $this->getPageInfo();
+//
+//		$this->getListLanguage();
+//        $this->getListAffiliation();
+//		$this->getContentSite();
+
+		if(isset($_SESSION['token']) && $_SESSION['token'] != "" && $_SESSION['token'] != "0") {
+            $this->setViewParams([
+                'token' => $_SESSION['token'],
+                'user_id' => $_SESSION['user_id'],
+                'is_login' => true
+            ]);
 		}
-       // $this->getListConfig();
-	    //$this->getListCategories();
-	    //$this->getListCountries();
-	    //$this->getListCurrency();
-	    //$this->getListCities();
-	    //$this->getPageInfo();
+        //$this->getProfileUser();
 
-		//$this->getListLanguage();
-        //$this->getListAffiliation();
-		//$this->getContentSite();
+		if(! isset($_SESSION["is_first"])) {
+			$_SESSION["is_first"] = 0;
+		}
 
-//		$this->view->params["is_index"] = false;
-//
-//		$this->view->params["user_id"] = false;
-//		$this->user_id = false;
-//
-//
-//		$this->view->params["content"] = $this->content_site;
-//
-//		$this->view->params["is_login"] = false;
-//
-//		$this->view->params["language"]["default_id"] = $this->default_id_language;
-//		$this->view->params["language"]["default_code"] = $this->default_language;
-//		$this->view->params["language"]["list"] = $this->list_lang;
-//		$this->view->params['Translations'] = Translations::listTranslations($this->default_language);
-//		$this->view->params['Language'] = $this->default_language;
-//		$this->view->params['affiliation'] = $this->affiliation;
-//
-//		if(isset($_SESSION['token']) && $_SESSION['token'] != "" && $_SESSION['token'] != "0") {
-//			$this->view->params["token"] = $_SESSION['token'];
-//			$this->view->params["is_login"] = true;
-//			$this->view->params["user_id"] = $_SESSION['user_id'];
-//			$this->user_id = $_SESSION['user_id'];
-//		}
-//        //$this->getProfileUser();
-//
-//		$_SESSION["default_language"] = $this->default_language;
-//		$_SESSION["default_id_language"] = $this->default_id_language;
-//
-//		if(! isset($_SESSION["page_advert"])) {
-//			$_SESSION["page_advert"] = 0;
-//		}
-//
-//		if(! isset($_SESSION["category"])) {
-//			$_SESSION["category"] = 0;
-//		}
-//
-//		if(! isset($_SESSION["sub_category"])) {
-//			$_SESSION["sub_category"] = 0;
-//		}
-//
-//		if(isset($_SESSION["filter"]) && $_SESSION["filter"] != []) {
-//			$this->view->params["filter"] = $_SESSION["filter"];
-//		} else {
-//			$this->view->params["filter"] = [];
-//		}
-//
-//		if(! isset($_SESSION["is_first"])) {
-//			$_SESSION["is_first"] = 0;
-//		}
-
-		return true;
+		return $action;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------
@@ -301,22 +271,41 @@ class SiteController extends WebController
 		}
 	}
 
-    public function actionIndex() {
-        $this->rest->responseType = 'json';
-//        $dependencies = $this->rest->get('help/dependencies', [
-//            'cities'
-//        ]);
-	    //$this->setDependency(['categories']);
-        //$this->getListCategories();
-        //$this->getVipAdvert();
-		$vipAdverts = $this->rest->vipAdverts();
-		dd($vipAdverts);
+    public function actionIndex()
+    {
+        $categories = $this->getTreeCategories();
+        $vip = $this->rest->vip([
+            'random' => true
+        ]);
+        $contents = $this->getDependence('contents');
+        $page = $this->getPageInfo();
+        $brands = [];
+        $banners = [];
+        $mainSlider = [];
+        foreach ($contents as $content){
+            if($content['container'] === 'banner-box'){
+                $banners[] = $content['html'];
+            }
+            if($content['container'] === 'brand-box'){
+                $brands[] = $content['html'];
+            }
+            if($content['container'] === 'main-slider'){
+                $mainSlider[] = $content['html'];
+            }
+        }
+        $this->setViewParams([
+            "is_index" => true,
+            'mainSlider' => $mainSlider
+        ]);
 
-//		$this->buildBreadCrumbs();
+		$this->buildBreadCrumbs();
 
 		return $this->render('index', compact(
+		    'page',
 		    'categories',
-            'vipAdverts'
+		    'brands',
+		    'banners',
+            'vip'
         ));
 	}
 
@@ -329,79 +318,43 @@ class SiteController extends WebController
 //        }
     }
 
-	public function actionSearch() {
-        $this->getListCategories();
-        $this->initStatusAdverts();
-        $_list_vip_adverts = [];
-        $list_adverts = [];
+	public function actionSearchAdverts()
+    {
+//	    $this->rest->responseType = 'json';
+//        $this->initStatusAdverts();
+        $view = $this->view;
+        $adverts = [];
+        $vip = [];
+        $count = 0;
         $category = [];
-        $categoryID = $this->get("category");
 
-		if($this->request->isGet) {
-            if($this->get("id")) {
-                $category = $this->getCategoryBySysName($this->get("id"));
-            }
-			$this->view->params["filter"] = $this->get();
-            $this->rest->post('advert/check-status', $this->post());
-			$response = $this->rest->get('advert/get-list-advert-filter', $this->get());
-			$response_vip = $this->getVipAdvert();
+        if($this->get("slug")) {
+            $category = $this->getCategory($this->get("slug"));
+        }
 
-			$_SESSION["page_advert"] = 0;
+        $response = $this->rest->get('adverts', $this->get());
+        if($response){
+            $adverts = $response['adverts'];
+            $vip = $response['vip'];
+            $count = $response['count'];
+        }
 
-			if(isset($response['res']) && $response['res'] != "") {
-				$_list_adverts = json_decode($response['res'], true);
-				if(isset($_list_adverts["result"]) && $_list_adverts["result"] != "" && isset($_list_adverts["data"])) {
-					$this->list_advert = $_list_adverts["data"];
-					$list_adverts = $this->getSlice($this->list_advert, $_SESSION["page_advert"]);
-				}
-			}
-            if($response_vip) {
-                $_list_vip_adverts = $response_vip;
-            }
-            if(!$this->request->isAjax) {
-                if ($categoryID) {
-                    $_SESSION["category"] = $this->get("category");
-                }
-                if ($this->get("category2")) {
-                    $_SESSION["sub_category"] = $this->get("category2");
-                }
-            }
-		} else {
-			$response = $this->rest->get('advert/list-advert');
-			if(isset($response['res']) && $response['res'] != "") {
-				$_list_adverts = json_decode($response['res'], true);
-				if(isset($_list_adverts["result"]) && $_list_adverts["result"] != "" && isset($_list_adverts["data"])) {
-					$this->list_advert = $_list_adverts["data"];
-					$list_adverts = $this->getSlice($this->list_advert, $_SESSION["page_advert"]);
-				}
-			}
-		}
+        $pagination = new Pagination(['totalCount' => $count]);
 
-		$list_category = $this->list_category;
-
-        $this->setViewParams([
+        $this->setMetaTags([
             "title" => $category['seo_title'],
             "description" => $category['seo_desc']
         ]);
 
         $params = [
-            'list_adverts' => $list_adverts,
-            'list_vip' => $_list_vip_adverts,
-            'count_page' => $this->calculationNumberPages($this->list_advert),
-            'active_page' => $_SESSION["page_advert"],
-            'list_category' => $list_category,
-            'select_category' => $_SESSION["category"],
-            'select_sub_category' => $_SESSION["sub_category"],
-            "get_param" => $this->get()
+            'adverts' => $adverts,
+            'vip' => $vip,
+            'pagination' => $pagination,
+            'categories' => $this->getTreeCategories(),
+            'category' => $category,
         ];
-        if(isset($category)){
-            $this->name_category = $category['value'];
-            $params['category'] = $category;
-        }
-		$this->buildBreadCrumbs();
 
-        $params['count_page'] = $this->calculationNumberPages($this->list_advert);
-        $params['active_page'] = $_SESSION["page_advert"];
+		$this->buildBreadCrumbs();
 
 		return $this->render('poster',  $params);
 	}
@@ -533,7 +486,6 @@ class SiteController extends WebController
 	public function actionSignIn() {
 		if(isset($_SESSION) && isset($_SESSION["token"]) && $_SESSION["token"] != "") {
 			$this->view->params["user_id"] = $_SESSION['user_id'];
-			$this->user_id = $_SESSION['user_id'];
 			$this->view->params["is_login"] = true;
 			$_SESSION["filter"] = [];
 
@@ -587,8 +539,6 @@ class SiteController extends WebController
 				$_SESSION['token'] = $res['data']['token'];
 				$_SESSION['user_id'] = $res['data']['id'];
 				$this->view->params["user_id"] = $res['data']['id'];
-				$this->user_id = $res['data']['id'];
-
 				$this->view->params["is_login"] = true;
 				$_SESSION['log_name'] = $this->post("login");
 
@@ -865,7 +815,6 @@ class SiteController extends WebController
 	}
 
 	public function actionEditAdvert() {
-        $this->getListCurrency();
         $model = [];
         $type = "";
 
@@ -893,7 +842,6 @@ class SiteController extends WebController
 			}
 
 			return $this->render('edit_advert', [
-				"default_lang" => $this->default_language,
 				"model" => $model,
                 "profile_user" => $this->view->params["profile_user"]["profile_user"],
 				"list_category" => $this->list_category,
@@ -1040,4 +988,59 @@ class SiteController extends WebController
 			}
 		}
 	}
+
+	public function setMetaTags($data)
+    {
+        $view = $this->view;
+        if(isset($data['title']) && $data['title']){
+            $view->title = $data['title'];
+        }
+        if(isset($data['description']) && $data['description']){
+            $view->registerMetaTag(['name' => 'description', 'content' => $data['description']], 'description');
+        }
+    }
+
+	public function getDefaultLanguage()
+    {
+        $languages = $this->getDependence('languages');
+        $language = $this->language;
+        foreach ($languages as $lang) {
+            if($lang['iso_code'] == $language){
+                return $lang;
+            }
+        }
+        return [];
+    }
+
+	public function getPageInfo($url = false)
+    {
+        $contents = $this->getDependence('contents');
+        $url = ($url) ? $url : $this->url;
+        foreach ($contents as $content) {
+            if($content['link'] == $url){
+                return $content;
+            }
+        }
+        return [];
+    }
+
+	public function getCategory($slug = false)
+    {
+        $categories = $this->getDependence('categories');
+        if($categories) {
+            foreach ($categories as $category) {
+                if ($category['sys_name'] == $slug) {
+                    return $category;
+                }
+            }
+        }
+        return $categories;
+    }
+
+	public function getTreeCategories()
+    {
+        $treeBuilder = new TreeBuilder($this->getDependence('categories'), 'id_category', 'id_parent');
+        $categories = $treeBuilder->buildTree();
+        return $categories;
+    }
 }
