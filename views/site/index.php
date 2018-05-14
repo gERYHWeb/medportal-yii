@@ -1,12 +1,17 @@
 <?php
-use yii\widgets\Pjax;
-$data_vip = $this->params["vip_adverts"];
+use \yii\helpers\Url;
 ?>
-
 <!--main-->
 <main class="main">
     
-    <?php if (count($this->params["vip_adverts"]) > 1) { ?>
+    <?php if ($vip) { ?>
+    <?php
+        $vip1 = ceil(count($vip)) / 2;
+        $data_vip1 = array_slice($vip, 0, $vip1);
+        $vip2 = floor(count($vip) - $vip1);
+        $data_vip2 = array_slice($vip, $vip1, $vip2);
+        if($data_vip1 || $data_vip2){
+    ?>
     <section class="section section-vip  bg-white clearfix">
         <div class="container">
             <div class="title-hr title-hr--upper">
@@ -15,14 +20,9 @@ $data_vip = $this->params["vip_adverts"];
                 <hr>
             </div>
             <div class="content">
+                <?php if($data_vip1){ ?>
                 <div class="vip-box vip-box-1">
 					<?php
-
-					$vip1 = ceil(count($data_vip)) / 2;
-					$data_vip1 = array_slice($data_vip, 0, $vip1);
-					$vip2 = floor(count($data_vip) - $vip1);
-					$data_vip2 = array_slice($data_vip, $vip1, $vip2);
-
 					foreach($data_vip1 as $key => $val) {
 						$main_img = "";
 						foreach($val["media"] as $item_media) {
@@ -70,6 +70,8 @@ $data_vip = $this->params["vip_adverts"];
 
 					<?php } ?>
                 </div>
+                <?php } ?>
+                <?php if($data_vip2){ ?>
                 <div class="vip-box vip-box-2">
 					<?php
 					foreach($data_vip2 as $key => $val) {
@@ -116,12 +118,14 @@ $data_vip = $this->params["vip_adverts"];
 						<?php } ?>
 					<?php } ?>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </section>
     <?php } ?>
+    <?php } ?>
 
-    <?php if(isset($list_category) && $list_category){ ?>
+    <?php if($categories){ ?>
     <section class="section section-category bg-gray clearfix">
         <div class="container">
             <div class="title-hr">
@@ -129,29 +133,35 @@ $data_vip = $this->params["vip_adverts"];
             </div>
             <div class="content">
                 <div class="row">
+					<?php foreach($categories as $category) { ?>
 					<?php
-					$str = "";
-					foreach($list_category as $key => $val) {
-						?>
+                        $slug = Url::toRoute([
+                            'site/search-adverts',
+                            'slug' => $category["sys_name"]
+                        ]);
+					?>
                         <div class="col-sm-6 col-md-4 col-lg-3  item">
                             <div class="property-card card  product-card">
-                                <a href="/category/<?php echo $val["sys_name"]; ?>"
-                                   class="property-card-header image-box">
+                                <a href="<?php echo $slug; ?>" class="property-card-header image-box">
 
-                                    <img src="/images/<?php echo $val["image"]; ?>" alt="" class="">
+                                    <img src="/images/<?php echo $category["image"]; ?>" alt="" class="">
                                 </a>
                                 <div class="property-card-box card-box card-block">
                                     <h3 class="property-card-title">
-                                        <img src="/images/icons/<?php echo $val["sys_name"]; ?>.svg" alt="" class="repairs-icon">
-                                        <a href="/category/<?php echo $val["sys_name"]; ?>"><?php echo $val["value"]; ?></a>
+                                        <img src="/images/icons/<?php echo $category["sys_name"]; ?>.svg" alt="" class="repairs-icon">
+                                        <a href="<?php echo $slug; ?>"><?php echo $category['description']["value"]; ?></a>
                                     </h3>
-									<?php if(isset($val['child']) && count($val['child']) > 0) { ?>
+									<?php if(isset($category['children']) && count($category['children']) > 0) { ?>
                                         <ul class="product-categories">
-											<?php foreach($val['child'] as $val_child) { ?>
+											<?php foreach($category['children'] as $val_child) { ?>
                                                 <li>
-                                                    <a class="product-box-item btn-default"
-                                                       href="/category/<?php echo $val_child["sys_name"]; ?>">
-														<?php echo(isset($val_child["value"]) && $val_child["value"] != "") ? $val_child["value"] : $val_child["sys_name"]; ?></a>
+                                                    <a class="product-box-item btn-default" href="<?php
+                                                           echo Url::toRoute([
+                                                               'site/search-adverts',
+                                                               'slug' => $val_child["sys_name"]
+                                                           ]);
+                                                       ?>">
+                                                    <?php echo(isset($val_child['description']["value"])) ? $val_child['description']["value"] : $val_child["sys_name"]; ?></a>
                                                     <span class="count text-color-primary">
                                                         <?php echo $val_child['cnt_advert'] ?>
                                                     </span>
@@ -167,50 +177,33 @@ $data_vip = $this->params["vip_adverts"];
 
                 </div>
 
+                <?php if(isset($banners) && $banners) { ?>
                 <div class="bannBox">
-					<?php if(isset($this->params["content"]) && isset($this->params["content"]["banner-box"])) {
-						$str = '';
-						foreach($this->params["content"]["banner-box"] as $val) {
-							if(isset($val) && isset($val["html"])) {
-								$str .= $val["html"];
-							}
-						}
-						echo $str;
-					} ?>
+                    <?php echo implode('', $banners); ?>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </section>
     <?php } ?>
 
+    <?php if(isset($page) && $page){ ?>
     <section class="section section-category bg-white clearfix">
         <div class="container">
-			<?php if(isset($this->params["content"]) && isset($this->params["content"]["section-category"])) {
-				$str = '';
-				foreach($this->params["content"]["section-category"] as $val) {
-					if(isset($val) && isset($val["html"])) {
-						$str .= $val["html"];
-					}
-				}
-				echo $str;
-			} ?>
+            <?php echo $page['html']; ?>
         </div>
     </section>
+    <?php } ?>
+
+    <?php if(isset($brands) && $brands) { ?>
     <section class="section section-brand bg-white clearfix">
         <div class="container">
             <div class="content clearfix">
                 <div class="brand-box">
-					<?php if(isset($this->params["content"]) && isset($this->params["content"]["brand-box"])) {
-						$str = '';
-						foreach($this->params["content"]["brand-box"] as $val) {
-							if(isset($val) && isset($val["html"])) {
-								$str .= $val["html"];
-							}
-						}
-						echo $str;
-					} ?>
+                    <?php echo implode('', $brands); ?>
                 </div>
             </div>
         </div>
     </section>
+    <?php } ?>
 </main>

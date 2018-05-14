@@ -11,7 +11,8 @@ class RestManager extends Component
     protected $curl;
     protected $request;
     protected $url;
-    protected $data;
+    protected $route;
+    protected $parameters;
     public $isRawData = false;
     public $isRoute = true;
     protected $prefix = 'api/';
@@ -35,39 +36,19 @@ class RestManager extends Component
         ]);
     }
 
-    public function defaultLanguage() {
-        $response = $this->get("help/default-language");
-        if(isset($response['res']) && $response['res'] != "") {
-            $_lang_site = json_decode($response['res'], true);
-
-            if(isset($_lang_site["result"]) && $_lang_site["result"] != "" && isset($_lang_site["data"]["language"]) && $_lang_site["data"]["language"] != "") {
-                $this->default_language = $_lang_site["data"]["language"];
-                $this->default_id_language = $_lang_site["data"]["id_lang"];
-            }
-        }
-    }
-
-    public function dependencies() {
-        $response = $this->get('help/dependencies');
+    public function dependencies($data = []) {
+        $response = $this->get('help/dependencies', $data);
         return $response;
     }
 
-    public function cities() {
-        $response = $this->get('help/cities');
+    public function cities($data = []) {
+        $response = $this->get('help/cities', $data);
         return $response;
     }
 
-    public function vipAdverts() {
-        $adverts = $this->get('adverts', array_merge([
-            'random' => true,
-            'isVip' => true
-        ], $this->request->get()));
-        dd($adverts);
-
-        $vip = json_decode($get_vip, true);
-        if(isset($vip['result']) && $vip['result'] == true && isset($vip['data'])) {
-            return $this->view->params["vip_adverts"] = $vip['data'];
-        }
+    public function vip($data = []) {
+        $adverts = $this->get('adverts/vip', $data);
+        return $adverts;
     }
 
     public function advertByCategory($name_category) {
@@ -90,7 +71,7 @@ class RestManager extends Component
     }
 
 
-    public function profile() {
+    public function profile($data = []) {
         if(count($this->view->params["profile_user"]) == 0) {
             $get_prof = $this->rest->get('user/profile', [
                 'token' => $_SESSION['token']
@@ -103,7 +84,7 @@ class RestManager extends Component
         }
     }
 
-    public function page() {
+    public function page($data = []) {
         $url = preg_replace("/^(.*)\?.*/","$1",Yii::$app->request->getUrl());
         if(!$this->view->params["page_info"]) {
             $url = Yii::$app->params['root_rest_url'] . "help/get-page-info?url=" . urlencode($url);
@@ -121,50 +102,50 @@ class RestManager extends Component
         }
     }
 
-    public function post($url, $data = [])
+    public function post($route, $parameters = [])
     {
-        $this->url = $url;
-        $this->data = $data;
+        $this->route = $route;
+        $this->parameters = $parameters;
         $result = $this->request("post");
         return $result;
     }
 
-    public function put($url, $data = [])
+    public function put($route, $parameters = [])
     {
-        $this->url = $url;
-        $this->data = $data;
+        $this->route = $route;
+        $this->parameters = $parameters;
         $result = $this->request("put");
         return $result;
     }
 
-    public function patch($url, $data = [])
+    public function patch($route, $parameters = [])
     {
-        $this->url = $url;
-        $this->data = $data;
+        $this->route = $route;
+        $this->parameters = $parameters;
         $result = $this->request("patch");
         return $result;
     }
 
-    public function delete($url, $data = [])
+    public function delete($route, $parameters = [])
     {
-        $this->url = $url;
-        $this->data = $data;
+        $this->route = $route;
+        $this->parameters = $parameters;
         $result = $this->request("delete");
         return $result;
     }
 
-    public function head($url, $data = [])
+    public function head($route, $parameters = [])
     {
-        $this->url = $url;
-        $this->data = $data;
+        $this->route = $route;
+        $this->parameters = $parameters;
         $result = $this->request("head");
         return $result;
     }
 
-    public function get($url, $data = [])
+    public function get($route, $parameters = [])
     {
-        $this->url = $url;
-        $this->data = $data;
+        $this->route = $route;
+        $this->parameters = $parameters;
         $result = $this->request("get");
         return $result;
     }
@@ -172,25 +153,25 @@ class RestManager extends Component
     protected function beforeSend($result)
     {
         if($this->isRoute){
-            $this->url = Url::to("{$this->host}/{$this->prefix}{$this->url}");
+            $this->url = Url::to("{$this->host}/{$this->prefix}{$this->route}");
         }
         return $result;
     }
 
     protected function afterSend($result)
     {
-        $result = $this->setToCache($this->url, $result);
         if($this->responseType == "array"){
             $result = json_decode($result, true);
         }
+        $result = $this->setCache($this->route, $result);
         return $result;
     }
 
     protected function request($type)
     {
-        $data = $this->data;
+        $parameters = $this->parameters;
         $curl = $this->curl;
-        if($result = $this->getFromCache($this->url)){
+        if($result = $this->getCache($this->route)){
             return $result;
         }
         $result = $this->beforeSend($result);
@@ -198,42 +179,42 @@ class RestManager extends Component
         $url = $this->url;
         switch ($type) {
             case "get":
-                if ($data) {
-                    $curl->setGetParams($data);
+                if ($parameters) {
+                    $curl->setGetParams($parameters);
                 }
                 $result = $curl->get($url);
                 break;
             case "head":
-                if ($data) {
-                    $curl->setGetParams($data);
+                if ($parameters) {
+                    $curl->setGetParams($parameters);
                 }
                 $result = $curl->head($url);
                 break;
             case "post":
-                if ($data) {
+                if ($parameters) {
                     if (!$this->isRawData) {
-                        $curl->setPostParams($data);
+                        $curl->setPostParams($parameters);
                     } else {
-                        $curl->setRawPostData($data);
+                        $curl->setRawPostData($parameters);
                     }
                 }
                 $result = $curl->post($url);
                 break;
             case "patch":
-                if ($data) {
-                    $curl->setPostParams($data);
+                if ($parameters) {
+                    $curl->setPostParams($parameters);
                 }
                 $result = $curl->patch($url);
                 break;
             case "put":
-                if ($data) {
-                    $curl->setPostParams($data);
+                if ($parameters) {
+                    $curl->setPostParams($parameters);
                 }
                 $result = $curl->put($url);
                 break;
             case "delete":
-                if ($data) {
-                    $curl->setPostParams($data);
+                if ($parameters) {
+                    $curl->setPostParams($parameters);
                 }
                 $result = $curl->delete($url);
                 break;
@@ -242,19 +223,23 @@ class RestManager extends Component
         return $result;
     }
 
-    protected function getFromCache($key){
+    public function getCache($key)
+    {
         return (isset($this->cache[$key])) ? $this->cache[$key] : false;
     }
 
-    protected function setToCache($key, $value){
+    public function setCache($key, $value)
+    {
         return $this->cache[$key] = $value;
     }
 
-    public function setHost($host){
+    public function setHost($host)
+    {
         $this->host = preg_replace("/\/$/", "", $host);
     }
 
-    public function getHost(){
+    public function getHost()
+    {
         if(strpos($this->host, '@')){
             return Yii::getAlias($this->host);
         }else{
