@@ -70,7 +70,7 @@ use yii\widgets\Breadcrumbs;
                                         </div>
                                         <div class="price"
                                              id="currency<?php echo $key ?>"><?php
-                                            app\models\Utility::setPrice($val);
+                                            echo app\models\Advert::getPrice($val);
                                         ?></div>
                                     </div>
                                 </div>

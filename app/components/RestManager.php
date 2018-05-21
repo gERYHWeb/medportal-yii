@@ -26,14 +26,16 @@ class RestManager extends Component
     public function init()
     {
         parent::init();
-        $this->request = Yii::$app->request;
+        $app = Yii::$app;
+        $this->request = $app->request;
         $this->curl = new Curl();
-        $this->curl->setHeaders([
-            'client_language' => 'ru',
-            'client_country' => 'kz',
-            'client_ip_address' => $this->request->getUserIP(),
-            'client_user_agent' => $this->request->getUserAgent(),
+        $this->setHeaders([
+            'client_language' => $app->locale->getLanguage('code'),
+            'client_country' => $app->locale->getCountry('code'),
+            'client_ip_address' => $app->request->getUserIP(),
+            'client_user_agent' => $app->request->getUserAgent(),
         ]);
+
     }
 
     public function dependencies($data = []) {
@@ -236,6 +238,15 @@ class RestManager extends Component
     public function setHost($host)
     {
         $this->host = preg_replace("/\/$/", "", $host);
+    }
+
+    public function setHeaders($headers = [])
+    {
+        if($headers) {
+            $this->curl->setHeaders($headers);
+            return true;
+        }
+        return false;
     }
 
     public function getHost()

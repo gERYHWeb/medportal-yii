@@ -55,7 +55,7 @@ use yii\widgets\Breadcrumbs;
                                 <div class="item-info ">
                                     <div class="a-info">
                                         <h3 class="item-price"><?php
-                                            app\models\Utility::setPrice($val);
+                                            echo app\models\Advert::getPrice($val);
                                         ?></h3>
                                         <h4 class="item-title"><a href="/advert/<?php echo $id_ads . "-" . $meta_title ?>"><?php echo $title ?></a></h4>
                                         <div class="item-cat">

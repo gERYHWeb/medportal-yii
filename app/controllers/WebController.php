@@ -22,8 +22,7 @@ class WebController extends YiiController
 {
     protected $app;
     protected $rest;
-    protected $language;
-    protected $currency;
+    protected $locale;
     protected $request;
     protected $headers;
     protected $session;
@@ -31,17 +30,23 @@ class WebController extends YiiController
     protected $url;
     protected $dependencies = [];
 
-    public function init(){
+    public function init()
+    {
         parent::init();
 
         $app = $this->app = Yii::$app;
         $this->headers = $app->request->headers;
         $this->rest = $app->rest;
-        $this->request = $app->request;
+        $locale = $this->locale = $app->locale;
+        $request = $this->request = $app->request;
         $this->session = $app->session;
-        $this->language = $app->language;
         $this->url = $app->request->url;
-        $this->currency = 5;
+
+        $this->dependencies = $this->rest->dependencies([
+            'data' => [ 'cities', 'categories', 'languages', 'currencies', 'translations', 'contents' ]
+        ]);
+        $locale->setCurrencies($this->getDependence('currencies'));
+        $locale->setLanguages($this->getDependence('languages'));
 
         $app->session->open();
     }
@@ -58,7 +63,7 @@ class WebController extends YiiController
 
     public function getDependence($route)
     {
-        $deps = $this->rest->dependencies();
+        $deps = $this->dependencies;
         if(isset($deps[$route])){
             return $deps[$route];
         }
