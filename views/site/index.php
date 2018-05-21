@@ -60,7 +60,7 @@ use \yii\helpers\Url;
                                 <div class="product-title"><?php echo $title ?></div>
                                 <div class="bottom-info">
                                     <div class="price"><?php
-                                        app\models\Utility::setPrice($val);
+                                        echo app\models\Advert::getPrice($val);
                                     ?></div>
                                 </div>
                                 <span class="badge badge-vip">Vip</span>
@@ -110,7 +110,7 @@ use \yii\helpers\Url;
                                 <div class="product-title"><?php echo $title ?></div>
                                 <div class="bottom-info">
                                     <div class="price"><?php
-                                        app\models\Utility::setPrice($val);
+                                        echo app\models\Advert::getPrice($val);
                                     ?></div>
                                 </div>
                                 <span class="badge badge-vip">Vip</span>

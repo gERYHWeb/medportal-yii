@@ -105,14 +105,15 @@
 		public static function setPrice($val){
             $symbol_currency = isset($val['cur_symbol']) ? $val['cur_symbol'] : '';
             $price = isset($val['price']) ? $val['price'] : 0;
-            echo ($price > 0) ? $symbol_currency . $price : "";
-            echo ($val['is_contract_price']) ?
+
+            $return = ($price > 0) ? $symbol_currency . $price : "";
+            $return .= ($val['is_contract_price']) ?
                 (
                     ($price > 0) ?
                         "<span class='is-contract-price'> (договорная)</span>" :
                         "<span class='is-contract-price'>Договорная цена</span>"
                ) : "";
-
+            return $return;
         }
 
 		public static function xorEncrypt($InputString, $KeyString = KEY_XOR) {

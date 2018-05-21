@@ -74,11 +74,9 @@ class SiteController extends WebController
     }
 
 	public function beforeAction($action) {
-        $dependencies = $this->rest->dependencies([
-            'data' => [ 'cities', 'categories', 'languages', 'currencies', 'translations', 'contents' ]
-        ]);
+        $dependencies = $this->dependencies;
 
-        $language = $this->getDefaultLanguage();
+        $language = $this->locale->getLanguage('code');
 
         $this->setViewParams(ArrayHelper::merge($dependencies, [
             'is_index' => false,
@@ -116,11 +114,10 @@ class SiteController extends WebController
 	//--------------------------------------------------------------------------------------------------------------
 
 	public function actionChangeLanguage() {
-		if ($this->request->isAjax) {
-			if ($this->post("language")) {
-				$_SESSION["default_language"] = $this->post("language");
-			}
-		}
+	    $lang = $this->get("language");
+        if ($lang) {
+            $this->locale->setLanguage($lang);
+        }
 
 		return true;
 	}
@@ -432,7 +429,6 @@ class SiteController extends WebController
 	}
 
 	public function actionAdvert() {
-        $this->getListCategories();
 		$data_advert = [];
 		if ($this->get("id")) {
 			$response = $this->rest->get('advert/get-info-advert', [
@@ -998,18 +994,6 @@ class SiteController extends WebController
         if(isset($data['description']) && $data['description']){
             $view->registerMetaTag(['name' => 'description', 'content' => $data['description']], 'description');
         }
-    }
-
-	public function getDefaultLanguage()
-    {
-        $languages = $this->getDependence('languages');
-        $language = $this->language;
-        foreach ($languages as $lang) {
-            if($lang['iso_code'] == $language){
-                return $lang;
-            }
-        }
-        return [];
     }
 
 	public function getPageInfo($url = false)

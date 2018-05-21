@@ -47,7 +47,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                     $mainImage = $item_media['value'];
 								}
 							}
-                            $slug = Url::toRoute([
+                            $slug = Url::to([
                                 'site/advert',
                                 'id' => $advert["id_ads"],
                                 'slug' => $advert["slug"]
@@ -66,7 +66,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                 <div class="product-title"><?php echo $advert['title']; ?></div>
                                 <div class="bottom-info">
                                     <div class="price"><?php
-                                        app\models\Utility::setPrice($advert);
+                                        echo app\models\Advert::getPrice($advert);
                                     ?></div>
                                 </div>
                                 <span class="badge badge-vip">Vip</span>
@@ -82,10 +82,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
 
             <div class="row sidebar-content">
                 <aside class="sidebar" id="sidebar">
-                    <!--
-                    <form action="/search" method="get" class="widget shop-categories" id="shop-categories">
-                    -->
-                    <form action="/search" method="get" class="widget shop-categories" id="shop-categories">
+                    <form action="<?php echo Url::to(['site/search-adverts', 'slug' => '']); ?>" class="widget shop-categories" id="shop-categories">
                         <div class="widget shop-categories">
                             <h4 class="widget-title">Фильтр</h4>
                             <br>
@@ -105,7 +102,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                             </a>
                                             <ul class="select-category__ul">
                                                 <li data-value="0" class="select-category__li">
-                                                    <a href="/items/" class="select-category__link">
+                                                    <a href="<?php echo Url::to(['site/search-adverts', 'slug' => '']); ?>" class="select-category__link">
                                                         <strong class="select-category__title">- Сбросить категорию -</strong>
                                                     </a>
                                                 </li>
@@ -115,7 +112,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                                         echo (($category == $id)?'select-category__li--selected':'');
                                                     ?>">
                                                         <a href="<?php
-                                                            echo isset($val['children']) ? "#" : "/category/" . $val['sys_name'];
+                                                            echo !isset($val['children']) ? Url::to(['site/search-adverts', 'slug' => $val['sys_name']]) : "#";
                                                         ?>" class="select-category__link">
                                                             <span class="select-category__title"><?php echo $val['description']['value']; ?></span>
                                                         </a>
@@ -124,9 +121,8 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                                             <ul class="select-category__ul select-category__ul--submenu">
                                                                 <li class="select-category__li">
                                                                     <a href="<?php
-                                                                        echo "/category/" . $val['sys_name'];
-                                                                    ?>"
-                                                                       class="select-category__link">
+                                                                        echo Url::to(['site/search-adverts', 'slug' => $val['sys_name']]);
+                                                                    ?>" class="select-category__link">
                                                                         <strong class="select-category__title">- Показать всё -</strong>
                                                                     </a>
                                                                 </li>
@@ -277,7 +273,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                 $mainImage = $item_media['value'];
                             }
                         }
-                        $slug = Url::toRoute([
+                        $slug = Url::to([
                             'site/advert',
                             'id' => $advert["id_ads"],
                             'slug' => $advert["slug"]
@@ -299,7 +295,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                 <div class="product-title"><?php echo $advert['title']; ?></div>
                                 <div class="bottom-info">
                                     <div class="price"><?php
-                                        app\models\Utility::setPrice($advert);
+                                        echo app\models\Advert::getPrice($advert);
                                     ?></div>
                                 </div>
                             </a>

@@ -10,8 +10,8 @@ $config = [
     'sourceLanguage' => 'en',
 	'bootstrap' => [ 'log' ],
 	'components' => [
-        'deps' => [
-            'class' => '\app\components\Dependencies'
+        'locale' => [
+            'class' => '\app\components\LocaleManager'
         ],
         'rest' => [
             'class' => '\app\components\RestManager'

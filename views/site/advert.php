@@ -282,8 +282,8 @@ $profile = (isset($this->params['profile_user']['profile_user'])) ? $this->param
                                                         <div class="product-title" id="title<?php echo $key ?>"><?php echo $title ?></div>
                                                         <div class="bottom-info">
                                                             <div class="price"><?php
-                                                                app\models\Utility::setPrice($val);
-                                                                ?></div>
+                                                                echo app\models\Advert::getPrice($val);
+                                                            ?></div>
                                                         </div>
                                                     </a>
 
