@@ -10,6 +10,15 @@ $config = [
     'sourceLanguage' => 'en',
 	'bootstrap' => [ 'log' ],
 	'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'jsOptions' => [
+                        'position' => \yii\web\View::POS_HEAD,
+                    ]
+                ],
+            ],
+        ],
         'locale' => [
             'class' => '\app\components\LocaleManager'
         ],
@@ -68,8 +77,8 @@ $config = [
 				'sign-in' => 'site/sign-in',
 				'sign-out' => 'site/sign-out',
 				'auth-reg/<id:(.*)>' => 'site/auth-reg',
-                'search' => 'site/search-adverts',
 				'search/<slug:(.*)>' => 'site/search-adverts',
+                'search' => 'site/search-adverts',
 				'item/<id:(.*)>-<slug:(.*)>' => 'site/advert',
 				'profile' => 'site/profile',
 				'edit-advert/<id:(.*)>' => 'site/edit-advert/',

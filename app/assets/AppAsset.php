@@ -35,7 +35,6 @@ class AppAsset extends AssetBundle
         "css/middleware.css",
     ];
     public $js = [
-        "js/jquery-2.2.2.min.js",
         "js/jquery.pjax.min.js",
         "js/underscore-min.js",
         "vendors/bootstrap-toastr/toastr.min.js",

@@ -94,7 +94,67 @@ function send_feedback() {
 }
 
 $(document).ready(function () {
-    $(".btn-submit-feedback").click(function () {
-        send_feedback();
+    var $body = $('body');
+
+    $(".btn-submit-feedback").on('click', send_feedback);
+
+    $("#select_category").on('change', function () {
+        var form_data = new FormData();
+
+        form_data.append('type', "category");
+        form_data.append('category', $(this).val());
+
+        $.ajax({
+            type: "POST",
+            url: '/change-category',
+            dataType: "json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            success: function (data, textStatus) {
+                $.pjax.reload({container: '#container_category'});
+                setTimeout(select_category, 1000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError);
+            }
+        });
+    });
+
+    $("#select_sub_category").on('change', function () {
+        var form_data = new FormData();
+
+        form_data.append('type', "sub_category");
+        form_data.append('category', $(this).val());
+
+        $.ajax({
+            type: "POST",
+            url: '/change-category',
+            dataType: "json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            success: function (data, textStatus) {
+                $.pjax.reload({container: '#container_category'});
+                setTimeout(select_sub_category, 1000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError);
+            }
+        });
+    });
+
+    $body.on('submit', '#FormFilter', function (e) {
+        var $this = $(this);
+        var $fields = $this.find('.js-field');
+        for (var i = 0; i < $fields.length; i++) {
+            var $item = $($fields[i]);
+            var val = $item.val();
+            if (val === '' || ($item.attr('type') === 'checkbox' && !$item.prop('checked'))) {
+                $item.attr('disabled', '');
+            }
+        }
     });
 });
