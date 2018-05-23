@@ -5,6 +5,24 @@ use yii\widgets\Pjax;
 use \yii\helpers\Url;
 
 $breadcrumbs = $this->params['breadcrumbs'];
+$filters = $this->params['filters'];
+$viewOpts = [
+    ['', '- Выберите состояние -'],
+    ['new', 'Новый'],
+    ['old', 'Б/у']
+];
+$stateOpts = [
+    ['', '- Выберите вид -'],
+    [0, 'От компании'],
+    [1, 'Частное']
+];
+$sortOpts = [
+    ['', '- Выберите тип сортировки -'],
+    [1, 'Самые новые'],
+    [2, 'От дешевых к дорогим'],
+    [3, 'От дорогих к дешевым'],
+    [4, 'Популярные']
+];
 ?>
 
 <main class="main">
@@ -82,7 +100,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
 
             <div class="row sidebar-content">
                 <aside class="sidebar" id="sidebar">
-                    <form action="<?php echo Url::to(['site/search-adverts', 'slug' => '']); ?>" class="widget shop-categories" id="shop-categories">
+                    <form action="<?php echo Url::to(['site/search-adverts']); ?>" class="widget shop-categories" id="FormFilter">
                         <div class="widget shop-categories">
                             <h4 class="widget-title">Фильтр</h4>
                             <br>
@@ -102,7 +120,7 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                             </a>
                                             <ul class="select-category__ul">
                                                 <li data-value="0" class="select-category__li">
-                                                    <a href="<?php echo Url::to(['site/search-adverts', 'slug' => '']); ?>" class="select-category__link">
+                                                    <a href="<?php echo Url::to(['site/search-adverts']); ?>" class="select-category__link">
                                                         <strong class="select-category__title">- Сбросить категорию -</strong>
                                                     </a>
                                                 </li>
@@ -149,116 +167,55 @@ $breadcrumbs = $this->params['breadcrumbs'];
                                 <?php } ?>
 
                                 <div class="form-group form-group-select column  col-second">
-                                    <label>Вид объявления</label>
-                                    <select  class="select select100" name="view">
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['view']) &&
-                                                           $this->params["filter"]['view'] == "") {
-	                                        echo " selected ";
-                                        } ?> value="">- Выберите вид -</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['view']) &&
-                                                           $this->params["filter"]['view'] == "0") {
-	                                        echo " selected ";
-                                        } ?> value="0">От компании</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['view']) &&
-                                                           $this->params["filter"]['view'] == "1") {
-	                                        echo " selected ";
-                                        } ?> value="1">Частное</option>
+                                    <label for="viewFilterControl">Вид объявления</label>
+                                    <select id="viewFilterControl" class="select select100 js-field" name="view">
+                                        <?php foreach($viewOpts as $item){ ?>
+                                            <option <?php
+                                                echo ($filters['view'] == $item[0]) ? 'selected=""' : '';
+                                            ?> value="<?php echo $item[0]; ?>"><?php echo $item[1]; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
-                                <div class="form-group form-group-select column  col-third">
-                                    <label>Состояние</label>
-                                    <select  class="select select100" name="condition">
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['condition']) &&
-                                                           $this->params["filter"]['condition'] == "") {
-	                                        echo " selected ";
-                                        } ?> value="">- Выберите состояние -</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['condition']) &&
-                                                           $this->params["filter"]['condition'] == "old") {
-	                                        echo " selected ";
-                                        } ?> value="old">Б/У</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['condition']) &&
-                                                           $this->params["filter"]['condition'] == "new") {
-	                                        echo " selected ";
-                                        } ?> value="new">Новое</option>
+                                <div class="form-group form-group-select column col-third">
+                                    <label for="stateFilterControl">Состояние</label>
+                                    <select id="stateFilterControl" class="select select100 js-field" name="state">
+                                        <?php foreach($stateOpts as $item){ ?>
+                                            <option <?php
+                                                echo ($filters['state'] == $item[0]) ? 'selected=""' : '';
+                                            ?> value="<?php echo $item[0]; ?>"><?php echo $item[1]; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group form-group-price column col-first">
-                                    <label>Цена</label>
+                                    <label for="priceFilterControl">Цена</label>
                                     <div class="price-box">
-                                        <input  value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['price-min']) && $this->params["filter"]['price-min'] != "") {
-	                                        echo $this->params["filter"]['price-min']; } ?>" type="number" placeholder="от (тенге)" name="price-min">
-                                        <div class="dash">&nbsp;</div>
-                                        <input  value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['price-max']) && $this->params["filter"]['price-max'] != "") {
-	                                        echo $this->params["filter"]['price-max']; } ?>" type="number" placeholder="до (тенге)" name="price-max">
+                                        <input class="js-field mb10" id="priceFilterControl" value="<?php echo $filters['price_min']; ?>" type="number" placeholder="от (тенге)" name="price_min">
+                                        <input class="js-field" value="<?php echo $filters['price_max']; ?>" type="number" placeholder="до (тенге)" name="price_max">
                                     </div>
                                 </div>
                                 <div class="form-group form-group-select column col-third">
-                                    <label>Сортировка</label>
-                                    <select  class="select select100" name="sort">
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['sort']) &&
-                                                           $this->params["filter"]['sort'] == "") {
-	                                        echo " selected ";
-                                        } ?> value="">- Выберите тип сортировки -</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['sort']) &&
-                                                           $this->params["filter"]['sort'] == "1") {
-	                                        echo " selected ";
-                                        } ?> value="1">Самые новые</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['sort']) &&
-                                                           $this->params["filter"]['sort'] == "2") {
-	                                        echo " selected ";
-                                        } ?> value="2">От дешевых к дорогим</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['sort']) &&
-                                                           $this->params["filter"]['sort'] == "3") {
-	                                        echo " selected ";
-                                        } ?> value="3">От дорогих к дешевым</option>
-                                        <option <?php if(isset($this->params["filter"]) &&
-                                                           isset($this->params["filter"]['sort']) &&
-                                                           $this->params["filter"]['sort'] == "4") {
-	                                        echo " selected ";
-                                        } ?> value="4">Популярные</option>
+                                    <label for="sortFilterControl">Сортировка</label>
+                                    <select id="sortFilterControl" class="select select100 js-field" name="sort">
+                                        <?php foreach($sortOpts as $item){ ?>
+                                            <option <?php
+                                                echo ($filters['sort'] == $item[0]) ? 'selected=""' : '';
+                                            ?> value="<?php echo $item[0]; ?>"><?php echo $item[1]; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group form-group-check column  col-fourth">
-                                    <label>&nbsp;</label>
                                     <div class="label-box">
-                                        <input type="checkbox"
-                                               id="check-withFoto"
-                                               class="checkbox"
-	                                        <?php if(isset($this->params["filter"]) &&
-                                                       isset($this->params["filter"]['hasImage'])) {
-		                                        echo " checked ";
-	                                        } ?>
-                                               name="check-withFoto">
-                                        <label for="check-withFoto" class="checkbox-label">Только с фото</label>
+                                        <input class="js-field checkbox" type="checkbox" id="hasImageFilterControl"
+	                                        <?php echo ($filters['hasImage']) ? 'checked=""' : ''; ?> name="check-withFoto">
+                                        <label for="hasImageFilterControl" class="checkbox-label">Только с фото</label>
                                     </div>
                                 </div>
-                                <input type="hidden" name="search"
-                                       value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['search']) && $this->params["filter"]['search'] != "") {
-		                                   echo $this->params["filter"]['search'];
-	                                   } ?>">
-                                <input type="hidden" name="city"
-                                       value="<?php if(isset($this->params["filter"]) && isset($this->params["filter"]['city']) && $this->params["filter"]['city'] != "") {
-		                                   echo $this->params["filter"]['city'];
-	                                   } ?>">
+                                <input class="js-field" type="hidden" name="search" value="<?php echo $filters['search']; ?>">
+                                <input class="js-field" type="hidden" name="city" value="<?php echo $filters['city']; ?>">
                             </div>
                             <div class="filtration-bottom">
                                 <button class="btn btn-inverse btn-submit" type="submit" id="go-filter">Поиск</button>
                             </div>
-
-                            <!--
-                            form="from-search"
-                            -->
-
                         </div>
                     </form>
                 </aside>
@@ -325,85 +282,4 @@ $breadcrumbs = $this->params['breadcrumbs'];
         </div>
     </section>
 </main>
-
-<script type="text/javascript">
-    function select_category() {
-        $("#select_category").change(function () {
-            var form_data = new FormData();
-
-            form_data.append('type', "category");
-            form_data.append('category', $(this).val());
-
-            $.ajax({
-                type: "POST",
-                url: '/change-category',
-                dataType: "json",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                success: function (data, textStatus) {
-                    $.pjax.reload({container: '#container_category'});
-                    setTimeout(select_category, 1000);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
-                }
-            });
-        });
-    }
-
-    function select_sub_category() {
-        $("#select_sub_category").change(function () {
-            var form_data = new FormData();
-
-            form_data.append('type', "sub_category");
-            form_data.append('category', $(this).val());
-
-            $.ajax({
-                type: "POST",
-                url: '/change-category',
-                dataType: "json",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                success: function (data, textStatus) {
-                    $.pjax.reload({container: '#container_category'});
-                    setTimeout(select_sub_category, 1000);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
-                }
-            });
-        });
-    }
-/*
-    function toSearch() {
-        var data_search = $("#form-search").serializeArray();
-
-
-        if ($("#check-withFoto").prop('checked') == false) {
-            data_search.push({"name": "check-withFoto", "value": "off"});
-        }
-
-        $.ajax({
-            type: "POST",
-            url: '/start-search',
-            data: data_search,
-            success: function (data, textStatus) {
-                $.pjax.reload({container: '#container_advert', async: false});
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError);
-            }
-        });
-    }
-*/
-
-    $(document).ready(function () {
-        select_category();
-        select_sub_category();
-    });
-</script>
 

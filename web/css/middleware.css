@@ -1,4 +1,6 @@
-
+.mb10{
+    margin-bottom: 10px;
+}
 .hdMsg {
     position: fixed;
     text-align: center;

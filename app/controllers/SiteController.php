@@ -317,7 +317,7 @@ class SiteController extends WebController
 
 	public function actionSearchAdverts()
     {
-//	    $this->rest->responseType = 'json';
+	    //$this->rest->responseType = 'json';
 //        $this->initStatusAdverts();
         $view = $this->view;
         $adverts = [];
@@ -340,7 +340,16 @@ class SiteController extends WebController
 
         $this->setMetaTags([
             "title" => $category['seo_title'],
-            "description" => $category['seo_desc']
+            "description" => $category['seo_desc'],
+            "filters" => [
+                "view" => $this->get('view'),
+                "state" => $this->get('state'),
+                "price_min" => $this->get('price_min'),
+                "price_max" => $this->get('price_max'),
+                "sort" => $this->get('sort'),
+                "search" => $this->get('search'),
+                "city" => $this->get('city')
+            ]
         ]);
 
         $params = [
