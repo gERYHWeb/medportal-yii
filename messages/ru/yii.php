@@ -26,7 +26,7 @@ return [
     'Delete' => '',
     'Error' => '',
     'File upload failed.' => '',
-    'Home' => '',
+    'Home' => 'Главная',
     'Invalid data received for parameter "{param}".' => '',
     'Login Required' => '',
     'Missing required arguments: {params}' => '',

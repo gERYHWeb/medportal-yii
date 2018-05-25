@@ -610,3 +610,8 @@ select + .select2-container--default .select2-selection--single {
 .form-auth-reg .field-wrap{
     margin-bottom: 15px;
 }
+.widget-content .title-category{
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}

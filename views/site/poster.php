@@ -27,33 +27,13 @@ $sortOpts = [
 
 <main class="main">
 
-    <ol class="breadcrumb">
-		<?php
-		$str = '';
-		$i = 1;
-		foreach($this->params["BreadCrumbs"] as $key => $val) {
-		    if($i == count($this->params["BreadCrumbs"])){
-		        $val['notlink'] = true;
-            }
-			if($key == end($this->params["BreadCrumbs"])) {
-				$str .= "<li class='active'>" . $val["label"] . "</li>";
-			} else {
-				if(isset($val["notlink"]) && $val["notlink"] == true) {
-					$str .= "<li>" . $val["label"] . "</li>";
-				} else {
-					$str .= "<li><a href='" . $val["url"] . "'>" . $val["label"] . "</a></li>";
-				}
-			}
-            $i++;}
-		echo $str;
-		?>
-    </ol>
+    <?php echo Yii::$app->breadcrumbs->render(); ?>
 
     <section class="section section-category container clearfix">
         <div>
 			<?php if($vip) { ?>
                 <div class="title-page">
-                    <h1 class="text">Vip объявления</h1>
+                    <h1 class="text">VIP объявления</h1>
                 </div>
                 <div class=" section-vip ">
                     <div class="vip-box vip-box-1">
@@ -106,12 +86,22 @@ $sortOpts = [
                             <br>
 
                             <div class="widget-content">
+                                <div class="form-group form-group-select column col-third">
+                                    <h3 class="title-category">Сортировка</h3>
+                                    <select id="sortFilterControl" class="select select100 js-field" name="sort">
+                                        <?php foreach($sortOpts as $item){ ?>
+                                            <option <?php
+                                            echo ($filters['sort'] == $item[0]) ? 'selected=""' : '';
+                                            ?> value="<?php echo $item[0]; ?>"><?php echo $item[1]; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                                 <?php if($categories){ ?>
                                 <?php
                                     $placeholder = (isset($category) && $category) ? $category['description']['value'] : '- Выберите категорию -';
                                 ?>
                                 <div class="form-group form-group-select column  col-first">
-                                    <label>Категория</label>
+                                    <h3 class="title-category">Категория</h3>
                                     <div class="select-category">
                                         <div class="select-category__main select-category__li">
                                             <a href="#" onclick="return false;">
@@ -167,7 +157,7 @@ $sortOpts = [
                                 <?php } ?>
 
                                 <div class="form-group form-group-select column  col-second">
-                                    <label for="viewFilterControl">Вид объявления</label>
+                                    <h3 class="title-category">Вид объявления</h3>
                                     <select id="viewFilterControl" class="select select100 js-field" name="view">
                                         <?php foreach($viewOpts as $item){ ?>
                                             <option <?php
@@ -177,7 +167,7 @@ $sortOpts = [
                                     </select>
                                 </div>
                                 <div class="form-group form-group-select column col-third">
-                                    <label for="stateFilterControl">Состояние</label>
+                                    <h3 class="title-category">Состояние</h3>
                                     <select id="stateFilterControl" class="select select100 js-field" name="state">
                                         <?php foreach($stateOpts as $item){ ?>
                                             <option <?php
@@ -187,21 +177,11 @@ $sortOpts = [
                                     </select>
                                 </div>
                                 <div class="form-group form-group-price column col-first">
-                                    <label for="priceFilterControl">Цена</label>
+                                    <h3 class="title-category">Цена</h3>
                                     <div class="price-box">
                                         <input class="js-field mb10" id="priceFilterControl" value="<?php echo $filters['price_min']; ?>" type="number" placeholder="от (тенге)" name="price_min">
                                         <input class="js-field" value="<?php echo $filters['price_max']; ?>" type="number" placeholder="до (тенге)" name="price_max">
                                     </div>
-                                </div>
-                                <div class="form-group form-group-select column col-third">
-                                    <label for="sortFilterControl">Сортировка</label>
-                                    <select id="sortFilterControl" class="select select100 js-field" name="sort">
-                                        <?php foreach($sortOpts as $item){ ?>
-                                            <option <?php
-                                                echo ($filters['sort'] == $item[0]) ? 'selected=""' : '';
-                                            ?> value="<?php echo $item[0]; ?>"><?php echo $item[1]; ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
                                 <div class="form-group form-group-check column  col-fourth">
                                     <div class="label-box">
@@ -261,7 +241,7 @@ $sortOpts = [
                     </div>
 
 					<?php
-                        LinkPager::widget([
+                        echo LinkPager::widget([
                             'pagination' => $pagination,
                         ]);
 					?>
