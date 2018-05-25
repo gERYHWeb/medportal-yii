@@ -22,6 +22,7 @@ class WebController extends YiiController
 {
     protected $app;
     protected $rest;
+    protected $breadcrumbs;
     protected $locale;
     protected $request;
     protected $headers;
@@ -41,6 +42,7 @@ class WebController extends YiiController
         $request = $this->request = $app->request;
         $this->session = $app->session;
         $this->url = $app->request->url;
+        $this->breadcrumbs = $app->breadcrumbs;
 
         $this->dependencies = $this->rest->dependencies([
             'data' => [ 'cities', 'categories', 'languages', 'currencies', 'translations', 'contents' ]

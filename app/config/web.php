@@ -19,6 +19,9 @@ $config = [
                 ],
             ],
         ],
+        'breadcrumbs' => [
+            'class' => '\app\components\Breadcrumbs'
+        ],
         'locale' => [
             'class' => '\app\components\LocaleManager'
         ],

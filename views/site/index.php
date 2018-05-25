@@ -76,11 +76,13 @@ use \yii\helpers\Url;
 					<?php
 					foreach($data_vip2 as $key => $val) {
 						$main_img = "";
-						foreach($val["media"] as $item_media) {
-							if(isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
-								$main_img = $item_media['value'];
-							}
-						}
+						if($val["media"]) {
+                            foreach ($val["media"] as $item_media) {
+                                if (isset($item_media['type_media']) && $item_media['type_media'] == "main_image") {
+                                    $main_img = $item_media['value'];
+                                }
+                            }
+                        }
 						isset($val['meta_title']) ? $meta_title = $val['meta_title'] : $meta_title = '';
 						isset($val['cur_symbol']) ? $symbol_currency = $val['cur_symbol'] : $symbol_currency = '';
 						isset($val['price']) ? $price = $val['price'] : $price = '';

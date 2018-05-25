@@ -295,8 +295,6 @@ class SiteController extends WebController
             'mainSlider' => $mainSlider
         ]);
 
-		$this->buildBreadCrumbs();
-
 		return $this->render('index', compact(
 		    'page',
 		    'categories',
@@ -306,31 +304,47 @@ class SiteController extends WebController
         ));
 	}
 
-	public function initStatusAdverts(){
-	    $currentDate = date('Y-m-d H:i:s');
-        $nextDate = date('Y-m-d 13:45:00');
-        $prevDate = date('Y-m-d 13:30:00');
-//        if($currentDate < $nextDate && $currentDate > $prevDate){
-//            $response = $this->rest->post('advert/check-status');
-//        }
-    }
-
 	public function actionSearchAdverts()
     {
-	    //$this->rest->responseType = 'json';
-//        $this->initStatusAdverts();
-        $view = $this->view;
+//	    $this->rest->responseType = 'json';
+        $breadcrumbs = $this->breadcrumbs;
         $adverts = [];
         $vip = [];
         $count = 0;
         $category = [];
+        $title = "";
+        $description = "";
 
         if($this->get("slug")) {
             $category = $this->getCategory($this->get("slug"));
+            if(isset($category['description']) && $category['description']){
+                $breadcrumbs->set([
+                    'label' => $category['description']['title'],
+                    'url' => [$category['sys_name']]
+                ]);
+                $title = $category['description']['seo_title'];
+                $description = $category['description']['seo_desc'];
+            }
+        }else if($search = $this->get("q")){
+            $title = "Поиск «{$search}»";
+            $description = "Поиск по запросу «{$search}»";
+            $breadcrumbs->set([
+                'label' => $title,
+                'url' => [Url::current()]
+            ]);
+        }else{
+            $title = "Объявления на Stroyclub.kz";
+            $description = "Объявления на Stroyclub.kz | строительные материалы";
+            $breadcrumbs->set([
+                'label' => "Каталог",
+                'url' => [Url::to('site/search-adverts')]
+            ]);
         }
 
-        $response = $this->rest->get('adverts', $this->get());
-        if($response){
+        $response = $this->rest->get('adverts', array_merge($this->get(),[]));
+        //dd($response);
+
+        if(isset($response['adverts'])){
             $adverts = $response['adverts'];
             $vip = $response['vip'];
             $count = $response['count'];
@@ -338,9 +352,13 @@ class SiteController extends WebController
 
         $pagination = new Pagination(['totalCount' => $count]);
 
+        if(isset($response['limit'])){
+            $pagination->setPageSize($response['limit']);
+        }
+
         $this->setMetaTags([
-            "title" => $category['seo_title'],
-            "description" => $category['seo_desc'],
+            "title" => $title,
+            "description" => $description,
             "filters" => [
                 "view" => $this->get('view'),
                 "state" => $this->get('state'),
@@ -359,8 +377,6 @@ class SiteController extends WebController
             'categories' => $this->getTreeCategories(),
             'category' => $category,
         ];
-
-		$this->buildBreadCrumbs();
 
 		return $this->render('poster',  $params);
 	}
